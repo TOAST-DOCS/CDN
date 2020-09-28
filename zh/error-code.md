@@ -21,7 +21,7 @@
 | 10014 | Referrers is invalid.Enter referrers regular expression.| 引用(referrer)格式错误。请确认是否为有效的正规表达式。|
 | 10015 | Please enter use orgin 'Y' or 'N'.| 是否使用缓存到期设置的原始设置请输入’Y’或 ‘N’。|
 | 10016 | Please enter origin.| 无原始服务器设置或设置错误。|
-| 10017 | Invalid Purge Type.Please enter purge type ‘ITEM’, ‘WILDCARD’ or ‘ALL’ | 重新分配（purge）类型错误。类型请输入‘ITEM’, ‘WILDCARD’或’ALL’。|
+| 10017 | Invalid Purge Type.Please enter purge type ‘ITEM’ or ‘ALL’ | 重新分配（purge）类型错误。类型请输入‘ITEM’或’ALL’。|
 | 10018 | Invalid Origin Port.Please enter a number between 0 and 65,536.| 原始服务器端口错误。请输入0~65,536之间的数字。|
 | 20001 | Failed to authenticate with AppKey.| AppKey无效。|
 | 20002 | Failed to authenticate with the secret key.| SecretKey无效。|

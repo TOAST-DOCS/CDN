@@ -21,7 +21,7 @@
 | 10014 | Referrers is invalid. Enter referrers regular expression. | The referrer format is not valid: check if it is valid regular expression. |
 | 10015 | Please enter use orgin 'Y' or 'N'. | Enter 'Y' or 'N'  regarding whether to use origins for cache expiration setting. |
 | 10016 | Please enter origin. | Origin server setting is not available or invalid. |
-| 10017 | Invalid Purge Type. Please enter purge type 'ITEM', 'WILDCARD' or 'ALL' | The purge type is not valid: enter 'ITEM', 'WILDCARD', or 'ALL'. |
+| 10017 | Invalid Purge Type. Please enter purge type 'ITEM' or 'ALL' | The purge type is not valid: enter 'ITEM' or 'ALL'. |
 | 10018 | Invalid Origin Port. Please enter a number between 0 and 65,536. | The origin server port is not valid: enter a number between 0 and 64, or 536. |
 | 20001 | Failed to authenticate with AppKey. | Appkey is not valid. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey is not valid. |

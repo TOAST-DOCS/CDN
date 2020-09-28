@@ -21,7 +21,7 @@
 | 10014 | Referrers is invalid. Enter referrers regular expression. | 리퍼러(referrer) 형식이 올바르지 않습니다. 유효한 정규 표현식인지 확인해 주세요. |
 | 10015 | Please enter use orgin 'Y' or 'N'. | 캐시 만료 설정의 원본 설정 사용 여부는 'Y' 또는 'N' 으로 입력해 주세요. |
 | 10016 | Please enter origin. | 원본 서버 설정이 없거나 올바르지 않습니다. |
-| 10017 | Invalid Purge Type. Please enter purge type 'ITEM', 'WILDCARD' or 'ALL' | 재배포(purge) 타입이 올바르지 않습니다. 타입은 'ITEM', 'WILDCARD' 또는 'ALL'로 입력해 주세요. |
+| 10017 | Invalid Purge Type. Please enter purge type 'ITEM' or 'ALL' | 재배포(purge) 타입이 올바르지 않습니다. 타입은 'ITEM' 또는 'ALL'로 입력해 주세요. |
 | 10018 | Invalid Origin Port. Please enter a number between 0 and 65,536. | 원본 서버의 포트가 올바르지 않습니다. 0~65,536 사이의 숫자로 입력해주세요. |
 | 20001 | Failed to authenticate with AppKey. | AppKey가 유효하지 않습니다. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey가 유효하지 않습니다. |

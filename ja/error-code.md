@@ -22,7 +22,7 @@
 | 10014 | Referrers is invalid. Enter referrers regular expression. | リファラー(referrer)形式が正しくありません。有効な正規表現かを確認してください。 |
 | 10015 | Please enter use orgin 'Y' or 'N'. | キャッシュ満了設定の原本設定を使用するかは、'Y'または'N'を入力してください。  |
 | 10016 | Please enter origin. | 原本サーバー設定がないか、正しくありません。 |
-| 10017 | Invalid Purge Type. Please enter purge type 'ITEM', 'WILDCARD' or 'ALL' | 再配布(Purge)タイプが正しくありません。タイプは'ITEM'、'WILDCARD'または'ALL'を入力してください。 |
+| 10017 | Invalid Purge Type. Please enter purge type 'ITEM' or 'ALL' | 再配布(Purge)タイプが正しくありません。タイプは'ITEM'または'ALL'を入力してください。 |
 | 10018 | Invalid Origin Port. Please enter a number between 0 and 65,536. | 原本サーバーのポートが正しくありません。0～65,536の数字を入力してください。 |
 | 20001 | Failed to authenticate with AppKey. | AppKeyが有効ではありません。 |
 | 20002 | Failed to authenticate with the secret key. | SecretKeyが有効ではありません。 |

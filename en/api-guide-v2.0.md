@@ -1,41 +1,42 @@
-## Content Delivery > CDN > API Guide
+## Content Delivery > CDN > API v2.0 Guide 
 
-This document describes Public API provided by TOAST CDN.
+This document describes Public API v2.0 of TOAST CDN. 
 
-## Common API Information  
+
+## Common API Information 
 
 ### Domain
 
-| Name         | Domain                             |
+| Name              | Domain                                   |
 | --------------- | ------------------------------------- |
-| Public API CDN Domain | https://api-gw.cloud.toast.com/tc-cdn |
+| CDN Public API Domain | https://api-gw.cloud.toast.com/tc-cdn |
 
 ### Prerequisites
 
-Requires Appkey and SecretKey API, which are available in **URL & Appkey** on top right of the console.  
+Requires Appkey and Secretkey API, which are available in **URL & Appkey** on top right of the console.
 
 ### Common Request Information
 
 #### Request Header
 
-| Name          | Description                   |
-| ------------- | ----------------------------- |
+| Name            | Description                        |
+| ------------- | ------------------------- |
 | Authorization | SecretKey issued on a console |
 
-#### Path Parameter  
+#### Path Parameter 
 
 In all APIs, the appKey must be specified in the path parameter.
-* e.g.) /v1.5/appKeys/**{appKey}**/distributions
+* e.g.) /v2.0/appKeys/**{appKey}**/distributions
 
-| Name   | Description                |
-| ------ | -------------------------- |
-| appKey | Appkey issued on a console |
+| Name     | Description                    |
+| ------ | --------------------- |
+| appKey | Appkey issued on console |
 
-### Common Response Information
+### Common Response Information 
 
-#### Header
+#### Header 
 
-Respond with **200 OK** to all API requests. For more details, see the header at the response body as below.
+Respond with **200 OK** to all API requests. For more details, see the header at the response body as below
 
 ```json
 {
@@ -48,93 +49,100 @@ Respond with **200 OK** to all API requests. For more details, see the header at
 ```
 
 
-[Fields]
+[Field]
 
-| Field                | Type    | Description       |
-| -------------------- | ------- | ----------------- |
-| header               | Object  | Header area       |
-| header.isSuccessful  | Boolean | Successful or not |
-| header.resultCode    | Integer | Result code       |
-| header.resultMessage | String  | Result message    |
+| Field                   | Type      | Description     |
+| -------------------- | ------- | ------ |
+| header               | Object  | Header area  |
+| header.isSuccessful  | Boolean | Successful or not  |
+| header.resultCode    | Integer | Result code  |
+| header.resultMessage | String  | Result message |
 
 #### CDN Status Codes
 
-Below shows the status codes of CDN service, which are available at the query of service.  
+Below shows the status codes of CDN service, which are available at the query of service.
 
-| Value      | Description                           |
-| ---------- | ------------------------------------- |
-| OPENING    | Service is starting                   |
-| OPEN       | In service                            |
-| MODIFYING  | Under modification                    |
-| RESUME     | Resumed                               |
-| SUSPENDING | Under suspension                      |
-| SUSPEND    | Suspended                             |
-| CLOSING    | Closing                               |
-| CLOSE      | Closed                                |
-| ERROR      | Error occurred while creating service |
+| Value         | Description                     |
+| ---------- | ------------------------ |
+| OPENING    | Starting service            |
+| OPEN       | In service                 |
+| MODIFYING  | Under modification         |
+| RESUME     | Resumed                     |
+| SUSPENDING | Under suspension            |
+| SUSPEND    | Suspended                   |
+| CLOSING    | Closing service              |
+| CLOSE      | Closed                 |
+| ERROR      | Error occurred while creating service  |
 
 
 ## Service API
 
-### Create  
+### Create
 
 #### Request
 
 
 [URI]
 
-| Method | URI                                  |
-| ------ | ------------------------------------ |
-| POST   | /v1.5/appKeys/{appKey}/distributions |
+| Method  | URI                                  |
+| ---- | ------------------------------------ |
+| POST | /v2.0/appKeys/{appKey}/distributions |
 
 
 [Request Body]
 
 ```json
 {
-   "distributions":[
-       {
-			"region": "LOCAL",
-			"useOrigin" : "N",
-			"referrerType" : "BLACKLIST",
-			"description" : "sample-cdn",
-			"maxAge": 86400,
-			"referrers" : "cloud.toast.com",
-			"origins" : [
-				{
-					"origin" : "static.origin.com",
-					"port" : 80,
-					"originPath" : "/resources"
-				}
-			],
-            "callback": {
-                "httpMethod": "GET",
-                "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
-            }
-		}
-	]
+    "distributions" : [
+    {
+      "useOriginHttpProtocolDowngrade": false,
+      "forwardHostHeader": "ORIGIN_HOSTNAME",
+      "domainAlias": ["alias.test.net"],
+      "description" : "sample-cdn",
+      "useOriginCacheControl" : false,      
+      "defaultMaxAge": 86400,
+      "referrerType" : "BLACKLIST",      
+      "referrers" : ["cloud.toast.com"],
+      "isAllowWhenEmptyReferrer" : true, 
+      "origins" : [
+        {
+          "origin" : "static.origin.com",
+          "originPath" : "/resources",       
+          "httpPort": 80,
+          "httpsPort": 443
+        }
+      ],
+      "callback": {
+          "httpMethod": "GET",
+          "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+      }
+    }
+  ]
 }
 ```
 
 [Field]
 
-| Name                                   | Type    | Required | Default | Valid Range                                  | Description                                                  |
-| -------------------------------------- | ------- | -------- | ------- | -------------------------------------------- | ------------------------------------------------------------ |
-| distributions                          | List    | Required |         |                                              | List of CDN objects to create                                |
-| distributions[0].region                | String  | Required |         | LOCAL/GLOBAL                                 | Service region ("LOCAL": Korea, "GLOBAL": Global)            |
-| distributions[0].useOrigin             | String  | Required |         | Y/N                                          | Cache expiration setting ("Y": Original setting, "N":User-configured) |
-| distributions[0].referrerType          | String  | Required |         | BLACKLIST/WHITELIST                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
-| distributions[0].description           | String  | Optional |         | Up to  255 characters                        | Description                                                  |
-| distributions[0].domainAlias           | String  | Optional |         | Up to 255 characters                         | Domain alias (Use personal or company-owned domains; delimit by \n tokens.) |
-| distributions[0].maxAge                | Integer | Optional | 0       | 0~2,147,483,647                              | Cache expiration time (second); default 0 refers to 604,800 seconds. |
-| distributions[0].referrers             | String  | Optional |         | Up to 1024 characters, including '\n' tokens | Referrers (Delimit by \n tokens.)                            |
-| distributions[0].origins               | List    | Required |         |                                              | List of origin server objects                                |
-| distributions[0].origins[0].origin     | String  | Required |         | Up to 255 characters                         | Origin server (domain or IP)                                 |
-| distributions[0].origins[0].port       | String  | Required |         | 0~65,536                                     | Origin server port                                           |
-| distributions[0].origins[0].originPath | String  | Optional |         | Up to 8192 characters                        | Lower paths of origin server (path must include /.)          |
-| distributions[0].callback              | Object  | Optional |         |                                              | Callback URL to receive processing result of CDN creation (callback setting is optional.) |
-| distributions[0].callback.httpMethod   | String  | Required |         | GET/POST/PUT                                 | HTTP method of callback                                      |
-| distributions[0].callback.url          | String  | Required |         | Up to 1024 characters                        | Callback URL                                                 |
+| Name                                   | Type    | Required | Default | Valid Range                   | Description                                                         |
+| -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
+| distributions                          | List    | Required      |        |                              | List of CDN objects to create                                   |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP|
+| distributions[0].forwardHostHeader     | String  | Required      | When domain alias setting is enabled: REQUEST_HOST_HEADER, When domain alias setting is not enabled: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)| 
+| distributions[0].useOriginCacheControl | Boolean | Required      |        | true/false                  | Cache expiration setting (true: Original setting, false: User-configured)   |
+| distributions[0].referrerType          | String  | Required      |        | BLACKLIST/WHITELIST         | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].referrers             | List    | Optional      |        |                           | List of regex referrer headers   |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 필수      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
+| distributions[0].description           | String  | Optional      |        | Up to 255 characters                  | Description                                                         |
+| distributions[0].domainAlias           | List    | Optional      |        |                           | List of domain aliases (Use personal or company-owned domain) |
+| distributions[0].defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647             | Cache expiration time (seconds); default is 0 with 604,800 seconds.             |
+| distributions[0].origins               | List    | Required      |        |                             | List of origin server objects                                      |
+| distributions[0].origins[0].origin     | String  | Required      |        | Up to 255 characters                  | Origin server (domain or IP)                                     |
+| distributions[0].origins[0].originPath | String  | Optional      |        | Up to 8192 characters                 | Lower paths of origin server (path must include /.)        |
+| distributions[0].origins[0].httpPort   | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Number' of [Console User Guide > Origin Server](./console-guide/#_2) | HTTP protocol port of origin server(must enter either origins[0].httpPort or origins[0].httpsPort.)  |
+| distributions[0].origins[0].httpsPort  | Integer  | Optional      |        | See '[Table 2] Available Origin Server Port Number' of[Console User Guide > Origin Server](./console-guide/#_2) | HTTPS protocol port of origin server (must enter either origins[0].httpPort or origins[0].httpsPort.) |
+| distributions[0].callback              | Object  | Optional      |        |                             | Callback URL to receive processing result of CDN creation (callback setting is optional.) |
+| distributions[0].callback.httpMethod   | String  | Required      |        | GET/POST/PUT                | HTTP method of callback                                           |
+| distributions[0].callback.url          | String  | Required      |        | Up to 1024 characters                 | Callback URL                                                     |
 
 
 
@@ -147,25 +155,36 @@ Below shows the status codes of CDN service, which are available at the query of
 ```json
 {
     "header": {
-        "resultCode": Integer,
-        "resultMessage": String,
-        "isSuccessful": Boolean
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
     },
     "distributions": [
         {
-            "region" :  "LOCAL",
-            "description" :  "api test pad",
-            "useOrigin" :  "N",
-            "domainAlias" :  "test.domain.com",
-            "referrerType" :  "BLACKLIST",
-            "referrers" :  "test.com",
-            "maxAge" :  100,
-            "origins" : [
+            "domain": "djwbjvqa.toastcdn.net",
+            "domainAlias": [
+                "alias.test1.net"
+            ],
+            "region": "GLOBAL",
+            "description": "sample-cdn",
+            "status": "OPENING",
+            "defaultMaxAge": 0,
+            "referrerType": "BLACKLIST",
+            "referrers": [
+                "cloud.toast.com"
+            ],
+            "isAllowWhenEmptyReferrer": true,
+            "useOriginCacheControl": true,
+            "origins": [
                 {
-                    "origin" :  "static.toastoven.net",
-                    "port" :  80
+                    "origin": "static.origin.com",
+                    "originPath": "/resources",
+                    "httpPort": 80,
+                    "httpsPort": 443
                 }
             ],
+            "forwardHostHeader": "ORIGIN_HOSTNAME",
+            "useOriginHttpProtocolDowngrade": false,
             "callback": {
                 "httpMethod": "GET",
                 "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -178,30 +197,34 @@ Below shows the status codes of CDN service, which are available at the query of
 
 [Field]
 
-| Field                                  | Type    | Description                                                  |
+| Field                                   | Type    | Description                                                         |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | Header area                                                  |
-| header.isSuccessful                    | Boolean | Successful or not                                            |
-| header.resultCode                      | Integer | Result code                                                  |
-| header.resultMessage                   | String  | Result message                                               |
-| distributions                          | List    | List of created CDN objects                                  |
-| distributions[0].domain                | String  | Created domain (service) name                                |
-| distributions[0].domainAlias           | String  | Owned domain                                                 |
-| distributions[0].region                | String  | Service region  ("LOCAL": Korea, "GLOBAL": Global)           |
-| distributions[0].description           | String  | Description                                                  |
-| distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
-| distributions[0].createTime            | String  | Date and time of creation                                    |
-| distributions[0].useOrigin             | String  | Whether to set origin server <br />("Y": Origin server setting, "N": User-configured) |
-| distributions[0].maxAge                | String  | Cache expiration time (second)                               |
-| distributions[0].referrerType          | String  | Referrer access control ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
-| distributions[0].referrers             | String  | List of referrers                                            |
-| distributions[0].origins               | List    | List of origin server objects                                |
-| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                 |
-| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                 |
-| distributions[0].origins[0].port       | Integer | Origin server port                                           |
-| distributions[0].callback              | Object  | Callback to receive service processing results               |
-| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                      |
-| distributions[0].callback.url          | String  | Callback URL                                                 |
+| header                                 | Object  | Header area                                                   |
+| header.isSuccessful                    | Boolean | Successful or not                                                    |
+| header.resultCode                      | Integer | Result code                                                    |
+| header.resultMessage                   | String  | Result message                                                  |
+| distributions                          | List    | List of created CDN objects                                    |
+| distributions[0].domain                | String  | Name of created domain (service)                               |
+| distributions[0].domainAlias           | List    | List of domain aliases (use personal or company-owned domain)              |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global service)            |
+| distributions[0].description           | String  | Description                                                     |
+| distributions[0].status                | String  | CDN status code (see [Table] CDN Status Code)                                 |
+| distributions[0].defaultMaxAge         | Integer | Cache expiration time (seconds)                                           |
+| distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].referrers             | List    | List of regex referrer headers                                   |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
+| distributions[0].useOriginCacheControl | Boolean  | Whether to use origin server setting or not (true: Enable origin server setting, false: User-configured setting) |
+| distributions[0].origins               | List    | List of origin server objects                                      |
+| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
+| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                           |
+| distributions[0].origins[0].httpPort   | Integer | HTTP protocol port of origin server                                               |
+| distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                              |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean |Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP  |
+| distributions[0].forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
+| distributions[0].callback              | Object  | Callback to receive service creation result                 |
+| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
+| distributions[0].callback.url          | String  | Callbak URL                                                     |
+
 
 
 ### Get
@@ -211,21 +234,21 @@ Below shows the status codes of CDN service, which are available at the query of
 
 [URI]
 
-| Method | URI                                  |
-| ------ | ------------------------------------ |
-| GET    | /v1.5/appKeys/{appKey}/distributions |
+| Method  | URI                                  |
+| ---- | ------------------------------------ |
+| GET  | /v2.0/appKeys/{appKey}/distributions |
 
 
 [Parameter]
 
-| Name | Type | Required | Valid Range | Description  |
+| Name   | Type   | Required | Valid Range     | Description                         |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
-| domain | String | Optional | Up to 255 characters | Domain (service name) to get |
-| status | String | Optional | CDN status codes | CDN status code (see CDN status codes in [Table]) |
+| domain | String | Optional      | Up to 255 characters    | Domain to get (service name)   |
+| status | String | Optional      | CDN status code | CDN Status Code (see [Table] CDN Status Code) |
 
 [Example]
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distributions?domain={domain}" \
+curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -242,22 +265,25 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
         "resultMessage" :  "SUCCESS",
       "isSuccessful" :  true
     },
-    "domain" :  "lhcsxuo0.cdn.toastcloud.com",
-    "domainAlias" :  "test.domain.com",
-    "region" :  "LOCAL",
-    "description" :  "api test pad",
+    "domain" :  "lhcsxuo0.toastcdn.net",
+    "domainAlias" :  ["test.domain.com"],
+    "region" :  "GLOBAL",
+    "status" : "OPEN",
+    "defaultMaxAge" : 86400,
     "status" :  "OPENING",
-    "createTime" :  1498613094692,
-    "useOrigin" :  "N",
-    "maxAge" :  "100",
     "referrerType" :  "BLACKLIST",
-    "referrers" :  "test.com",
+    "referrers" :  ["test.com"],    
+    "isAllowWhenEmptyReferrer": true,
+    "useOriginCacheControl" :  false,
     "origins" : [
         {
             "origin" :  "static.toastoven.net",
-            "port" :  80
+            "httpPort" :  80,
+            "httpsPort" : 443
         }
     ],
+    "forwardHostHeader": "ORIGIN_HOSTNAME",
+    "useOriginHttpProtocolDowngrade": false,    
     "callback": {
         "httpMethod": "GET",
         "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
@@ -268,30 +294,33 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [Field]
 
-| Field                                  | Type    | Description                                                  |
+| Field                                   | Type    | Description                                                         |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | Header area                                                  |
-| header.isSuccessful                    | Boolean | Successful or not                                            |
-| header.resultCode                      | Integer | Result code                                                  |
-| header.resultMessage                   | String  | Result message                                               |
-| distributions                          | List    | List of created CDN objects                                  |
-| distributions[0].domain                | String  | Domain (service) name                                        |
-| distributions[0].domainAlias           | String  | Owned domain                                                 |
-| distributions[0].region                | String  | Service region ("LOCAL": Korea, "GLOBAL": Global)            |
-| distributions[0].description           | String  | Description                                                  |
-| distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
-| distributions[0].createTime            | String  | Date and time of creation                                    |
-| distributions[0].useOrigin             | String  | Whether to use origin server setting <br />("Y": Origin server setting, "N": User-configured) |
-| distributions[0].maxAge                | String  | Cache expiration time (second)                               |
+| header                                 | Object  | Header area                                                    |
+| header.isSuccessful                    | Boolean | Successful or not                                                   |
+| header.resultCode                      | Integer | Result code                                                   |
+| header.resultMessage                   | String  | Result message                                                  |
+| distributions                          | List    | List of created CDN objects                                     |
+| distributions[0].domain                | String  | Domain name (service name)                                     |
+| distributions[0].domainAlias           | List  | List of domain aliases (use personal or company-owned domain)                                                  |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global service)             |
+| distributions[0].status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
+| distributions[0].defaultMaxAge         | Integer  | Cache expiration time (seconds)                                          |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
-| distributions[0].referrers             | String  | List of referrers                                            |
-| distributions[0].origins               | List    | List of origin server objects                                |
-| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                 |
-| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                 |
-| distributions[0].origins[0].port       | Integer | Origin server port                                           |
-| distributions[0].callback              | Object  | Callback to receive service deployment results               |
-| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                      |
-| distributions[0].callback.url          | String  | Callback URL                                                 |
+| distributions[0].referrers             | List    | List of regex referrer headers                                 |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
+| distributions[0].useOriginCacheControl | Boolean | Whether to enable origin server setting or not (true: Enable origin server setting, false: User-configured) |
+| distributions[0].origins               | List    | List of origin server objects                                      |
+| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                      |
+| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                          |
+| distributions[0].origins[0].httpPort   | Integer | HTTP protocol port of origin server                                  |
+| distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origi server                                 |
+| distributions[0].forwardHostHeader     | String  | Callback to receive service deployment result                         |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
+| distributions[0].forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
+| distributions[0].callback              | Object  | Callback to receive service deployment result                         |
+| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                           |
+| distributions[0].callback.url          | String  | Callback URL                                                     |
 
 
 ### Modify
@@ -301,60 +330,74 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [URI]
 
-| Method | URI                                  |
-| ------ | ------------------------------------ |
-| PUT    | /v1.5/appKeys/{appKey}/distributions |
+| Method  | URI                                  |
+| ---- | ------------------------------------ |
+| PUT  | /v2.0/appKeys/{appKey}/distributions |
 
 
 [Request Body]
 
 ```json
 {
-        "domain" : "sample.cdn.toastcloud.com",
-        "useOrigin" : "N",
-        "maxAge": 86400,
-        "referrerType" : "BLACKLIST",
-        "referrers" : "test.com",
-        "origins" : [
-            {
-                "origin" : "static.resource.com",
-                "port" : 80,
-                "originPath" : "/latest/resources"
-            }
-        ],
-        "callback": {
-            "httpMethod": "GET",
-            "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
-        },
-        "description" : "change contents"   
+    "distributions" : [
+    {
+      "domain" : "sample.toastcdn.net",
+      "useOriginCacheControl" : false,
+      "defaultMaxAge": 86400,
+      "referrerType" : "BLACKLIST",
+      "referrers" : ["test.com"],
+      "isAllowWhenEmptyReferrer": true,
+      "origins" : [
+          {
+              "origin" : "static.resource.com",
+              "httpPort" : 80,
+              "httpsPort" : 443,
+              "originPath" : "/latest/resources"
+          }
+      ],
+      "useOriginHttpProtocolDowngrade": false,
+      "forwardHostHeader": "ORIGIN_HOSTNAME",
+      "callback": {
+          "httpMethod": "GET",
+          "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+      },
+      "description" : "change contents"        
+    }
+  ]
 }
 ```
 
 
 [Field]
 
-| Name                  | Type    | Required | Default | Valid Range                                                  | Description                                                  |
-| --------------------- | ------- | -------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| domain                | String  | Required |         | Up to 255 characters                                         | Domain (service name) to modify                              |
-| useOrigin             | String  | Required |         | Y/N                                                          | Cache expiration setting (Y: Original setting, "N": User-configured) |
-| referrerType          | String  | Required |         | BLACKLIST/WHITELIST                                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
-| description           | String  | Optional |         | Up to 255 characters                                         | Description                                                  |
-| domainAlias           | String  | Optional |         | Up to 255 characters                                         | Domain alias (Personal or company-owned domains; delimit by \n tokens.) |
-| maxAge                | Integer | Optional | 0       | 0 ~ 2,147,483,647                                            | Cache expiration time (second); default 0 refers to 604,800 seconds. |
-| referrers             | String  | Optional |         | Up to 1024 characters, including '\n\' tokens                | Referrers (delimit by \n tokens. )                           |
-| origins               | List    | Required |         |                                                              | Origin server                                                |
-| origins[0].origin     | String  | Required |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
-| origins[0].port       | Integer | Required |         | 0~65,536                                                     | Origin server port                                           |
-| origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
-| callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                                              |
-| callback.httpMethod   | String  | Required |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
-| callback.url          | String  | Required |         | Up to 1024 characters                                        | Callback URL                                                 |
+| Name                  | Type    | Required | Default | Valid Range                                                    | Description                                                        |
+| --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| domain                | String  | Required |        | Up to 255 characters                              | Domain (service name) to modify                       |
+| useOriginCacheControl | Boolean | Required      |        | true/false                              | Cache expiration setting (true: Enable origin server setting, false: User-configured)      |
+| referrerType          | String  | Required      |        | BLACKLIST/WHITELIST                     | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| referrers             | List    | Optional    |        |                                           | List of regex referrer headers |
+| isAllowWhenEmptyReferrer | Boolean | 필수      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
+| description           | String  | Optional    |        | Up to 255 characters                      | Description                                                         |
+| domainAlias           | List    | Optional    |        | Up to 255 characters                      | Domain alias (Use personal or company-owned domain) |
+| defaultMaxAge         | Integer | Optional      | 0      | 0~2,147,483,647                         | Cache expiration time (seconds), Default is 0 with 604,800 seconds.              |
+| origins               | List    | Required      |        |                                         | Origin server                                                   |
+| origins[0].origin     | String  | Required     |        | Up to 255 characters                     | Origin server (domain or IP)                                      |
+| origins[0].originPath | String  | Optional      |        | UP to 8192 characters                   | Lower paths of origin server                                          |
+| origins[0].httpPort   | Integer  | Optional      |       |See '[Table 2] Available Origin Server Port Number' of [Console User Guide > Origin Server](./console-guide/#_2) | HTTP protocol port of origin server(must enter either origins[0].httpPort or origins[0].httpsPort.) |
+| origins[0].httpsPort  | Integer  | Optional      |        |See '[Table 2] Available Origin Server Port Number' of[Console User Guide > Origin Server](./console-guide/#_2) | HTTPS protocol port of origin server (must enter either origins[0].httpPort or origins[0].httpsPort.)  |
+| useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
+| forwardHostHeader     | String  | Required      | When domain alias setting is enabled: REQUEST_HOST_HEADER, When domain alias setting is not enabled: ORIGIN_HOSTNAME       | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
+| useOrigin             | String  | Required      |        | Y/N                                                          | Cache expiration setting (Y: Enable original setting, "N":User-configured)      |
+| callback              | Object  | Optional      |        | Callback URL to receive CDN service deployment result (Callback setting is optional.) |                                                              |
+| callback.httpMethod   | String  | Required      |        | GET/POST/PUT                                                 | HTTP method of callback                                           |
+| callback.url          | String  | Required      |        | Up to 1024 characters                                       | Callback URL                                                     |
 
+- Default of forwardHostHeader is REQUEST_HOST_HEADER, if domainAlias is enabled; or REQUEST_HOST_HEADER, if not enabled.  
 
 #### Response
 
 
-[Response Body]
+[Rseponse Body]
 
 ```json
 {
@@ -369,100 +412,12 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 
 [Field]
 
-| Field                | Type    | Description       |
-| -------------------- | ------- | ----------------- |
-| header               | Object  | Header area       |
-| header.isSuccessful  | Boolean | Successful or not |
-| header.resultCode    | Integer | Result code       |
-| header.resultMessage | String  | Result message    |
-
-
-### Patch
-
-Apply partial modification API to change a part of the service setting.
-
-#### Request
-
-
-[URI]
-
-| Method | URI                                  |
-| ------ | ------------------------------------ |
-| PATCH  | /v1.5/appKeys/{appKey}/distributions |
-
-
-[Request Body]
-
-```json
-{
-        "domain" : "sample.cdn.toastcloud.com",
-        "useOrigin" : "N",
-        "maxAge": 86400,
-        "referrerType" : "BLACKLIST",
-        "referrers" : "test.com",
-        "origins" : [
-            {
-                "origin" : "static.resource.com",
-                "port" : 80,
-                "originPath" : "/latest/resources"
-            }
-        ],
-        "callback": {
-            "httpMethod": "GET",
-            "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
-        },
-        "description" : "change contents"       
-}
-```
-
-
-[Field]
-
-| Name                  | Type    | Required | Default | Valid Range                                                  | Description                                                  |
-| --------------------- | ------- | -------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| domain                | String  | Required |         | Up to 255 characters                                         | Domain (service name) to modify                              |
-| useOrigin             | String  | Optional |         | Y/N                                                          | Cache expiration setting (Y: Original setting, N: User-configured) |
-| referrerType          | String  | Optional |         | BLACKLIST / WHITELIST                                        | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
-| description           | String  | Optional |         | Up to 255 characters                                         | Description                                                  |
-| domainAlias           | String  | Optional |         | Up to 255 characters                                         | Domain alias (personal or company-owned domains; delimit by \n tokens.) |
-| maxAge                | Integer | Optional | 0       | 0~2,147,483,647                                              | Cache expiration time (second); default 0 refers to 604,800 seconds. |
-| referrers             | String  | Optional |         | Up to 1024 characters, including '\n' tokens                 | Referrers (delimit by \n tokens. )                           |
-| origins               | List    | Optional |         |                                                              | Origin server                                                |
-| origins[0].origin     | String  | Optional |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
-| origins[0].port       | Integer | Optional |         | 0 ~ 65,536                                                   | Origin server port                                           |
-| origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
-| callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                                              |
-| callback.httpMethod   | String  | Optional |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
-| callback.url          | String  | Optional |         | Up to 1024 characters                                        | Callback URL                                                 |
-
-- To set origins field, origin, port, and originPath are required field values.
-- To set callback field, httpMethod and url are required field values.
-
-#### Response
-
-
-[Response Body]
-
-```json
-{
-    "header" : {
-        "resultCode" :  0,
-        "resultMessage" :  "SUCCESS",
-        "isSuccessful" :  true
-    }
-}
-```
-
-
-[Field]
-
-| Field                | Type    | Description       |
-| -------------------- | ------- | ----------------- |
-| header               | Object  | Header area       |
-| header.isSuccessful  | Boolean | Successful or not |
-| header.resultCode    | Integer | Result code       |
-| header.resultMessage | String  | Result message    |
-
+| Field                   | Type      | Description     |
+| -------------------- | ------- | ------ |
+| header               | Object  | Header area  |
+| header.isSuccessful  | Boolean | Successful or not  |
+| header.resultCode    | Integer | Result code  |
+| header.resultMessage | String  | Result message |
 
 ### Delete
 
@@ -471,9 +426,9 @@ Apply partial modification API to change a part of the service setting.
 
 [URI]
 
-| Method | URI                                  |
+| Method    | URI                                  |
 | ------ | ------------------------------------ |
-| DELETE | /v1.5/appKeys/{appKey}/distributions |
+| DELETE | /v2.0/appKeys/{appKey}/distributions |
 
 
 [Request Body]
@@ -481,7 +436,7 @@ Apply partial modification API to change a part of the service setting.
 ```json
 {
     "domains" : [
-        "lhcsxuo0.cdn.toastcloud.com"
+        "lhcsxuo0.toastcdn.net"
     ]
 }
 ```
@@ -489,9 +444,9 @@ Apply partial modification API to change a part of the service setting.
 
 [Field]
 
-| Name    | Type   | Required | Default | Valid Range | Description                                 |
-| ------- | ------ | -------- | ------- | ----------- | ------------------------------------------- |
-| domains | String | Y        |         |             | Domains to delete; multiple domains allowed |
+| Name      | Type     | Required | Default  | Valid Range | Description                    |
+| ------- | ------ | ----- | ---- | ----- | --------------------- |
+| domains | String | Required    |      |       | Domains to delete; many domains allowed  |
 
 **\* With the input of many domains, all corresponding services are closed.**
 
@@ -513,44 +468,44 @@ Apply partial modification API to change a part of the service setting.
 
 [Field]
 
-| Field                | Type    | Description       |
-| -------------------- | ------- | ----------------- |
-| header               | Object  | Header area       |
-| header.isSuccessful  | Boolean | Successful or not |
-| header.resultCode    | Integer | Result code       |
-| header.resultMessage | String  | Result message    |
+| Field                   | Type      | Description     |
+| -------------------- | ------- | ------ |
+| header               | Object  | Header area  |
+| header.isSuccessful  | Boolean | Successful or not  |
+| header.resultCode    | Integer | Result code  |
+| header.resultMessage | String  | Result message |
 
-## Cache Purge API
 
-### Purge
+## Purge Cache API
+
+### Purge Cache -  ITEM (particular file type)
 
 #### Request
 
 [URI]
 
-| Method | URI                           |
-| ------ | ----------------------------- |
-| POST   | /v1.5/appKeys/{appKey}/purges |
+| Method  | URI                           |
+| ---- | ----------------------------- |
+| POST | /v2.0/appKeys/{appKey}/purge/item |
 
 
 [Request Body]
 
 ```json
 {
-	"domain": "sample.cdn.toastcloud.com",
-	"purgeType": "ITEM",
-	"purgeList":"/img_01.png"
+	"domain": "sample.toastcdn.net",
+	"purgeList":["http://sample.toastcdn.net/img_01.png",
+  "http://sample.toastcdn.net/img_02.png"]
 }
 ```
 
 
 [Field]
 
-| Name      | Type   | Required | Default | Valid Range           | Description                                                  |
-| --------- | ------ | -------- | ------- | --------------------- | ------------------------------------------------------------ |
-| domain    | String | Required |         | Up to 255 characters  | Domain (service) name to purge                               |
-| purgeType | List   | Required |         | ITEM / WILDCARD / ALL | Purge type ("ITEM", "WILDCARD", or "ALL")                    |
-| purgeList | String | Optional |         |                       | List of items to purge (delimit by \n tokens; not required, if the purge type is ALL.) |
+| Name     | Type   | Required | Default | Valid Range            | Description                                                  |
+| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
+| domain    | String | Required      |        | Up to 255 characters     | Domain (service) name to be redeployed                      |
+| purgeList | List | Required     |        |                       | List o URL for redeployment |
 
 #### Response
 
@@ -562,53 +517,47 @@ Apply partial modification API to change a part of the service setting.
         "resultCode" :  0,
         "resultMessage" :  "SUCCESS",
         "isSuccessful" :  true
-    },
-    "purgeSeq" : 1
+    }
 }
 ```
 
 
 [Field]
 
-| Field                | Type    | Description             |
-| -------------------- | ------- | ----------------------- |
-| header               | Object  | Header area             |
-| header.isSuccessful  | Boolean | Successful or not       |
-| header.resultCode    | Integer | Result code             |
-| header.resultMessage | String  | Result message          |
-| purgeSeq             | Integer | Purge requesting number |
+| Field                   | Type      | Description        |
+| -------------------- | ------- | --------- |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
 
-### Get Cache Purges
+### Purge Cache -  ALL (All file types)
 
 #### Request
 
-
 [URI]
 
-| Method | URI                           |
-| ------ | ----------------------------- |
-| GET    | /v1.5/appKeys/{appKey}/purges |
+| Method  | URI                           |
+| ---- | ----------------------------- |
+| POST | /v2.0/appKeys/{appKey}/purge/all |
 
 
-[Parameter]
+[Request Body]
 
-| Name         | Type    | Required | Default | Valid Range                                                  | Description                         |
-| ------------ | ------- | -------- | ------- | ------------------------------------------------------------ | ----------------------------------- |
-| domain       | String  | Required |         | Up to 255 characters                                         | Domain (service) name               |
-| page         | Integer | Optional |         |                                                              | Page number                         |
-| itemsPerPage | Integer | Optional |         |                                                              | Number of purged items on each page |
-| startTime    | String  | Optional |         | "yyyy-MM-ddTHH:mm:ss.SSSZ" e.g.)"2018-02-22T09:00:00.000Z"(UTC) | Search of period                    |
-| endTime      | String  | Optional |         | "yyyy-MM-ddTHH:mm:ss.SSSZ" e.g.)"2018-02-22T09:00:00.000Z"(UTC) | Search of period                    |
-
-
+```json
+{
+	"domain": "sample.toastcdn.net"
+}
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?domain={domain}" \
- -H "Authorization: {secretKey}" \
- -H "Content-Type: application/json"
-```
+
+
+[Field]
+
+| Name      | Type  | Required | Default | Valid Range             | Description                                                       |
+| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
+| domain    | String | Required      |        | Up to 255 characters            | Domain (service) name to be redeployed         |
 
 #### Response
-
 
 [Response Body]
 
@@ -618,47 +567,98 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?
         "resultCode" :  0,
         "resultMessage" :  "SUCCESS",
         "isSuccessful" :  true
-    },
-    "totalItems" :  2,
-    "purges" : [
-        {
-            "seq" :  593,
-            "distributionSeq" :  8445,
-            "purgeId" :  552256938,
-            "progress" :  0,
-            "purgeTime" :  1496979544701,
-            "lastCheckTime" :  1496979559013,
-            "type" :  "ITEM",
-            "path" :  "/prod_apigateway/img_plugin_cors_1.png"
-        },
-        {
-            "seq" :  589,
-            "distributionSeq" :  8445,
-            "purgeId" :  498528821,
-            "progress" :  100,
-            "purgeTime" :  1482385936413,
-            "lastCheckTime" :  1482385997077,
-            "type" :  "ALL",
-            "path" :  ""
-        }
-    ]
+    }
 }
 ```
 
 
 [Field]
 
-| Field                 | Type  | Description                     |
-| ----------------------- | ------- | --------------------------------- |
-| header                  | Object  | Header area                  |
-| header.isSuccessful     | Boolean | Successful or not        |
-| header.resultCode       | Integer | Result code                  |
-| header.resultMessage    | String  | Result message             |
-| totalItems              | Integer | Total number of purges  |
-| purges                  | List    | List of purged items   |
-| purges[0].seq           | Integer | Purge requesting number |
-| purges[0].progress      | Integer | Purge progress rate |
-| purges[0].purgeTime     | Long    | Purge requesting time |
-| purges[0].lastCheckTime | Long    | Last confirmed purge time |
-| purges[0].type          | String  | Purge type ("ITEM", "WILDCARD",or "ALL") |
-| purges[0].path          | String  | Requested purge items |
+| Field                   | Type      | Description        |
+| -------------------- | ------- | --------- |
+| header               | Object  | Header area     |
+| header.isSuccessful  | Boolean | Successful or not     |
+| header.resultCode    | Integer | Result code     |
+| header.resultMessage | String  | Result message    |
+
+- Request for cache redeployment may fail within an hour after CDN service is newly created. If failure continues, contact Customer Center. 
+- Capacity restriction policy exists for Purge APIs. For more details, see Restriction of Cache Redeployment Capacity of [Console User Guide > CDN Cache Redeployment](./console-guide/#cdn_4)].
+
+### Get Purge Cache
+- Purge of cache via API v2.0 shall be executed in high speed, allowing a request to be completed within seconds; hence, get cache redeployment status API shall not be provided. 
+
+## Callback Response
+If CDN service has a callback function, configured callback URL is called, once a request to Create, Modify, Suspend, Resume, Delete, or Change is completed. 
+When a callback is called, the request body includes CDN service setting information as follows: 
+
+[Response Body]
+```json
+{
+  "header" : {
+    "resultCode" :  0,
+    "resultMessage" :  "SUCCESS",
+    "isSuccessful" :  true
+  },
+  "distribution":{
+      "appKey": "wXDdIjJRcZDtY9F7",
+      "domain" :  "lhcsxuo0.toastcdn.net",
+      "domainAlias" :  ["test.domain.com"],
+      "region" :  "GLOBAL",
+      "status" : "OPEN",
+      "defaultMaxAge" : 86400,
+      "status" :  "OPENING",
+      "referrerType" :  "BLACKLIST",
+      "referrers" :  ["test.com"],    
+      "isAllowWhenEmptyReferrer" : true,
+      "useOriginCacheControl" :  false,
+      "createTime" : 1498613094692,
+      "deleteTime": 1498613094692,
+      "origins" : [
+          {
+              "origin" :  "static.toastoven.net",
+              "httpPort" :  80,
+              "httpsPort" : 443
+          }
+      ],
+      "forwardHostHeader": "ORIGIN_HOSTNAME",
+      "useOriginHttpProtocolDowngrade": false,    
+      "callback": {
+          "httpMethod": "GET",
+          "url": "http"
+      }
+  }
+}
+```
+
+[Field]
+
+| Field                                   | Type    | Description                                                         |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | Header area                                                    |
+| header.isSuccessful                    | Boolean | Successful or not                                                    |
+| header.resultCode                      | Integer | Result code                                                    |
+| header.resultMessage                   | String  | Result message                                                  |
+| distribution                          | Object    | CDN objects completed with changes                                   |
+| distribution.appKey                   | String    | Appkey                                  |
+| distribution.domain                | String  | Domain name (Service name)                                     |
+| distribution.domainAlias           | List  | List of domain aliases (use personal or company-owned domain)                                 |
+| distribution.region                | String  | Service region ("GLOBAL": Global service)             |
+| distribution.status                | String  | CDN status code (See [Table] CDN Status Code)                                 |
+| distribution.defaultMaxAge         | Integer  | Cache expiration time (seconds)                                           |
+| distribution.referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distribution.referrers             | List    | List of regex referrer headers                                 |
+| distributions.isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
+| distribution.useOriginCacheControl | Boolean | Whether to enable origin server setting (true: Enable origin server setting, false: User-configured) |
+| distribution.createTime            | DateTime | Date and time of creation                                         |
+| distribution.deleteTime            | DateTime | Date and time of deletion                                         |
+| distribution.origins               | List    | List of origin server objects                                      |
+| distribution.origins[0].origin     | String  | Origin server (domain or IP)                                      |
+| distribution.origins[0].originPath | String  | Lower paths of origin server                                          |
+| distribution.origins[0].httpPort   | Integer | HTTP protocol port of origin server                                       |
+| distribution.origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                      |
+| distribution.forwardHostHeader     | String  | Callback to receive service deployment results                        |
+| distribution.useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
+| distribution.forwardHostHeader     | String  | Set host header to be delivered when CDN server requests content to origin server ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
+| distribution.callback              | Object  | Callback to receive service deployment result                        |
+| distribution.callback.httpMethod   | String  | HTTP method of callback                                           |
+| distribution.callback.url          | String  | Callback URL                                                     |
