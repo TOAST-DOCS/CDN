@@ -4,7 +4,7 @@
 
 #### Feature Updates 
 * Access management by token authentication has been added. For more details, visit [Console Guide > Auth Token Access Management](./console-guide/#cdn_4).
-* Access Management for Referrer Header: Added the setting to enable or disable content access, when there is no referrer request header. 
+* Access Management for Referer Header: Added setting to enable or disable content access, when there is no referer request header. 
 
 ### June 23, 2020
 
