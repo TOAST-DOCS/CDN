@@ -1,14 +1,14 @@
 ## Content Delivery > CDN > Release Notes
 
-### 2020.09.03
+### September 3, 2020
 
-#### 기능 개선/변경
-* 리퍼러(referer)헤더 접근 관리: 리퍼러(referer)요청 헤더가 없는 경우 콘텐츠 접근 허용 여부를 선택할 수 있는 설정이 추가되었습니다.
+#### Feature Updates 
+* Referer Header Access Management: Added setting for enabling content access when there's no referer request header.  
 
-### 2020. 06. 23.
+### June 23, 2020
 
-#### 기능 개선/변경
-* [서비스ID].cdn.toastcloud.com 서비스 도메인의 지원이 종료되었습니다.
+#### Feature Updates
+* Support for the following service domain has been closed:[ServiceID].cdn.toastcloud.com
 
 
 ### March 24, 2020
