@@ -3,7 +3,7 @@
 ### September 3, 2020
 
 #### Feature Updates 
-* Referer Header Access Management: Added setting for enabling content access when there's no referer request header.  
+* Access Management for Referer Header: Added setting to enable or disable content access, when there is no referer request header. 
 
 ### June 23, 2020
 
