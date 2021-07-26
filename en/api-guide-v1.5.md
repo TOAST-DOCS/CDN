@@ -8,7 +8,7 @@ This document describes Public API v1.5 provided by NHN Cloud CDN.
 
 | Name         | Domain                             |
 | --------------- | ------------------------------------- |
-| Public API CDN Domain | https://api-gw.cloud.toast.com/tc-cdn |
+| Public API CDN Domain | https://kr1-cdn.api.nhncloudservice.com |
 
 ### Prerequisites
 
@@ -234,7 +234,7 @@ Below shows the status codes of CDN service, which are available at the query of
 
 [Example]
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distributions?domain={domain}" \
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -625,7 +625,7 @@ Apply partial modification API to change a part of the service setting.
 
 
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?domain={domain}" \
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purges?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```

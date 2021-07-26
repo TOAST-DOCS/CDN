@@ -1,5 +1,12 @@
 ## Content Delivery > CDN > 릴리스 노트
 
+### 2021. 07. 27.
+
+#### 기능 개선/변경
+* CDN Public API 도메인이 변경되었습니다.
+    * 기존 : https://api-gw.cloud.toast.com/tc-cdn
+    * 변경 후 : https://kr1-cdn.api.nhncloudservice.com
+
 ### 2021. 05. 25.
 
 #### 기능 개선/변경

@@ -8,7 +8,7 @@ NHN Cloud CDN에서 제공하는 Public API v2.0을 설명합니다.
 
 | 이름              | 도메인                                   |
 | --------------- | ------------------------------------- |
-| CDN Public API 도메인 | https://api-gw.cloud.toast.com/tc-cdn |
+| CDN Public API 도메인 | https://kr1-cdn.api.nhncloudservice.com |
 
 ### 사전 준비
 
@@ -249,7 +249,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 
 [예]
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```

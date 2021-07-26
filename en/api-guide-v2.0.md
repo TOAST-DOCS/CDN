@@ -9,7 +9,7 @@ This document describes Public API v2.0 of NHN Cloud CDN.
 
 | Name              | Domain                                   |
 | --------------- | ------------------------------------- |
-| CDN Public API Domain | https://api-gw.cloud.toast.com/tc-cdn |
+| CDN Public API Domain | https://kr1-cdn.api.nhncloudservice.com |
 
 ### Prerequisites
 
@@ -270,7 +270,7 @@ Below shows the status codes of CDN service, which are available at the query of
 
 [Example]
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```

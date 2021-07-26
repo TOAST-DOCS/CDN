@@ -1,6 +1,13 @@
 ## Content Delivery > CDN > Release Notes
 
-### 2021. 05. 25.
+### July 27, 2021
+
+#### Feature Updates
+*  The CDN Public API domain has been changed.
+    * AS-IS : https://api-gw.cloud.toast.com/tc-cdn
+    * TO-BE : https://kr1-cdn.api.nhncloudservice.com
+
+### May 25, 2021
 
 #### Feature Updates
 * The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#_3).
