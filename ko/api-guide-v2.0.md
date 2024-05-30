@@ -8,7 +8,7 @@ NHN Cloud CDN에서 제공하는 Public API v2.0을 설명합니다.
 
 | 이름              | 도메인                                   |
 | --------------- | ------------------------------------- |
-| CDN Public API 도메인 | https://kr1-cdn.api.nhncloudservice.com |
+| CDN Public API 도메인 | https://cdn.api.nhncloudservice.com |
 
 ### 사전 준비
 
