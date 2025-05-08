@@ -1,42 +1,41 @@
-## Content Delivery > CDN > API指南
+## Content Delivery > CDN > API v1.5 Guide
 
-介绍TOAST CDN提供的Public API。
+This document describes Public API v1.5 provided by NHN Cloud CDN.
 
-## API通用信息
+## Common API Information
 
-### 域
+### Domain
 
-| 名称              | 域                                   |
+| Name         | Domain                             |
 | --------------- | ------------------------------------- |
-| CDN Public API域 | https://api-gw.cloud.toast.com/tc-cdn |
+| Public API CDN Domain | https://kr1-cdn.api.nhncloudservice.com |
 
-### 事前准备
+### Prerequisites
 
-若欲使用API，需要接口密钥（Appkey）和安全密钥（SecretKey）。 
-接口密钥和安全密钥可在控制台右上方的**URL & Appkey**菜单中确认。
+Requires Appkey and SecretKey API, which are available in **URL & Appkey** on top right of the console.
 
-### 请求通用信息
+### Common Request Information
 
-#### 请求标头
+#### Request Header
 
-| 名称            | 说明                        |
-| ------------- | ------------------------- |
-| Authorization | 从控制台接收的安全密钥（SecretKey） |
+| Name          | Description                   |
+| ------------- | ----------------------------- |
+| Authorization | SecretKey issued on a console |
 
-#### Path参数
+#### Path Parameter
 
-所有API应将appKey指定为path参数。
-* 例）/v1.5/appKeys/**{appKey}**/distributions
+In all APIs, the appKey must be specified in the path parameter.
+* e.g.) /v1.5/appKeys/**{appKey}**/distributions
 
-| 名称     | 说明                    |
-| ------ | --------------------- |
-| appKey | 从控制台接收的接口密钥(Appkey) |
+| Name   | Description                |
+| ------ | -------------------------- |
+| appKey | Appkey issued on a console |
 
-### 响应通用信息
+### Common Response Information
 
-#### 标头
+#### Header
 
-对于所有API请求，以**200 OK**响应。详细响应结果如下例所示，参考响应正文的标头。
+Respond with **200 OK** to all API requests. For more details, see the header at the response body as below.
 
 ```json
 {
@@ -49,58 +48,61 @@
 ```
 
 
-【字段】
+[Fields]
 
-| 字段                   | 类型      | 说明     |
-| -------------------- | ------- | ------ |
-| header               | Object  | 标头区域  |
-| header.isSuccessful  | Boolean | 是否成功  |
-| header.resultCode    | Integer | 结果代码  |
-| header.resultMessage | String  | 结果信息 |
+| Field                | Type    | Description       |
+| -------------------- | ------- | ----------------- |
+| header               | Object  | Header area       |
+| header.isSuccessful  | Boolean | Successful or not |
+| header.resultCode    | Integer | Result code       |
+| header.resultMessage | String  | Result message    |
 
-#### CDN状态代码
+#### CDN Status Codes
 
-如下为显示CDN服务状态的状态代码，查询服务时可确认服务状态。
+Below shows the status codes of CDN service, which are available at the query of service.
 
-| 值         | 说明                     |
-| ---------- | ------------------------ |
-| OPENING    | 服务启动中           |
-| OPEN       | 服务中                |
-| MODIFYING  | 修改中                  |
-| RESUME     | 开始                     |
-| SUSPENDING | 正在停止            |
-| SUSPEND    | 停止                     |
-| CLOSING    | 正在结束使用             |
-| CLOSE      | 使用结束                |
-| ERROR      | 创建服务时发生错误 |
+| Value      | Description                           |
+| ---------- | ------------------------------------- |
+| OPENING    | Service is starting                   |
+| OPEN       | In service                            |
+| MODIFYING  | Under modification                    |
+| RESUME     | Resumed                               |
+| SUSPENDING | Under suspension                      |
+| SUSPEND    | Suspended                             |
+| CLOSING    | Closing                               |
+| CLOSE      | Closed                                |
+| ERROR      | Error occurred while creating service |
 
 
-## 服务API
+## Service API
 
-### 创建服务
+### Create
 
-#### 请求
+#### Request
 
 
 [URI]
 
-| 方法  | URI                                  |
-| ---- | ------------------------------------ |
-| POST | /v1.5/appKeys/{appKey}/distributions |
+| Method | URI                                  |
+| ------ | ------------------------------------ |
+| POST   | /v1.5/appKeys/{appKey}/distributions |
 
 
-【请求正文】
+[Request Body]
 
 ```json
 {
    "distributions":[
        {
-			"region": "LOCAL",
+			"region": "GLOBAL",
+            "useOriginHttpProtocolDowngrade": false,
+            "forwardHostHeader": "ORIGIN_HOSTNAME",
 			"useOrigin" : "N",
 			"referrerType" : "BLACKLIST",
 			"description" : "sample-cdn",
 			"maxAge": 86400,
-			"referrers" : "cloud.toast.com",
+			"referrers" : "cloud.nhn.com",
+            "isAllowWhenEmptyReferrer" : true,
 			"origins" : [
 				{
 					"origin" : "static.origin.com",
@@ -117,33 +119,38 @@
 }
 ```
 
-【字段】
+[Field]
 
-| 名称                                   | 类型    | 是否必需 | 默认值 | 有效范围                   | 说明                                                         |
-| -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
-| distributions                          | List    | 必需      |        |                             | 要创建的CDN对象列表                                   |
-| distributions[0].region                | String  | 必需      |        | LOCAL/GLOBAL                | 服务地区（”LOCAL”：韩国，”GLOBAL”：全球）
-| distributions[0].useOrigin             | String  | 必需      |        | Y/N                         | 缓存到期设置（”Y”：使用原始设置，”N”：使用用户设置） |
-| distributions[0].referrerType          | String  | 必需      |        | BLACKLIST/WHITELIST         | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
-| distributions[0].description           | String  | 可选      |        | 最大255个字符                  | 说明                                                         |
-| distributions[0].domainAlias           | String  | 可选      |        | 最大255个字符                  | 域别名（使用个人或公司所有的域，输入多个时请以\n令牌区分输入。）|
-| distributions[0].maxAge                | Integer | 可选      | 0      | 0~2,147,483,647             | 缓存到期时间（秒），默认值0为604,800秒。             |
-| distributions[0].referrers             | String  | 可选      |        | 包括’\n’令牌，最大1024个字符 | 引用（输入多个时请以\n令牌区分输入。）    |
-| distributions[0].origins               | List    | 必需      |        |                             | 原始服务器对象列表                                      |
-| distributions[0].origins[0].origin     | String  | 必需      |        | 最大255个字符                  | 原始服务器（domain或IP）                                     |
-| distributions[0].origins[0].port       | String  | 必需      |        | 0~65,536                    | 原始服务器端口                                               |
-| distributions[0].origins[0].originPath | String  | 可选      |        | 最大8192个字符                 | 原始服务器下级路径（请输入带有/的路径。）        |
-| distributions[0].callback              | Object  | 可选      |        |                             | 接收CDN创建处理结果的回调URL（回调设置为可选输入。）|
-| distributions[0].callback.httpMethod   | String  | 必需      |        | GET/POST/PUT                | 回调的HTTP Method                                           |
-| distributions[0].callback.url          | String  | 必需      |        | 最大1024个字符                 | 回调URL                                                     |
+| Name                                   | Type    | Required | Default | Valid Range                                  | Description                                                  |
+| -------------------------------------- | ------- | -------- | ------- | -------------------------------------------- | ------------------------------------------------------------ |
+| distributions                          | List    | Required |         |                                              | List of CDN objects to create                                |
+| distributions[0].region                | String  | Required      |        | GLOBAL                | Service Region ("GLOBAL": Global service)           |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | Required     |        | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP  |
+| distributions[0].forwardHostHeader     | String  | Required      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Setting host header to be delivered when CDN server requests content to origin server  ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests)|
+| distributions[0].useOrigin             | String  | Required |         | Y/N                                          | Cache expiration setting ("Y": Original setting, "N":User-configured) |
+| distributions[0].referrerType          | String  | Required |         | BLACKLIST/WHITELIST                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].description           | String  | Optional |         | Up to  255 characters                        | Description                                                  |
+| distributions[0].domainAlias           | String  | Optional |         | Up to 255 characters                         | Domain alias (Use personal or company-owned domains; delimit by \n tokens.) |
+| distributions[0].maxAge                | Integer | Optional | 0       | 0~2,147,483,647                              | Cache expiration time (second); default 0 refers to 604,800 seconds. |
+| distributions[0].referrers             | String  | Optional |         | Up to 1024 characters, including '\n' tokens | Referrers (Delimit by \n tokens.)                            |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
+| distributions[0].origins               | List    | Required |         |                                              | List of origin server objects                                |
+| distributions[0].origins[0].origin     | String  | Required |         | Up to 255 characters                         | Origin server (domain or IP)                                 |
+| distributions[0].origins[0].port       | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
+| distributions[0].origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)  |
+| distributions[0].origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.) |
+| distributions[0].origins[0].originPath | String  | Optional |         | Up to 8192 characters                        | Lower paths of origin server (path must include /.)          |
+| distributions[0].callback              | Object  | Optional |         |                                              | Callback URL to receive processing result of CDN creation (callback setting is optional.) |
+| distributions[0].callback.httpMethod   | String  | Required |         | GET/POST/PUT                                 | HTTP method of callback                                      |
+| distributions[0].callback.url          | String  | Required |         | Up to 1024 characters                        | Callback URL                                                 |
+
+- The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
 
+#### Response
 
 
-#### 响应
-
-
-【响应正文】
+[Response Body]
 
 ```json
 {
@@ -154,8 +161,10 @@
     },
     "distributions": [
         {
-            "region" :  "LOCAL",
+            "domain" : "lhcsxuo0.toastcdn.net"
+            "region" :  "GLOBAL",
             "description" :  "api test pad",
+            "status" : "OPENING",
             "useOrigin" :  "N",
             "domainAlias" :  "test.domain.com",
             "referrerType" :  "BLACKLIST",
@@ -163,7 +172,7 @@
             "maxAge" :  100,
             "origins" : [
                 {
-                    "origin" :  "static.toastoven.net",
+                    "origin" :  "cloud.nhn.com",
                     "port" :  80
                 }
             ],
@@ -177,64 +186,64 @@
 ```
 
 
-【字段】
+[Field]
 
-| 字段                                   | 类型    | 说明                                                         |
+| Field                                  | Type    | Description                                                  |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 标头区域                                                    |
-| header.isSuccessful                    | Boolean | 是否成功                                                    |
-| header.resultCode                      | Integer | 结果代码                                                    |
-| header.resultMessage                   | String  | 结果信息                                                  |
-| distributions                          | List    | 创建的CDN对象列表                                   |
-| distributions[0].domain                | String  | 创建的域（服务）名                                   |
-| distributions[0].domainAlias           | String  | 拥有的域                                                  |
-| distributions[0].region                | String  | 服务地区（”LOCAL”：韩国，”GLOBAL”：全球）            |
-| distributions[0].description           | String  | 说明                                                         |
-| distributions[0].status                | String  | CDN状态代码（参考【表】 CDN状态代码）                                 |
-| distributions[0].createTime            | String  | 创建日期                                                    |
-| distributions[0].useOrigin             | String  | 是否使用原始服务器设置（”Y”：使用原始服务器设置，”N”：用户设置） |
-| distributions[0].maxAge                | String  | 缓存到期时间（秒）                                           |
-| distributions[0].referrerType          | String  | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
-| distributions[0].referrers             | String  | 引用列表                                                  |
-| distributions[0].origins               | List    | 原始服务器对象列表                                      |
-| distributions[0].origins[0].origin     | String  | 原始服务器（domain或IP）                                      |
-| distributions[0].origins[0].originPath | String  | 原始服务器下级路径                                          |
-| distributions[0].origins[0].port       | Integer | 原始服务器端口                                               |
-| distributions[0].callback              | Object  | 接收服务创建处理结果的回调                        |
-| distributions[0].callback.httpMethod   | String  | 回调的HTTP Method                                           |
-| distributions[0].callback.url          | String  | 回调URL                                                     |
+| header                                 | Object  | Header area                                                  |
+| header.isSuccessful                    | Boolean | Successful or not                                            |
+| header.resultCode                      | Integer | Result code                                                  |
+| header.resultMessage                   | String  | Result message                                               |
+| distributions                          | List    | List of created CDN objects                                  |
+| distributions[0].domain                | String  | Created domain (service) name                                |
+| distributions[0].domainAlias           | String  | List of domain alias (personal or company-owned domains)               |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global service)            |
+| distributions[0].description           | String  | Description                                                  |
+| distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
+| distributions[0].createTime            | String  | Date and time of creation                                    |
+| distributions[0].useOrigin             | String  | Whether to set origin server <br />("Y": Origin server setting, "N": User-configured) |
+| distributions[0].maxAge                | String  | Cache expiration time (second)                               |
+| distributions[0].referrerType          | String  | Referrer access control ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].referrers             | String  | List of referrers                                            |
+| distributions[0].origins               | List    | List of origin server objects                                |
+| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                 |
+| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                 |
+| distributions[0].origins[0].port       | Integer | Origin server port                                           |
+| distributions[0].callback              | Object  | Callback to receive service processing results               |
+| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                      |
+| distributions[0].callback.url          | String  | Callback URL                                                 |
 
 
-### 查询服务
+### Get
 
-#### 请求
+#### Request
 
 
 [URI]
 
-| 方法  | URI                                  |
-| ---- | ------------------------------------ |
-| GET  | /v1.5/appKeys/{appKey}/distributions |
+| Method | URI                                  |
+| ------ | ------------------------------------ |
+| GET    | /v1.5/appKeys/{appKey}/distributions |
 
 
-【参数】
+[Parameter]
 
-| 名称   | 类型   | 是否必需 | 有效范围     | 说明                         |
+| Name | Type | Required | Valid Range | Description  |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
-| domain | String | 可选      | 最大255个字符    | 要查询的域（服务名）   |
-| status | String | 选择      | CDN状态代码 | CDN状态代码（参考【表]】CDN状态代码） |
+| domain | String | Optional | Up to 255 characters | Domain (service name) to get |
+| status | String | Optional | CDN status codes | CDN status code (see CDN status codes in [Table]) |
 
-【例】
+[Example]
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distributions?domain={domain}" \
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
-#### 响应
+#### Response
 
 
-【响应正文】
+[Response Body]
 
 ```json
 {
@@ -243,19 +252,18 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
         "resultMessage" :  "SUCCESS",
       "isSuccessful" :  true
     },
-    "domain" :  "lhcsxuo0.cdn.toastcloud.com",
+    "domain" :  "lhcsxuo0.toastcdn.net",
     "domainAlias" :  "test.domain.com",
-    "region" :  "LOCAL",
+    "region" :  "GLOBAL",
     "description" :  "api test pad",
     "status" :  "OPENING",
-    "createTime" :  1498613094692,
     "useOrigin" :  "N",
     "maxAge" :  "100",
     "referrerType" :  "BLACKLIST",
     "referrers" :  "test.com",
     "origins" : [
         {
-            "origin" :  "static.toastoven.net",
+            "origin" :  "static.resource.com",
             "port" :  80
         }
     ],
@@ -267,51 +275,53 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-【字段】
+[Field]
 
-| 字段                                   | 类型    | 说明                                                         |
+| Field                                  | Type    | Description                                                  |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 标头区域                                                    |
-| header.isSuccessful                    | Boolean | 是否成功                                                    |
-| header.resultCode                      | Integer | 结果代码                                                    |
-| header.resultMessage                   | String  | 结果信息                                                  |
-| distributions                          | List    | 创建的CDN对象列表                                     |
-| distributions[0].domain                | String  | 域名（服务名）                                     |
-| distributions[0].domainAlias           | String  | 拥有的域                                                  |
-| distributions[0].region                | String  | 服务地区（”LOCAL”：韩国，”GLOBAL”：全球）             |
-| distributions[0].description           | String  | 说明                                                         |
-| distributions[0].status                | String  | CDN状态代码（参考【表】CDN状态代码）                                 |
-| distributions[0].createTime            | String  | 创建日期                                                    |
-| distributions[0].useOrigin             | String  | 是否使用原始服务器设置（”Y”：使用原始服务器设置，”N”：用户设置） |
-| distributions[0].maxAge                | String  | 缓存到期时间（秒）                                           |
-| distributions[0].referrerType          | String  | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
-| distributions[0].referrers             | String  | 引用列表                                                  |
-| distributions[0].origins               | List    | 原始服务器对象列表                                      |
-| distributions[0].origins[0].origin     | String  | 原始服务器（domain或IP）                                      |
-| distributions[0].origins[0].originPath | String  | 原始服务器下级路径                                          |
-| distributions[0].origins[0].port       | Integer | 原始服务器端口                                               |
-| distributions[0].callback              | Object  | 接收服务分发处理结果的回调                         |
-| distributions[0].callback.httpMethod   | String  | 回调的HTTP Method                                           |
-| distributions[0].callback.url          | String  | 回调URL                                                     |
+| header                                 | Object  | Header area                                                  |
+| header.isSuccessful                    | Boolean | Successful or not                                            |
+| header.resultCode                      | Integer | Result code                                                  |
+| header.resultMessage                   | String  | Result message                                               |
+| distributions                          | List    | List of created CDN objects                                  |
+| distributions[0].domain                | String  | Domain (service) name                                        |
+| distributions[0].domainAlias           | String  | List of domain alias (personal or company-owned domains)                   |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global service)                                    |
+| distributions[0].description           | String  | Description                                                  |
+| distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
+| distributions[0].createTime            | String  | Date and time of creation                                    |
+| distributions[0].useOrigin             | String  | Whether to use origin server setting <br />("Y": Origin server setting, "N": User-configured) |
+| distributions[0].maxAge                | String  | Cache expiration time (second)                               |
+| distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].referrers             | String  | List of referrers                                            |
+| distributions[0].origins               | List    | List of origin server objects                                |
+| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                 |
+| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                 |
+| distributions[0].origins[0].port       | Integer | Origin server port                                           |
+| distributions[0].callback              | Object  | Callback to receive service deployment results               |
+| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                      |
+| distributions[0].callback.url          | String  | Callback URL                                                 |
 
 
-### 修改服务
+### Modify
 
-#### 请求
+#### Request
 
 
 [URI]
 
-| 方法  | URI                                  |
-| ---- | ------------------------------------ |
-| PUT  | /v1.5/appKeys/{appKey}/distributions |
+| Method | URI                                  |
+| ------ | ------------------------------------ |
+| PUT    | /v1.5/appKeys/{appKey}/distributions |
 
 
-【请求正文】
+[Request Body]
 
 ```json
 {
-        "domain" : "sample.cdn.toastcloud.com",
+        "domain" : "sample.toastcdn.net",
+        "useOriginHttpProtocolDowngrade": false,
+        "forwardHostHeader": "ORIGIN_HOSTNAME",
         "useOrigin" : "N",
         "maxAge": 86400,
         "referrerType" : "BLACKLIST",
@@ -327,35 +337,41 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
             "httpMethod": "GET",
             "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
         },
-        "description" : "change contents"   
+        "description" : "change contents"
 }
 ```
 
+[Field]
 
-【字段】
+| Name                  | Type    | Required | Default | Valid Range                                                  | Description                                                  |
+| --------------------- | ------- | -------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| domain                | String  | Required |         | Up to 255 characters                                         | Domain (service name) to modify                              |
+| useOriginHttpProtocolDowngrade | Boolean  | Required     |        | true/false         |  Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
+| forwardHostHeader     | String  | Required      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | Setting host header to be delivered when CDN server requests content to origin server  ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
+| useOrigin             | String  | Required |         | Y/N                                                          | Cache expiration setting (Y: Original setting, "N": User-configured) |
+| referrerType          | String  | Required |         | BLACKLIST/WHITELIST                                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| description           | String  | Optional |         | Up to 255 characters                                         | Description                                                  |
+| domainAlias           | String  | Optional |         | Up to 255 characters                                         | Domain alias (Personal or company-owned domains; delimit by \n tokens.) |
+| maxAge                | Integer | Optional | 0       | 0 ~ 2,147,483,647                                            | Cache expiration time (second); default 0 refers to 604,800 seconds. |
+| referrers             | String  | Optional |         | Up to 1024 characters, including '\n\' tokens                | Referrers (delimit by \n tokens. )                           |
+| isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
+| origins               | List    | Required |         |                                                              | Origin server                                                |
+| origins[0].origin     | String  | Required |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
+| origins[0].port       | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
+| origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)  |
+| origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set. |
+| origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
+| callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                    |
+| callback.httpMethod   | String  | Required |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
+| callback.url          | String  | Required |         | Up to 1024 characters                                        | Callback URL                                                 |
 
-| 名称                  | 类型    | 是否必需 | 默认值 | 有效范围                                                    | 说明                                                         |
-| --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| domain                | String  | 必需      |        | 最大255个字符                                                   | 要修改的域（服务名）                                   |
-| useOrigin             | String  | 必需      |        | Y/N                                                          | 缓存到期设置（Y：使用原始设置，”N”：使用用户设置） | 
-| referrerType          | String  | 必需      |        | BLACKLIST/WHITELIST                                          | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
-| description           | String  | 可选      |        | 最大255个字符                                                   | 说明                                                         |
-| domainAlias           | String  | 可选      |        | 最大255个字符                                                   | 域别名（使用个人或公司所有的域，输入多个时请以\n令牌区分输入。）|
-| maxAge                | Integer | 可选      | 0      | 0~2,147,483,647                                            | 缓存到期时间（秒），默认值0为604,800秒。              |
-| referrers             | String  | 可选      |        | 包括’\n’令牌，最大1024个字符                                  | 引用（输入多个时请以\\n令牌区分输入。)  |
-| origins               | List    | 必需      |        |                                                              | 原始服务器                                                    |
-| origins[0].origin     | String  | 必需      |        | 最大255个字符                                                   | 原始服务器（domain或IP）                                      |
-| origins[0].port       | Integer | 必需      |        | 0~65,536                                                     | 原始服务器端口                                               |
-| origins[0].originPath | String  | 可选      |        | 最大8192个字符                                                  | 原始服务器下级路径                                          |
-| callback              | Object  | 可选      |        | 接收CDN服务分发结果的回调URL（回调设置为可选输入。）|                                                              |
-| callback.httpMethod   | String  | 必需      |        | GET/POST/PUT                                                 | 回调的HTTP Method                                           |
-| callback.url          | String  | 必需      |        | 最大1024个字符                                                  | 回调URL                                                     |
+- The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
 
-#### 响应
+#### Response
 
 
-【响应正文】
+[Response Body]
 
 ```json
 {
@@ -368,35 +384,35 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-【字段】
+[Field]
 
-| 字段                   | 类型      | 说明     |
-| -------------------- | ------- | ------ |
-| header               | Object  | 标头区域  |
-| header.isSuccessful  | Boolean | 是否成功  |
-| header.resultCode    | Integer | 结果代码  |
-| header.resultMessage | String  | 结果信息 |
+| Field                | Type    | Description       |
+| -------------------- | ------- | ----------------- |
+| header               | Object  | Header area       |
+| header.isSuccessful  | Boolean | Successful or not |
+| header.resultCode    | Integer | Result code       |
+| header.resultMessage | String  | Result message    |
 
 
-### 服务部分修改
+### Patch
 
-更改服务的部分设置时，可以使用部分修改API。
+Apply partial modification API to change a part of the service setting.
 
-#### 请求
+#### Request
 
 
 [URI]
 
-| 方法   | URI                                  |
-| ----- | ------------------------------------ |
-| PATCH | /v1.5/appKeys/{appKey}/distributions |
+| Method | URI                                  |
+| ------ | ------------------------------------ |
+| PATCH  | /v1.5/appKeys/{appKey}/distributions |
 
 
-【请求正文】
+[Request Body]
 
 ```json
 {
-        "domain" : "sample.cdn.toastcloud.com",
+        "domain" : "sample.toastcdn.net",
         "useOrigin" : "N",
         "maxAge": 86400,
         "referrerType" : "BLACKLIST",
@@ -412,37 +428,42 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
             "httpMethod": "GET",
             "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
         },
-        "description" : "change contents"       
+        "description" : "change contents"
 }
 ```
 
 
-【字段】
+[Field]
 
-| 名称                  | 类型    | 是否必需 | 默认值 | 有效范围                                                    | 说明                                                         |
-| --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| domain                | String  | 必需      |        | 最大255个字符                                                   | 要修改的域（服务名）                                   |
-| useOrigin             | String  | 可选      |        | Y/N                                                          | 缓存到期设置（Y：使用原始设置，N：使用用户设置）       |
-| referrerType          | String  | 可选      |        | BLACKLIST / WHITELIST                                        | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
-| description           | String  | 可选      |        | 最大255个字符                                                   | 说明                                                         |
-| domainAlias           | String  | 可选      |        | 最大255个字符                                                   | 域别名（使用个人或公司所有的域，输入多个时请以\n令牌分开输入。）|
-| maxAge                | Integer | 可选      | 0      | 0~2,147,483,647                                              | 缓存到期时间（秒），默认值0为604,800秒。           |
-| referrers             | String  | 可选      |        | 包括’\n’令牌，最大1024个字符                                  | 域别名（输入多个时请以\\n令牌分开输入。)  |
-| origins               | List    | 可选      |        |                                                              | 原始服务器                                                    |
-| origins[0].origin     | String  | 可选      |        | 最大255个字符                                                   | 原始服务器（domain或IP）                                     |
-| origins[0].port       | Integer | 可选      |        | 0~65,536                                                   | 原始服务器端口                                               |
-| origins[0].originPath | String  | 可选      |        | 最大8192个字符                                                  | 原始服务器下级路径                                          |
-| callback              | Object  | 可选      |        | 接收CDN服务分发结果的回调URL（回调设置为可选输入。）|                                                              |
-| callback.httpMethod   | String  | 可选      |        | GET/POST/PUT                                                 | 回调的HTTP Method                                           |
-| callback.url          | String  | 可选      |        | 最大1024个字符                                                  | 回调URL                                                     |
+| Name                  | Type    | Required | Default | Valid Range                                                  | Description                                                  |
+| --------------------- | ------- | -------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| domain                | String  | Required |         | Up to 255 characters                                         | Domain (service name) to modify                              |
+| useOriginHttpProtocolDowngrade | Boolean  | Optional     |        | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
+| forwardHostHeader     | String  | Optional      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   |Setting host header to be delivered when CDN server requests content to origin server  ("ORIGIN_HOSTNAME": Set as host name for origin server, "REQUEST_HOST_HEADER": Set as host header for client requests) |
+| useOrigin             | String  | Optional |         | Y/N                                                          | Cache expiration setting (Y: Original setting, N: User-configured) |
+| referrerType          | String  | Optional |         | BLACKLIST / WHITELIST                                        | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| description           | String  | Optional |         | Up to 255 characters                                         | Description                                                  |
+| domainAlias           | String  | Optional |         | Up to 255 characters                                         | Domain alias (personal or company-owned domains; delimit by \n tokens.) |
+| maxAge                | Integer | Optional | 0       | 0~2,147,483,647                                              | Cache expiration time (second); default 0 refers to 604,800 seconds. |
+| referrers             | String  | Optional |         | Up to 1024 characters, including '\n' tokens                 | Referrers (delimit by \n tokens. )                           |
+| isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
+| origins               | List    | Optional |         |                                                              | Origin server                                                |
+| origins[0].origin     | String  | Optional |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
+| origins[0].port       | Integer | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
+| origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)   |
+| origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)  |
+| origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
+| callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                    |
+| callback.httpMethod   | String  | Optional |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
+| callback.url          | String  | Optional |         | Up to 1024 characters                                        | Callback URL                                                 |
 
-- 设置origins字段时，origin, port, originPath字段为必须输入值。 
-- 设置callback字段时，httpMethod, url字段为必须输入值。 
+- To set the origins field, origin and originPath fields are required, and either port, httpPort, or httpsPort field must be included.
+- To set the callback field, httpMethod and url fields are required.
 
-#### 响应
+#### Response
 
 
-【响应正文】
+[Response Body]
 
 ```json
 {
@@ -455,51 +476,51 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-【字段】
+[Field]
 
-| 字段                   | 类型      | 说明     |
-| -------------------- | ------- | ------ |
-| header               | Object  | 标头区域  |
-| header.isSuccessful  | Boolean | 是否成功  |
-| header.resultCode    | Integer | 结果代码  |
-| header.resultMessage | String  | 结果信息 |
+| Field                | Type    | Description       |
+| -------------------- | ------- | ----------------- |
+| header               | Object  | Header area       |
+| header.isSuccessful  | Boolean | Successful or not |
+| header.resultCode    | Integer | Result code       |
+| header.resultMessage | String  | Result message    |
 
 
-### 删除服务
+### Delete
 
-#### 请求
+#### Request
 
 
 [URI]
 
-| 方法    | URI                                  |
+| Method | URI                                  |
 | ------ | ------------------------------------ |
 | DELETE | /v1.5/appKeys/{appKey}/distributions |
 
 
-【请求正文】
+[Request Body]
 
 ```json
 {
     "domains" : [
-        "lhcsxuo0.cdn.toastcloud.com"
+        "lhcsxuo0.toastcdn.net"
     ]
 }
 ```
 
 
-【字段】
+[Field]
 
-| 名称      | 类型     | 是否必须 | 默认值  | 有效范围 | 说明                    |
-| ------- | ------ | ----- | ---- | ----- | --------------------- |
-| domains | String | 必需    |      |       | 要删除的域，可输入多个域 |
+| Name    | Type   | Required | Default | Valid Range | Description                                 |
+| ------- | ------ | -------- | ------- | ----------- | ------------------------------------------- |
+| domains | String | Y        |         |             | Domains to delete; multiple domains allowed |
 
-**\* 输入多个域时，对应的服务将全部终止。**
+**\* With the input of many domains, all corresponding services are closed.**
 
-#### 响应
+#### Response
 
 
-【响应正文】
+[Response Body]
 
 ```json
 {
@@ -512,50 +533,50 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-【字段】
+[Field]
 
-| 字段                   | 类型      | 说明     |
-| -------------------- | ------- | ------ |
-| header               | Object  | 标头区域  |
-| header.isSuccessful  | Boolean | 是否成功  |
-| header.resultCode    | Integer | 结果代码  |
-| header.resultMessage | String  | 结果信息 |
+| Field                | Type    | Description       |
+| -------------------- | ------- | ----------------- |
+| header               | Object  | Header area       |
+| header.isSuccessful  | Boolean | Successful or not |
+| header.resultCode    | Integer | Result code       |
+| header.resultMessage | String  | Result message    |
 
-## 重新分发缓存API
+## Cache Purge API
 
-### 重新分发缓存（Purge）
+### Purge
 
-#### 请求
+#### Request
 
 [URI]
 
-| 方法  | URI                           |
-| ---- | ----------------------------- |
-| POST | /v1.5/appKeys/{appKey}/purges |
+| Method | URI                           |
+| ------ | ----------------------------- |
+| POST   | /v1.5/appKeys/{appKey}/purges |
 
 
-【请求正文】
+[Request Body]
 
 ```json
 {
-	"domain": "sample.cdn.toastcloud.com",
+	"domain": "sample.toastcdn.net",
 	"purgeType": "ITEM",
 	"purgeList":"/img_01.png"
 }
 ```
 
 
-【字段】
+[Field]
 
-| 名称      | 类型   | 是否必须 | 默认值 | 有效范围             | 说明                                                         |
-| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | 必需      |        | 最大255个字            | 要重新分发的域（服务）名                                 |
-| purgeType | List   | 必需      |        | ITEM / WILDCARD / ALL | 重新分发类型("ITEM", "WILDCARD", "ALL")                       |
-| purgeList | String | 可选      |        |                       | 重新分发对象项目列表（输入多个时， 请以\\n令牌区分输入，若purgeType为ALL，也可不输入。）|
+| Name      | Type   | Required | Default | Valid Range           | Description                                                  |
+| --------- | ------ | -------- | ------- | --------------------- | ------------------------------------------------------------ |
+| domain    | String | Required |         | Up to 255 characters  | Domain (service) name to purge                               |
+| purgeType | List   | Required |         | ITEM / ALL | Purge type ("ITEM", or "ALL")                    |
+| purgeList | String | Optional |         |                       | List of items to purge (delimit by \n tokens; not required, if the purge type is ALL.) |
 
-#### 响应
+#### Response
 
-【响应正文】
+[Response Body]
 
 ```json
 {
@@ -569,49 +590,53 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-【字段】
+[Field]
 
-| 字段                   | 类型      | 说明        |
-| -------------------- | ------- | --------- |
-| header               | Object  | 标头区域     |
-| header.isSuccessful  | Boolean | 是否成功     |
-| header.resultCode    | Integer | 结果代码     |
-| header.resultMessage | String  | 结果信息    |
-| purgeSeq             | Integer | 请求重新分发编号 |
+| Field                | Type    | Description             |
+| -------------------- | ------- | ----------------------- |
+| header               | Object  | Header area             |
+| header.isSuccessful  | Boolean | Successful or not       |
+| header.resultCode    | Integer | Result code             |
+| header.resultMessage | String  | Result message          |
+| purgeSeq             | Integer | Purge requesting number |
 
-### 查询重新分发缓存（Purge）
+- Cache redeployment may fail within about an hour after CDN service is newly created. If it still fails afterwards, contact Customer Center.
+- Purge API has usage restriction policy. For more details, go to [Console User Guide > CDN Cache Redeployment](./console-guide/#purging-cdn-cache) and check 'Cache Redeployment Usage Restriction'.
+- ITEM type is restricted in the number of purge paths per request. When it is requested in excess of the number, purge is divided and requested as much as the number of purge paths per request. In such case, only the redeployment request number of the initial purge request is delivered as response.
 
-#### 请求
+### Get Cache Purges
+
+#### Request
 
 
 [URI]
 
-| 方法  | URI                           |
-| ---- | ----------------------------- |
-| GET  | /v1.5/appKeys/{appKey}/purges |
+| Method | URI                           |
+| ------ | ----------------------------- |
+| GET    | /v1.5/appKeys/{appKey}/purges |
 
 
-【参数】
+[Parameter]
 
-| 名称           | 类型      | 是否必需 | 默认值  | 有效范围                                    | 说明              |
-| ------------ | ------- | ----- | ---- | ---------------------------------------- | --------------- |
-| domain       | String  | 必需    |      | 最大255个字                                  | 域（服务）名     |
-| page         | Integer | 可选    |      |                                          | 页编号          |
-| itemsPerPage | Integer | 可选    |      |                                          | 每页重新分发的项目个数 |
-| startTime    | String  | 可选    |      | “yyyy-MM-ddTHH:mm:ss.SSSZ” ex)”2018-02-22T09:00:00.000Z”(UTC) | 搜索时间段           |
-| endTime      | String  | 可选    |      | “yyyy-MM-ddTHH:mm:ss.SSSZ” ex)”2018-02-22T09:00:00.000Z”(UTC) | 搜索时间段           |
+| Name         | Type    | Required | Default | Valid Range                                                  | Description                         |
+| ------------ | ------- | -------- | ------- | ------------------------------------------------------------ | ----------------------------------- |
+| domain       | String  | Required |         | Up to 255 characters                                         | Domain (service) name               |
+| page         | Integer | Optional |         |                                                              | Page number                         |
+| itemsPerPage | Integer | Optional |         |                                                              | Number of purged items on each page |
+| startTime    | String  | Optional |         | "yyyy-MM-ddTHH:mm:ss.SSSZ" e.g.)"2018-02-22T09:00:00.000Z"(UTC) | Search of period                    |
+| endTime      | String  | Optional |         | "yyyy-MM-ddTHH:mm:ss.SSSZ" e.g.)"2018-02-22T09:00:00.000Z"(UTC) | Search of period                    |
 
 
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?domain={domain}" \
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purges?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
-#### 响应
+#### Response
 
 
-【响应正文】
+[Response Body]
 
 ```json
 {
@@ -647,20 +672,87 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?
 ```
 
 
-【字段】
+[Field]
 
-| 字段                      | 类型      | 说明                                |
+| Field                 | Type  | Description                     |
 | ----------------------- | ------- | --------------------------------- |
-| header                  | Object  | 标头区域                             |
-| header.isSuccessful     | Boolean | 是否成功                             |
-| header.resultCode       | Integer | 结果代码                             |
-| header.resultMessage    | String  | 结果信息                            |
-| totalItems              | Integer | 重新分发的总个数                         |
-| purges                  | List    | 重新分发项目列表                        |
-| purges[0].seq           | Integer | 重新分发请求编号                         |
-| purges[0].progress      | Integer | 重新分发进度                        |
-| purges[0].purgeTime     | Long    | 重新分发请求时间                         |
-| purges[0].lastCheckTime | Long    | 重新分发执行的最后确认时间                  |
-| purges[0].type          | String  | 重新分发类型("ITEM", "WILDCARD", "ALL") |
-| purges[0].path          | String  | 重新分发请求项目                         |
+| header                  | Object  | Header area                  |
+| header.isSuccessful     | Boolean | Successful or not        |
+| header.resultCode       | Integer | Result code                  |
+| header.resultMessage    | String  | Result message             |
+| totalItems              | Integer | Total number of purges  |
+| purges                  | List    | List of purged items   |
+| purges[0].seq           | Integer | Purge requesting number |
+| purges[0].progress      | Integer | Purge progress rate |
+| purges[0].purgeTime     | Long    | Purge requesting time |
+| purges[0].lastCheckTime | Long    | Last confirmed purge time |
+| purges[0].type          | String  | Purge type ("ITEM" or "ALL") |
+| purges[0].path          | String  | Requested purge items |
 
+## Callback Response
+With callback enabled for CDN service, when tasks are completed, such as Create/Modify/Suspend/Resume/Delete, response values are delivered to callback URL as below.
+
+[Response Body]
+``` json
+{
+  "header" : {
+    "resultCode" :  0,
+    "resultMessage" :  "SUCCESS",
+    "isSuccessful" :  true
+  },
+  "distribution":{
+      "appKey": "String",
+      "domain" : "lhcsxuo0.toastcdn.net",
+      "domainAlias" : "test.domain.com",
+      "region" : "GLOBAL",
+      "description" : "api test pad",
+      "status" : "OPENING",
+      "createTime" : 1498613094692,
+      "useOrigin" : "N",
+      "maxAge" : "100",
+      "referrerType" : "BLACKLIST",
+      "referrers" : "test.com",
+      "deleteTime": "DateTime",
+      "origins":[
+         {
+            "origin": "static.resource.com",
+            "originPath": "/path",
+            "port": "80"
+         }
+      ],
+      "callback":{
+         "httpMethod": "GET",
+         "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+      }
+  }
+}
+```
+
+[Field]
+
+| Field                                   | Type    | Description                                                         |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | Header area                                                    |
+| header.isSuccessful                    | Boolean | Successful or not                                                 |
+| header.resultCode                      | Integer | Result code                                                    |
+| header.resultMessage                   | String  | Result message                                                  |
+| distribution                          | Object    | CDN object completed with changes                                      |
+| distribution.appKey                   | String    | Appkey                                  |
+| distribution.domain                | String  | Domain name (service name)                                     |
+| distribution.domainAlias           | String  | Owned domain                                                  |
+| distribution.region                | String  | Service region ("GLOBAL": Global service)             |
+| distribution.description           | String  | Description                                                         |
+| distribution.status                | String  | CDN status code ([Table] See CDN Status Code)                                 |
+| distribution.createTime            | String  | Date and time of creation                                                    |
+| distribution.deleteTime            | String  | Date and time of deletion                                                    |
+| distribution.useOrigin             | String  | Whether to use origin server setting ("Y": Enable origin server setting, "N": User-configured) |
+| distribution.maxAge                | String  | Cache expiration time (seconds)                                           |
+| distribution.referrerType          | String  | Referrer access control ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distribution.referrers             | String  | List of referrers                                                  |
+| distribution.origins               | List    | List of origin server objects                                      |
+| distribution.origins[0].origin     | String  | Origin server (domain or IP)                                      |
+| distribution.origins[0].originPath | String  | Lower path of origin server                                          |
+| distribution.origins[0].port       | Integer | Origin server port                                               |
+| distribution.callback              | Object  | Callback to be notified on processing results of service deployment               |
+| distribution.callback.httpMethod   | String  | Callback HTTP Method                                           |
+| distribution.callback.url          | String  | Callback URL                                                     |
