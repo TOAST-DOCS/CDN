@@ -831,15 +831,18 @@ Following page shows a setting example for NHN Cloud DNS+. Each DNS provider may
 
 >  **[Caution] Caution for certificate expiration**
 > Certificates provided by NHN Cloud CDN are automatically renewed before expired.
+> Certificate renewal will be processed **within 5 days** from the renewal start date shown in the **Certificate Management** list.
 > For auto-renewal, user's certificate must be integrated with CDN service.
 > Otherwise, certificates may not be renewed during specific period and get expired.
-> A certificate shall be renewed within **5 days** after a renewal start day as indicated on the list of **Certificate Management**.
-> To prevent certificates from expired, maintain the following settings at all times:
 >
-> 1. Assign domain of a certificate to the domain address of CDN service which is to be integrated with CNAME record.
+> 1. Assign the domain of a certificate to the domain address of CDN service which is to be integrated through CNAME record.
 > 2. Set certificate domain for domain alias of CDN service to be integrated with.
-> 3. When a CDN service integrated with certificate is suspended, the certificate cannot be renewed. Resume before a renewal start day or integrate it to another running CDN service.
-> 4. When a CDN service integrated with certificate is deleted, the certificate cannot be renewed: integrate it to another running CDN service before deleting.
+> 3. When a CDN service integrated with a certificate is suspended, the certificate cannot be renewed.
+>       - Resume before a renewal start date or integrate it to another running CDN service.
+> 4. When a CDN service integrated with a certificate is deleted, the certificate cannot be renewed.
+>       - Integrate it to another running CDN service before deleting.
+> 5. The nameserver (NS) and DNS settings of the certificate domain must be maintained normally.
+>       - If a DNS error occurs (such as incorrect nameserver, unavailable CAA response), certificate issuance/renewal may fail, and if the error persists, the certificate may automatically expire.
 
 When certificate is fully integration with CDN, the certificate status shows 'Activated'.
 ![Activated Status of Certificate](https://static.toastoven.net/prod_cdn/v2/en/console-certificate-active_202403.png)
