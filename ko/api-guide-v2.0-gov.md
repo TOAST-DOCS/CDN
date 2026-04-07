@@ -879,6 +879,510 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 ### 캐시 재배포(Purge) 조회
 - API v2.0을 통한 캐시 재배포 시, 고속 캐시 재배포가 수행되어 요청 후 수 초 이내에 완료되므로 캐시 재배포 상태를 조회하는 API가 별도로 제공되지 않습니다.
 
+
+## 도메인 별칭 API
+
+### 도메인 별칭 등록
+
+#### 요청
+
+[URI]
+
+| 메서드  | URI                                          |
+| ---- | -------------------------------------------- |
+| POST | /v2.0/appKeys/{appKey}/alias-domains         |
+
+
+[요청 본문]
+
+```json
+{
+    "domain": "cdn.example.com"
+}
+```
+
+[필드]
+
+| 이름              | 타입     | 필수 여부 | 기본값  | 유효 범위                   | 설명                                                                                     |
+| --------------- | ------ | ----- | ---- | ----------------------- | -------------------------------------------------------------------------------------- |
+| domain          | String | 필수    |      | FQDN 형식, 최소 4자~최대 253자 | 등록할 도메인(전체 도메인 주소 형식으로 입력, toastcdn.net 도메인은 사용 불가)                                    |
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "REQUEST_ACCEPTED",
+        "validationScope": "HOST",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+        "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpContent": "exampleToken.exampleContent",
+        "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
+        "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+        "validationCompleteDatetime": null,
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-04-17T10:30:00.000+09:00"
+    }
+}
+```
+
+
+[필드]
+
+| 필드                                  | 타입      | 설명                                                                 |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header                              | Object  | 헤더 영역                                                              |
+| header.isSuccessful                 | Boolean | 성공 여부                                                              |
+| header.resultCode                   | Integer | 결과 코드                                                              |
+| header.resultMessage                | String  | 결과 메시지                                                             |
+| domain                              | Object  | 등록된 도메인 별칭 오브젝트                                                    |
+| domain.aliasDomainDomSeq            | Integer | 도메인 별칭 ID                                                          |
+| domain.domain                       | String  | 등록된 도메인                                                            |
+| domain.validationStatus             | String  | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
+| domain.validationScope              | String  | 검증 범위                                  |
+| domain.validationTxtName            | String  | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
+| domain.validationTxtValue           | String  | DNS TXT 레코드 추가 방식의 레코드값                                            |
+| domain.validationHttpPath           | String  | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
+| domain.validationHttpContent        | String  | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
+| domain.validationHttpRedirectFrom   | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
+| domain.validationHttpRedirectTo     | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
+| domain.validationExpireDatetime     | DateTime | 검증 토큰 만료 일시                                                        |
+| domain.validationCompleteDatetime   | DateTime | 검증 완료 일시                                                            |
+| domain.distributionSeq              | Integer | 연동된 CDN 서비스 ID                                                      |
+| domain.distribution                 | Object  | 연동된 CDN 서비스 정보                                                      |
+| domain.distribution.domain          | String  | CDN 서비스 도메인                                                         |
+| domain.distribution.status          | String  | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
+| domain.createdAt                    | DateTime | 생성 일시                                                              |
+| domain.updatedAt                    | DateTime | 변경 일시                                                              |
+
+
+### 도메인 별칭 목록 조회
+
+#### 요청
+
+[URI]
+
+| 메서드 | URI                                          |
+| --- | -------------------------------------------- |
+| GET | /v2.0/appKeys/{appKey}/alias-domains         |
+
+
+[파라미터]
+
+| 이름     | 타입      | 필수 여부 | 유효 범위                                                                       | 설명                                       |
+| ------ | ------- | ----- | --------------------------------------------------------------------------- | ---------------------------------------- |
+| domain | String  | 선택    | 최대 253자                                                                     | 조회할 도메인                                  |
+| status | String  | 선택    | REQUEST_ACCEPTED, VALIDATION_IN_PROGRESS, VALIDATED, TOKEN_EXPIRED | 검증 상태 코드(,로 여러 상태 입력 가능)                |
+| page   | Integer | 선택    | 기본값: 1                                                                      | 페이지 번호                                   |
+| limit  | Integer | 선택    | 기본값: 10, 최대: 1000                                                           | 페이지당 조회 건수                               |
+
+[예]
+```
+curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains?status=VALIDATED&page=1&limit=10" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "paging": {
+        "page": 1,
+        "limit": 10,
+        "totalCount": 1
+    },
+    "domains": [
+        {
+            "aliasDomainDomSeq": 1,
+            "domain": "cdn.example.com",
+            "validationStatus": "VALIDATED",
+            "validationScope": "HOST",
+            "validationTxtName": "_acme-challenge.cdn.example.com.",
+            "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+            "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+            "validationHttpContent": "exampleToken.exampleContent",
+            "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+            "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
+            "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+            "validationCompleteDatetime": "2025-04-18T12:00:00.000+09:00",
+            "distributionSeq": null,
+            "distribution": null,
+            "createdAt": "2025-04-17T10:30:00.000+09:00",
+            "updatedAt": "2025-04-18T12:00:00.000+09:00"
+        }
+    ]
+}
+```
+
+
+[필드]
+
+| 필드                                    | 타입       | 설명                                                                 |
+| ------------------------------------- | -------- | ------------------------------------------------------------------ |
+| header                                | Object   | 헤더 영역                                                              |
+| header.isSuccessful                   | Boolean  | 성공 여부                                                              |
+| header.resultCode                     | Integer  | 결과 코드                                                              |
+| header.resultMessage                  | String   | 결과 메시지                                                             |
+| paging                                | Object   | 페이징 영역                                                             |
+| paging.page                           | Integer  | 페이지 번호                                                             |
+| paging.limit                          | Integer  | 페이지당 조회 건수                                                         |
+| paging.totalCount                     | Integer  | 전체 건수                                                              |
+| domains                               | List     | 도메인 별칭 오브젝트 목록                                                     |
+| domains[0].aliasDomainDomSeq          | Integer  | 도메인 별칭 ID                                                          |
+| domains[0].domain                     | String   | 등록된 도메인                                                            |
+| domains[0].validationStatus           | String   | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
+| domains[0].validationScope            | String   | 검증 범위("HOST": 호스트, "DOMAIN": 도메인)                                  |
+| domains[0].validationTxtName          | String   | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
+| domains[0].validationTxtValue         | String   | DNS TXT 레코드 추가 방식의 레코드값                                            |
+| domains[0].validationHttpPath         | String   | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
+| domains[0].validationHttpContent      | String   | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
+| domains[0].validationHttpRedirectFrom | String   | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
+| domains[0].validationHttpRedirectTo   | String   | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
+| domains[0].validationExpireDatetime   | DateTime | 검증 토큰 만료 일시                                                        |
+| domains[0].validationCompleteDatetime | DateTime | 검증 완료 일시                                                            |
+| domains[0].distributionSeq            | Integer  | 연동된 CDN 서비스 ID                                                      |
+| domains[0].distribution               | Object   | 연동된 CDN 서비스 정보                                                      |
+| domains[0].distribution.domain        | String   | CDN 서비스 도메인                                                         |
+| domains[0].distribution.status        | String   | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
+| domains[0].createdAt                  | DateTime | 생성 일시                                                              |
+| domains[0].updatedAt                  | DateTime | 변경 일시                                                              |
+
+
+### 도메인 별칭 삭제
+
+#### 요청
+
+[URI]
+
+| 메서드    | URI                                                        |
+| ------ | ---------------------------------------------------------- |
+| DELETE | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}   |
+
+
+[파라미터]
+
+| 이름                | 타입      | 필수 여부 | 유효 범위 | 설명          |
+| ----------------- | ------- | ----- | ----- | ----------- |
+| aliasDomainDomSeq | Integer | 필수    |       | 도메인 별칭 ID  |
+
+
+[예]
+```
+curl -X DELETE "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+
+
+[필드]
+
+| 필드                   | 타입      | 설명     |
+| -------------------- | ------- | ------ |
+| header               | Object  | 헤더 영역  |
+| header.isSuccessful  | Boolean | 성공 여부  |
+| header.resultCode    | Integer | 결과 코드  |
+| header.resultMessage | String  | 결과 메시지 |
+
+- CDN 서비스에 연동된 도메인은 삭제할 수 없습니다. CDN 서비스에서 도메인 별칭 연동을 해제한 후 삭제해 주세요.
+
+
+### 도메인 검증 실행
+
+#### 요청
+
+[URI]
+
+| 메서드  | URI                                                                    |
+| ---- | ---------------------------------------------------------------------- |
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/validate      |
+
+
+[요청 본문]
+
+```json
+{
+    "validationMethod": "DNS_TXT"
+}
+```
+
+[필드]
+
+| 이름               | 타입     | 필수 여부 | 기본값 | 유효 범위          | 설명                                                            |
+| ---------------- | ------ | ----- | --- | -------------- | ------------------------------------------------------------- |
+| validationMethod | String | 필수    |     | DNS_TXT, HTTP  | 검증 방식("DNS_TXT": DNS TXT 레코드 추가 방식, "HTTP": HTTP 파일 또는 리다이렉트 인증 방식) |
+
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "VALIDATION_IN_PROGRESS",
+        "validationScope": "HOST",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+        "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpContent": "exampleToken.exampleContent",
+        "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
+        "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+        "validationCompleteDatetime": null,
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-04-17T14:00:00.000+09:00"
+    }
+}
+```
+
+[필드]
+
+| 필드                                  | 타입      | 설명                                                                 |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header                              | Object  | 헤더 영역                                                              |
+| header.isSuccessful                 | Boolean | 성공 여부                                                              |
+| header.resultCode                   | Integer | 결과 코드                                                              |
+| header.resultMessage                | String  | 결과 메시지                                                             |
+| domain                              | Object  | 도메인 별칭 오브젝트                                                        |
+| domain.aliasDomainDomSeq            | Integer | 도메인 별칭 ID                                                          |
+| domain.domain                       | String  | 등록된 도메인                                                            |
+| domain.validationStatus             | String  | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
+| domain.validationScope              | String  | 검증 범위                                  |
+| domain.validationTxtName            | String  | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
+| domain.validationTxtValue           | String  | DNS TXT 레코드 추가 방식의 레코드값                                            |
+| domain.validationHttpPath           | String  | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
+| domain.validationHttpContent        | String  | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
+| domain.validationHttpRedirectFrom   | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
+| domain.validationHttpRedirectTo     | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
+| domain.validationExpireDatetime     | DateTime | 검증 토큰 만료 일시                                                        |
+| domain.validationCompleteDatetime   | DateTime | 검증 완료 일시                                                            |
+| domain.distributionSeq              | Integer | 연동된 CDN 서비스 ID                                                      |
+| domain.distribution                 | Object  | 연동된 CDN 서비스 정보                                                      |
+| domain.distribution.domain          | String  | CDN 서비스 도메인                                                         |
+| domain.distribution.status          | String  | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
+| domain.createdAt                    | DateTime | 생성 일시                                                              |
+| domain.updatedAt                    | DateTime | 변경 일시                                                              |
+
+- 도메인 검증을 실행하기 전에 DNS TXT 레코드 추가 또는 HTTP 파일/리다이렉트 설정을 먼저 완료해야 합니다.
+- 검증 토큰이 만료된 경우 검증 실행이 불가합니다. 토큰 재발급 API로 새 토큰을 발급받은 후 다시 검증을 진행해 주세요.
+
+
+### 도메인 검증 상태 새로고침
+
+#### 요청
+
+[URI]
+
+| 메서드  | URI                                                                    |
+| ---- | ---------------------------------------------------------------------- |
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/refresh       |
+
+
+[예]
+```
+curl -X POST "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/refresh" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "VALIDATED",
+        "validationScope": "HOST",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+        "validationHttpPath": null,
+        "validationHttpContent": null,
+        "validationHttpRedirectFrom": null,
+        "validationHttpRedirectTo": null,
+        "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+        "validationCompleteDatetime": "2025-04-18T12:00:00.000+09:00",
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-04-18T12:00:00.000+09:00"
+    }
+}
+```
+
+[필드]
+
+| 필드                                  | 타입      | 설명                                                                 |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header                              | Object  | 헤더 영역                                                              |
+| header.isSuccessful                 | Boolean | 성공 여부                                                              |
+| header.resultCode                   | Integer | 결과 코드                                                              |
+| header.resultMessage                | String  | 결과 메시지                                                             |
+| domain                              | Object  | 도메인 별칭 오브젝트                                                        |
+| domain.aliasDomainDomSeq            | Integer | 도메인 별칭 ID                                                          |
+| domain.domain                       | String  | 등록된 도메인                                                            |
+| domain.validationStatus             | String  | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
+| domain.validationScope              | String  | 검증 범위                                  |
+| domain.validationTxtName            | String  | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
+| domain.validationTxtValue           | String  | DNS TXT 레코드 추가 방식의 레코드값                                            |
+| domain.validationHttpPath           | String  | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
+| domain.validationHttpContent        | String  | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
+| domain.validationHttpRedirectFrom   | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
+| domain.validationHttpRedirectTo     | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
+| domain.validationExpireDatetime     | DateTime | 검증 토큰 만료 일시                                                        |
+| domain.validationCompleteDatetime   | DateTime | 검증 완료 일시                                                            |
+| domain.distributionSeq              | Integer | 연동된 CDN 서비스 ID                                                      |
+| domain.distribution                 | Object  | 연동된 CDN 서비스 정보                                                      |
+| domain.distribution.domain          | String  | CDN 서비스 도메인                                                         |
+| domain.distribution.status          | String  | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
+| domain.createdAt                    | DateTime | 생성 일시                                                              |
+| domain.updatedAt                    | DateTime | 변경 일시                                                              |
+
+
+### 검증 토큰 재발급
+
+#### 요청
+
+[URI]
+
+| 메서드  | URI                                                                    |
+| ---- | ---------------------------------------------------------------------- |
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/reissue       |
+
+
+[예]
+```
+curl -X POST "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/reissue" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### 응답
+
+[응답 본문]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "REQUEST_ACCEPTED",
+        "validationScope": "HOST",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "newReissuedTokenValue",
+        "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/newToken",
+        "validationHttpContent": "newToken.newContent",
+        "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/newToken",
+        "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/newToken",
+        "validationExpireDatetime": "2025-05-15T00:00:00.000+09:00",
+        "validationCompleteDatetime": null,
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-05-01T10:00:00.000+09:00"
+    }
+}
+```
+
+[필드]
+
+| 필드                                  | 타입      | 설명                                                                 |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header                              | Object  | 헤더 영역                                                              |
+| header.isSuccessful                 | Boolean | 성공 여부                                                              |
+| header.resultCode                   | Integer | 결과 코드                                                              |
+| header.resultMessage                | String  | 결과 메시지                                                             |
+| domain                              | Object  | 도메인 별칭 오브젝트                                                        |
+| domain.aliasDomainDomSeq            | Integer | 도메인 별칭 ID                                                          |
+| domain.domain                       | String  | 등록된 도메인                                                            |
+| domain.validationStatus             | String  | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
+| domain.validationScope              | String  | 검증 범위                                  |
+| domain.validationTxtName            | String  | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
+| domain.validationTxtValue           | String  | DNS TXT 레코드 추가 방식의 레코드값                                            |
+| domain.validationHttpPath           | String  | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
+| domain.validationHttpContent        | String  | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
+| domain.validationHttpRedirectFrom   | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
+| domain.validationHttpRedirectTo     | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
+| domain.validationExpireDatetime     | DateTime | 검증 토큰 만료 일시                                                        |
+| domain.validationCompleteDatetime   | DateTime | 검증 완료 일시                                                            |
+| domain.distributionSeq              | Integer | 연동된 CDN 서비스 ID                                                      |
+| domain.distribution                 | Object  | 연동된 CDN 서비스 정보                                                      |
+| domain.distribution.domain          | String  | CDN 서비스 도메인                                                         |
+| domain.distribution.status          | String  | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
+| domain.createdAt                    | DateTime | 생성 일시                                                              |
+| domain.updatedAt                    | DateTime | 변경 일시                                                              |
+
+- 토큰이 재발급되면 이전 검증 정보는 초기화되며, 새 토큰 정보로 다시 검증을 진행해야 합니다.
+- 검증 토큰이 만료(TOKEN_EXPIRED)된 경우 이 API를 호출하여 새 토큰을 발급받을 수 있습니다.
+
+#### 도메인 별칭 검증 상태 코드
+
+다음은 도메인 별칭의 검증 상태를 나타내는 상태 코드로, 도메인 별칭 조회 시 검증 상태를 확인할 수 있습니다.
+
+| 값                      | 설명                               |
+| ---------------------- | -------------------------------- |
+| REQUEST_ACCEPTED       | 도메인이 등록되어 검증 대기 중                |
+| VALIDATION_IN_PROGRESS | 도메인 소유권 검증이 진행 중                 |
+| VALIDATED              | 도메인 소유권 검증 완료, CDN 서비스 연동 가능     |
+| TOKEN_EXPIRED          | 검증 토큰 만료, 토큰 재발급 후 다시 검증 필요     |
+
+
 ## 인증서 API
 ### 신규 인증서 발급
 #### 요청
