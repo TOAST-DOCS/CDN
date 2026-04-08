@@ -366,7 +366,7 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 
 [예]
 ```
-curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
+curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -878,6 +878,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 ### 캐시 재배포(Purge) 조회
 - API v2.0을 통한 캐시 재배포 시, 고속 캐시 재배포가 수행되어 요청 후 수 초 이내에 완료되므로 캐시 재배포 상태를 조회하는 API가 별도로 제공되지 않습니다.
 
+<a id="alias_domain_api"></a>
 ## 도메인 별칭 API
 
 ### 도메인 별칭 등록
@@ -920,7 +921,6 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
         "aliasDomainDomSeq": 1,
         "domain": "cdn.example.com",
         "validationStatus": "REQUEST_ACCEPTED",
-        "validationScope": "HOST",
         "validationTxtName": "_acme-challenge.cdn.example.com.",
         "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
         "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
@@ -929,8 +929,6 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
         "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
         "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
         "validationCompleteDatetime": null,
-        "distributionSeq": null,
-        "distribution": null,
         "createdAt": "2025-04-17T10:30:00.000+09:00",
         "updatedAt": "2025-04-17T10:30:00.000+09:00"
     }
@@ -989,7 +987,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 [예]
 ```
-curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains?status=VALIDATED&page=1&limit=10" \
+curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains?status=VALIDATED&page=1&limit=10" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -1015,7 +1013,6 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias
             "aliasDomainDomSeq": 1,
             "domain": "cdn.example.com",
             "validationStatus": "VALIDATED",
-            "validationScope": "HOST",
             "validationTxtName": "_acme-challenge.cdn.example.com.",
             "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
             "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
@@ -1050,7 +1047,6 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias
 | domains[0].aliasDomainDomSeq          | Integer  | 도메인 별칭 ID                                                          |
 | domains[0].domain                     | String   | 등록된 도메인                                                            |
 | domains[0].validationStatus           | String   | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
-| domains[0].validationScope            | String   | 검증 범위("HOST": 호스트, "DOMAIN": 도메인)                                  |
 | domains[0].validationTxtName          | String   | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
 | domains[0].validationTxtValue         | String   | DNS TXT 레코드 추가 방식의 레코드값                                            |
 | domains[0].validationHttpPath         | String   | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
@@ -1087,7 +1083,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias
 
 [예]
 ```
-curl -X DELETE "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}" \
+curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -1125,9 +1121,9 @@ curl -X DELETE "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/al
 
 [URI]
 
-| 메서드  | URI                                                                    |
-| ---- | ---------------------------------------------------------------------- |
-| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/validate      |
+| 메서드  | URI                                                                     |
+| ---- |-------------------------------------------------------------------------|
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/validate |
 
 
 [요청 본문]
@@ -1160,7 +1156,6 @@ curl -X DELETE "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/al
         "aliasDomainDomSeq": 1,
         "domain": "cdn.example.com",
         "validationStatus": "VALIDATION_IN_PROGRESS",
-        "validationScope": "HOST",
         "validationTxtName": "_acme-challenge.cdn.example.com.",
         "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
         "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
@@ -1216,13 +1211,13 @@ curl -X DELETE "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/al
 [URI]
 
 | 메서드  | URI                                                                    |
-| ---- | ---------------------------------------------------------------------- |
-| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/refresh       |
+| ---- |------------------------------------------------------------------------|
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/refresh |
 
 
 [예]
 ```
-curl -X POST "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/refresh" \
+curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/refresh" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -1242,7 +1237,6 @@ curl -X POST "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alia
         "aliasDomainDomSeq": 1,
         "domain": "cdn.example.com",
         "validationStatus": "VALIDATED",
-        "validationScope": "HOST",
         "validationTxtName": "_acme-challenge.cdn.example.com.",
         "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
         "validationHttpPath": null,
@@ -1295,13 +1289,13 @@ curl -X POST "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alia
 [URI]
 
 | 메서드  | URI                                                                    |
-| ---- | ---------------------------------------------------------------------- |
-| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/reissue       |
+| ---- |------------------------------------------------------------------------|
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/reissue |
 
 
 [예]
 ```
-curl -X POST "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/reissue" \
+curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/reissue" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -1321,7 +1315,6 @@ curl -X POST "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alia
         "aliasDomainDomSeq": 1,
         "domain": "cdn.example.com",
         "validationStatus": "REQUEST_ACCEPTED",
-        "validationScope": "HOST",
         "validationTxtName": "_acme-challenge.cdn.example.com.",
         "validationTxtValue": "newReissuedTokenValue",
         "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/newToken",
@@ -1543,7 +1536,7 @@ curl -X POST "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alia
 
 [예]
 ```
-curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
+curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
