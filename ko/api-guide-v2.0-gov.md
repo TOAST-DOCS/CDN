@@ -26,22 +26,22 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 
 | 이름            | 설명                        |
 | ------------- | ------------------------- |
-| Authorization | 콘솔에서 발급 받은 보안 키(SecretKey) |
+| Authorization | 콘솔에서 발급받은 보안 키(SecretKey) |
 
 #### Path 파라미터
 
 모든 API는 앱키를 path 파라미터로 지정해야 합니다.
-* 예) /v2.0/appKeys/**{appKey}**/distributions
+* 예: /v2.0/appKeys/{appKey}/distributions
 
 | 이름     | 설명                    |
 | ------ | --------------------- |
-| appKey | 콘솔에서 발급 받은 앱키(Appkey) |
+| appKey | 콘솔에서 발급받은 앱키(Appkey) |
 
 ### 응답 공통 정보
 
 #### 헤더
 
-모든 API 요청에 대해서 **200 OK**로 응답합니다. 자세한 응답 결과는 다음의 예와 같이 응답 본문의 헤더를 참고합니다.
+모든 API 요청에 대해서 `200 OK`로 응답합니다. 자세한 응답 결과는 다음의 예와 같이 응답 본문의 헤더를 참고합니다.
 
 ```json
 {
@@ -190,7 +190,7 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | distributions[0].isAllowDelete                                                        | Boolean | 선택    | false       | true/false                                                            | DELETE 메서드 허용(true)/거부(false) 여부                                                                                          |
 | distributions[0].useLargeFileOptimization                                             | Boolean | 선택    | false       | true/false                                                            | 대용량 파일 최적화 설정 사용 여부                                                                                                       |
 | distributions[0].description                                                          | String  | 선택    |             | 최대 255자                                                               | 설명                                                                                                                        |
-| distributions[0].domainAlias                                                          | List    | 선택    |             |                                                                       | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)                                                                                           |
+| distributions[0].domainAlias                                                          | List    | 선택    |             |                                                                       | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)                                                                                           |
 | distributions[0].defaultMaxAge                                                        | Integer | 선택    | 0           | 0~2,147,483,647                                                       | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.                                                                                          |
 | distributions[0].cacheKeyQueryParam                                                   | String  | 선택    | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                                               | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함)                                                     |
 | distributions[0].origins                                                              | List    | 필수    |             |                                                                       | 원본 서버 오브젝트 목록                                                                                                             |
@@ -210,11 +210,11 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 선택    |         | ACCESS_CONTROL_ALLOW_CREDENTIALS<br/>ACCESS_CONTROL_ALLOW_HEADERS<br/>ACCESS_CONTROL_ALLOW_METHODS<br/>ACCESS_CONTROL_ALLOW_ORIGIN<br/>ACCESS_CONTROL_EXPOSE_HEADERS<br/>ACCESS_CONTROL_MAX_AGE<br/>CACHE_CONTROL<br/>CONTENT_DISPOSITION<br/>CONTENT_TYPE<br/>P3P<br/>PRAGMA<br/>OTHER | 일반 HTTP 응답 헤더 이름                                                                                                          |
 | distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | 선택    |         |                                                      | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름                                                               |
 | distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | 필수    |         |                                                      | HTTP 응답 헤더 값                                                                                                              |
-| distributions[0].callback                                                             | Object  | 선택    |             |                                                                       | CDN 생성 처리 결과를 통보 받을 콜백 URL(콜백 설정은 선택 입력입니다.)                                                                               |
+| distributions[0].callback                                                             | Object  | 선택    |             |                                                                       | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.)                                                                               |
 | distributions[0].callback.httpMethod                                                  | String  | 필수    |             | GET/POST/PUT                                                          | 콜백의 HTTP 메서드                                                                                                              |
 | distributions[0].callback.url                                                         | String  | 필수    |             | 최대 1024자                                                              | 콜백 URL                                                                                                                    |
 
-- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다. 
+- `forwardHostHeader`의 기본값은 `domainAlias`를 설정한 경우 `REQUEST_HOST_HEADER`이고, 설정하지 않으면 `ORIGIN_HOSTNAME`입니다. 
 
 
 
@@ -305,7 +305,7 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | header.resultMessage                   | String  | 결과 메시지                                                |
 | distributions                          | List    | 생성된 CDN 오브젝트 목록                                 |
 | distributions[0].domain                | String  | 생성된 도메인(서비스) 이름                                 |
-| distributions[0].domainAlias           | List    | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)            |
+| distributions[0].domainAlias           | List    | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)            |
 | distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)          |
 | distributions[0].description           | String  | 설명                                                       |
 | distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                               |
@@ -327,7 +327,7 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | distributions[0].origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                             |
 | distributions[0].origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                             |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정 |
+| distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정) |
 | distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
 | distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부        |
 | distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
@@ -340,7 +340,7 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 일반 HTTP 응답 헤더 이름 |
 | distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름 |
 | distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | HTTP 응답 헤더 값 |
-| distributions[0].callback              | Object  | 서비스 생성 처리 결과를 통보 받을 콜백                      |
+| distributions[0].callback              | Object  | 서비스 생성 처리 결과를 통보받을 콜백                      |
 | distributions[0].callback.httpMethod   | String  | 콜백의 HTTP 메서드                                         |
 | distributions[0].callback.url          | String  | 콜백 URL                                                   |
 
@@ -390,7 +390,6 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
     "status" : "OPEN",
     "defaultMaxAge" : 86400,
     "cacheKeyQueryParam": "INCLUDE_ALL",
-    "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
     "referrers" :  ["test.com"],
     "isAllowWhenEmptyReferrer" : true,
@@ -450,7 +449,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultMessage                   | String  | 결과 메시지                                                  |
 | distributions                          | List    | 생성된 CDN 오브젝트 목록                                     |
 | distributions[0].domain                | String  | 도메인 이름(서비스 이름)                                     |
-| distributions[0].domainAlias           | List  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)                                                  |
+| distributions[0].domainAlias           | List  | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)                                                  |
 | distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
 | distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
 | distributions[0].defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
@@ -470,9 +469,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
 | distributions[0].origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                  |
 | distributions[0].origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                 |
-| distributions[0].forwardHostHeader     | String  | 서비스 배포 처리 결과를 통보 받을 콜백                        |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정 |
+| distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정) |
 | distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
 | distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
 | distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
@@ -485,7 +483,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 일반 HTTP 응답 헤더 이름 |
 | distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름 |
 | distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | HTTP 응답 헤더 값 |
-| distributions[0].callback              | Object  | 서비스 배포 처리 결과를 통보 받을 콜백                        |
+| distributions[0].callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distributions[0].callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
 | distributions[0].callback.url          | String  | 콜백 URL                                                     |
 
@@ -580,7 +578,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | isAllowDelete         | Boolean | 선택      | false      | true/false             | DELETE 메서드 허용(true)/거부(false) 여부             |
 | useLargeFileOptimization | Boolean | 선택   | false      | true/false             | 대용량 파일 최적화 설정 사용 여부     |
 | description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
-| domainAlias           | List    | 선택      |        | 최대 255자                                                   | 도메인 별칭(개인 혹은 회사가 소유한 도메인 사용) |
+| domainAlias           | List    | 선택      |        | 최대 255자                                                   | 도메인 별칭(개인 또는 회사가 소유한 도메인 사용) |
 | defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647                                            | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.              |
 | cacheKeyQueryParam    | String  | 선택      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                               | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
 | origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
@@ -603,11 +601,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 선택    |         | ACCESS_CONTROL_ALLOW_CREDENTIALS<br/>ACCESS_CONTROL_ALLOW_HEADERS<br/>ACCESS_CONTROL_ALLOW_METHODS<br/>ACCESS_CONTROL_ALLOW_ORIGIN<br/>ACCESS_CONTROL_EXPOSE_HEADERS<br/>ACCESS_CONTROL_MAX_AGE<br/>CACHE_CONTROL<br/>CONTENT_DISPOSITION<br/>CONTENT_TYPE<br/>P3P<br/>PRAGMA<br/>OTHER | 일반 HTTP 응답 헤더 이름                                                                                                          |
 | modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | 선택    |         |                                                      | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름                                                               |
 | modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | 필수    |         |                                                      | HTTP 응답 헤더 값                                                                                                              |
-| callback              | Object  | 선택      |        | CDN 서비스 배포 결과를 통보 받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
+| callback              | Object  | 선택      |        |                                                              | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |
 | callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                                                 | 콜백의 HTTP 메서드                                           |
 | callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                                                     |
 
-- forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다. 
+- `forwardHostHeader`의 기본값은 `domainAlias`를 설정한 경우 `REQUEST_HOST_HEADER`이고, 설정하지 않으면 `ORIGIN_HOSTNAME`입니다. 
 
 #### 응답
 
@@ -663,7 +661,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | ------- | ------ | ----- | ---- | ----- | --------------------- |
 | domains | String | 필수    |      |       | 삭제할 도메인, 여러 도메인 입력 가능 |
 
-**\* 여러 도메인 입력 시, 해당하는 서비스는 모두 종료됩니다.**
+> [주의] 여러 도메인을 입력하면 해당하는 서비스는 모두 종료됩니다.
 
 #### 응답
 
@@ -722,14 +720,14 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 
 | 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| encryptKey    | String | 필수   |        |             | NHN Cloud CDN 콘솔에 표시된 Auth Token 인증 제어 관리 > 토큰 암호화 키 |
+| encryptKey    | String | 필수   |        |             | NHN Cloud CDN 콘솔에 표시된 Auth Token 인증 접근 관리 > 토큰 암호화 키 |
 | durationSeconds | Integer | 필수 |        | 0~2,147,483,647 | 생성된 토큰이 유효한 시간(초) |
 | singlePath      | String | 선택 |        |             | 생성된 토큰을 이용하여 접근할 단일 경로 |
 | singleWildcardPath | String | 선택 |     |             | 생성된 토큰을 이용하여 접근할 단일 와일드카드 경로 |
 | multipleWildcardPath | String | 선택 |   |             | 생성된 토큰을 이용하여 접근할 여러 개의 와일드카드 경로 |
 | sessionId |           String | 선택 |    |  문자열 길이 최대 36바이트           | 단일 접근 요청에 대해 sessionId를 포함하여 토큰을 생성 |
 
-* singlePath, singleWildcardPath, multipleWildcardPath 중 하나 이상의 값이 필수로 존재해야 합니다.
+* `singlePath`, `singleWildcardPath`, `multipleWildcardPath` 중 하나 이상의 값이 필수로 존재해야 합니다.
 * 토큰 생성 및 사용에 대한 상세한 내용은 [콘솔 사용 가이드 > Auth Token 인증 접근 관리 > 2. 토큰 생성](./console-guide-gov/#auth-token)을 참고하세요.
 
 
@@ -874,7 +872,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | 결과 메시지    |
 
 - CDN 서비스를 신규로 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 계속되면 고객 센터로 문의하세요.
-- 퍼지 API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide-gov/#cdn-purge)의 캐시 재배포 사용량 제한] 내용을 확인하세요.
+- Purge API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide-gov/#cdn-purge)의 '캐시 재배포 사용량 제한' 내용을 확인하세요.
 
 ### 캐시 재배포(Purge) 조회
 - API v2.0을 통한 캐시 재배포 시, 고속 캐시 재배포가 수행되어 요청 후 수 초 이내에 완료되므로 캐시 재배포 상태를 조회하는 API가 별도로 제공되지 않습니다.
@@ -1363,7 +1361,7 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | domain.updatedAt                    | DateTime | 변경 일시                                                              |
 
 - 토큰이 재발급되면 이전 검증 정보는 초기화되며, 새 토큰 정보로 다시 검증을 진행해야 합니다.
-- 검증 토큰이 만료(TOKEN_EXPIRED)된 경우 이 API를 호출하여 새 토큰을 발급받을 수 있습니다.
+- 검증 토큰이 만료(`TOKEN_EXPIRED`)된 경우 이 API를 호출하여 새 토큰을 발급받을 수 있습니다.
 
 #### 도메인 별칭 검증 상태 코드
 
@@ -1403,9 +1401,9 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 
 | 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| certificateDomain    | String | 필수      |        | 최대 255자            | 신규 인증서를 발급하고자 하는 도메인(전체 도메인 주소 형식으로 입력)|
-| callbackHttpMethod  | String | 선택      |        | GET/POST/PUT        | 인증서 생성 처리 결과를 통보 받을 콜백의 HTTP 메서드 |
-| callbackUrl         | String | 선택      |        | 최대 1024자           | 인증서 생성 처리 결과를 통보 받을 콜백 URL       |
+| certificateDomain    | String | 필수      |        | 최대 255자            | 신규 인증서를 발급할 도메인(전체 도메인 주소 형식으로 입력)|
+| callbackHttpMethod  | String | 선택      |        | GET/POST/PUT        | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
+| callbackUrl         | String | 선택      |        | 최대 1024자           | 인증서 생성 처리 결과를 통보받을 콜백 URL       |
 
 * 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide-gov/#_9)을 참고하세요.
 
@@ -1451,8 +1449,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | certificates[0].sanDnsId | String | 인증서 ID    |
 | certificates[0].dnsName  | String | 인증서 도메인  |
 | certificates[0].dnsStatus | String | 인증서 발급 상태 코드([표] 인증서 발급 상태 코드 참고) |
-| certificates[0].callbackHttpMethod | String | 인증서 생성 처리 결과를 통보 받을 콜백의 HTTP 메서드 |
-| certificates[0].callbackUrl | String | 인증서 생성 처리 결과를 통보 받을 콜백 URL |
+| certificates[0].callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
+| certificates[0].callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
 | certificates[0].createDatetime | DateTime | 인증서 생성 일시 |
 | certificates[0].updateDatetime | DateTime | 인증서 변경 일시 |
 | certificates[0].hasCname | Boolean | CNAME 레코드 설정 여부 |
@@ -1512,8 +1510,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | certificates[0].sanDnsId | String | 인증서 ID    |
 | certificates[0].dnsName  | String | 인증서 도메인  |
 | certificates[0].dnsStatus | String | 인증서 발급 상태 코드([표] 인증서 발급 상태 코드 참고) |
-| certificates[0].callbackHttpMethod | String | 인증서 생성 처리 결과를 통보 받을 콜백의 HTTP 메서드 |
-| certificates[0].callbackUrl | String | 인증서 생성 처리 결과를 통보 받을 콜백 URL |
+| certificates[0].callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
+| certificates[0].callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
 | certificates[0].createDatetime | DateTime | 인증서 생성 일시 |
 | certificates[0].updateDatetime | DateTime | 인증서 변경 일시 |
 | certificates[0].hasCname | Boolean | CNAME 레코드 설정 여부 |
@@ -1645,7 +1643,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution                          | Object    | 변경 작업이 완료된 CDN 오브젝트                                   |
 | distribution.appKey                   | String    | 앱키                                  |
 | distribution.domain                | String  | 도메인 이름(서비스 이름)                                     |
-| distribution.domainAlias           | List  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)                                 |
+| distribution.domainAlias           | List  | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)                                 |
 | distribution.region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
 | distribution.status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
 | distribution.defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
@@ -1661,7 +1659,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                               |
 | distribution.origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                               |
 | distribution.useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distribution.forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정 |
+| distribution.forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정) |
 | distribution.rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
 | distribution.rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
 | distribution.rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
@@ -1674,7 +1672,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 일반 HTTP 응답 헤더 이름 |
 | distribution.modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName | String  | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름 |
 | distribution.modifyOutgoingResponseHeaderControl.headerList[0].headerValue | String  | HTTP 응답 헤더 값 |
-| distribution.callback              | Object  | 서비스 배포 처리 결과를 통보 받을 콜백                        |
+| distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distribution.callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
 | distribution.callback.url          | String  | 콜백 URL                                                     |
 
@@ -1730,5 +1728,5 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | certificate.createDatetime | DateTime | 인증서 생성 일시 |
 | certificate.updateDatetime | DateTime | 인증서 변경 일시 |
 | certificate.deleteDatetime | DateTime | 인증서 삭제 일시 |
-| certificate.callbackHttpMethod | String | 인증서 생성 처리 결과를 통보 받을 콜백의 HTTP 메서드 |
-| certificate.callbackUrl | String | 인증서 생성 처리 결과를 통보 받을 콜백 URL |
+| certificate.callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
+| certificate.callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
