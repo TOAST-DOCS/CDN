@@ -749,7 +749,6 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 
 ### 도메인 등록
 **도메인 별칭** 탭에서 도메인을 등록할 수 있습니다.
-![도메인별칭-도메인등록](https://static.toastoven.net/prod_cdn/v2/console-alias-domain-create_202504.png)
 
 1. **도메인 별칭** 탭의 **도메인 추가** 버튼을 클릭합니다.
 2. 등록할 도메인을 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력합니다(예: cdn.example.com).
@@ -763,7 +762,6 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 등록한 도메인의 소유권을 확인하기 위해 도메인 검증을 진행해야 합니다.  
 도메인 검증 방식에는 DNS TXT 레코드 추가, HTTP 파일 인증, HTTP 리다이렉트 인증 세 가지 방식이 있으며, 세 가지 방식 중 하나만 진행하면 됩니다.  
 **도메인 별칭** 탭에서 등록한 도메인을 선택하면 검증에 필요한 정보와 검증 방법을 확인할 수 있습니다.
-![도메인별칭-도메인검증](https://static.toastoven.net/prod_cdn/v2/console-alias-domain-validation_202504.png)
 
 #### DNS TXT 레코드 추가 방식
 도메인의 DNS 제어 권한을 확인하여 도메인을 검증합니다.
@@ -808,7 +806,6 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 
 ### CDN 서비스에 도메인 별칭 연동
 도메인 검증이 완료되면 CDN 서비스에 도메인 별칭을 연동할 수 있습니다.
-![도메인별칭-CDN서비스연동](https://static.toastoven.net/prod_cdn/v2/console-alias-domain-select_202504.png)
 
 1. **CDN 서비스** 탭에서 연동할 CDN 서비스를 선택하고 **수정** 버튼을 클릭합니다.
 2. **기본 정보**의 **도메인 별칭** 항목에서 검증이 완료된 도메인을 선택합니다.
@@ -829,7 +826,6 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 
 ### 도메인 삭제
 등록한 도메인 별칭을 삭제할 수 있습니다.
-![도메인별칭-도메인삭제](https://static.toastoven.net/prod_cdn/v2/console-alias-domain-delete_202504.png)
 
 1. **도메인 별칭** 탭에서 삭제할 도메인을 선택합니다.
 2. **삭제** 버튼을 클릭합니다.
