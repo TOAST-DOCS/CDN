@@ -29,7 +29,7 @@ For more information on creating and using Project Integrated Appkeys, please re
 #### Path Parameter
 
 In all APIs, the appKey must be specified in the path parameter.
-* Example: /v2.0/appKeys/**{appKey}**/distributions
+* e.g., /v2.0/appKeys/{appKey}/distributions
 
 | Name     | Description                    |
 | ------ | --------------------- |
@@ -39,7 +39,7 @@ In all APIs, the appKey must be specified in the path parameter.
 
 #### Header
 
-The API responds with **200 OK** to all API requests. For more details, see the header at the response body as below:
+The API responds with `200 OK` to all API requests. For more details, see the header at the response body as below:
 
 ```json
 {
@@ -212,7 +212,7 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].callback.httpMethod                                                  | String  | Required    |             | GET/POST/PUT                                                          | HTTP method of callback                                                                                                              |
 | distributions[0].callback.url                                                         | String  | Required    |             | Up to 1024 characters                                                              | Callback URL                                                                                                                    |
 
-- The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise. 
+- The default value of `forwardHostHeader` is `REQUEST_HOST_HEADER` if `domainAlias` is set, or `ORIGIN_HOSTNAME` otherwise. 
 
 
 
@@ -365,7 +365,7 @@ The following are status codes that indicate the certificate issuance status of 
 
 [Example]
 ```
-curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
+curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -467,9 +467,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].origins[0].originPath | String  | Sub-path of origin server                                          |
 | distributions[0].origins[0].httpPort   | Integer | HTTP protocol port of origin server                                  |
 | distributions[0].origins[0].httpsPort  | Integer | HTTPS protocol port of origin server                                 |
-| distributions[0].forwardHostHeader     | String  | Callback to receive service deployment result                        |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to origin server from CDN server, if the origin server can respond only via HTTP |
-| distributions[0].forwardHostHeader     | String  | Set the host header to be forwarded by the CDN server when requesting content to the origin server ("ORIGIN_HOSTNAME": Set to the host name of the origin server, "REQUEST_HOST_HEADER": Set to the host header of the client request) |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean | Whether to use the setting to downgrade HTTPS requests to HTTP requests when the CDN server sends requests to the origin server, if the origin server can only respond via HTTP |
+| distributions[0].forwardHostHeader | String | Host header setting to be delivered when the CDN server requests content from the origin server ("ORIGIN_HOSTNAME": set to the host name of the origin server, "REQUEST_HOST_HEADER": set to the host header of the client request) |
 | distributions[0].rootPathAccessControl  | Object  | Set the access control for the CDN service root path | 
 | distributions[0].rootPathAccessControl.enable | Boolean | Whether the access control for the root path is enabled (true) or disabled (false)          |
 | distributions[0].rootPathAccessControl.controlType  | String  | Required if enable is true. The access control method for the root path. ("DENY": deny access, "REDIRECT": redirect to the specified path) | 
@@ -600,11 +599,11 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | Optional    |         | ACCESS_CONTROL_ALLOW_CREDENTIALS<br/>ACCESS_CONTROL_ALLOW_HEADERS<br/>ACCESS_CONTROL_ALLOW_METHODS<br/>ACCESS_CONTROL_ALLOW_ORIGIN<br/>ACCESS_CONTROL_EXPOSE_HEADERS<br/>ACCESS_CONTROL_MAX_AGE<br/>CACHE_CONTROL<br/>CONTENT_DISPOSITION<br/>CONTENT_TYPE<br/>P3P<br/>PRAGMA<br/>OTHER | General HTTP response header name                                                                                                          |
 | modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | Optional    |         |                                                      | Required if standardHeaderName is "OTHER". Custom HTTP response header name                                                               |
 | modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | Required    |         |                                                      | HTTP response header value                                                                                                              |
-| callback              | Object  | Optional      |        | Callback URL to receive CDN service deployment result (Callback setting is optional.) |                                                              |
+| callback              | Object  | Optional      |        |                                                              | Callback URL to receive CDN service deployment result (Callback setting is optional.) 
 | callback.httpMethod   | String  | Required      |        | GET/POST/PUT                                                 | HTTP method of callback                                           |
 | callback.url          | String  | Required      |        | Up to 1024 characters                                                  | Callback URL                                                     |
 
-- The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise. 
+- The default value of `forwardHostHeader` is `REQUEST_HOST_HEADER` if `domainAlias` is set, or `ORIGIN_HOSTNAME` otherwise. 
 
 #### Response
 
@@ -660,7 +659,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | ------- | ------ | ----- | ---- | ----- | --------------------- |
 | domains | String | Required    |      |       | Domains to delete; multiple domains allowed |
 
-**\* When multiple domains are provided as input, all corresponding services are closed.**
+> [Caution] When multiple domains are provided as input, all corresponding services are closed.
 
 #### Response
 
@@ -726,7 +725,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | multipleWildcardPath | String | Optional |   |             | Multiple wildcard paths to access using the generated token |
 | sessionId |           String | Optional |    |  String length is up to 36 bytes           | Generates token including sessionId for a single access request |
 
-* At least one of singlePath, singleWildcardPath, or multipleWildcardPath must exist.
+* At least one of `singlePath`, `singleWildcardPath`, or `multipleWildcardPath` must exist.
 * For details on creating and using tokens, refer to [Console User Guide > Access Control for Auth Token Authentication > 2. Create a Token](./console-guide/#access-control-for-auth-token-authentication).
 
 
@@ -870,11 +869,507 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | header.resultCode    | Integer | Result code     |
 | header.resultMessage | String  | Result message    |
 
-- Cache purge requests may fail within an hour after the CDN service is newly created. If the failure continues, contact Customer Center.
-- A usage limit policy exists for Purge APIs. For more details, see the cache purge usage limit of [Console User Guide > Purging CDN Cache](./console-guide/#cdn-purge).
+- Cache purge requests may fail within an hour after the CDN service is newly created. If the failure continues, contact Customer Support.
+- A usage limit policy exists for Purge APIs. For more details, see the 'Cache Purge Usage Limit' of [Console User Guide > Purging CDN Cache](./console-guide/#cdn-purge).
 
 ### Query Cache Purge
 - In case of purging cache through API v2.0, high-speed cache purge is performed and completed within a few seconds after request, so an API to query cache purge status is not provided separately.
+
+<a id="alias_domain_api"></a>
+## Alias Domain API
+
+### Register Alias Domain
+
+#### Request
+
+[URI]
+
+| Method | URI |
+| ---- | -------------------------------------------- |
+| POST | /v2.0/appKeys/{appKey}/alias-domains |
+
+
+[Request body]
+
+```json
+{
+    "domain": "cdn.example.com"
+}
+```
+
+[Fields]
+
+| Name | Type | Required | Default | Valid range | Description |
+| --------------- | ------ | ----- | ---- | ----------------------- | -------------------------------------------------------------------------------------- |
+| domain | String | Required | | FQDN format, minimum 4 to maximum 253 characters | Domain to register (enter in full domain address format; toastcdn.net domains cannot be used) |
+
+#### Response
+
+[Response body]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "REQUEST_ACCEPTED",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+        "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpContent": "exampleToken.exampleContent",
+        "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
+        "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+        "validationCompleteDatetime": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-04-17T10:30:00.000+09:00"
+    }
+}
+```
+
+
+[Fields]
+
+| Field | Type | Description |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header | Object | Response header |
+| header.isSuccessful | Boolean | Whether the request was successful |
+| header.resultCode | Integer | Result code |
+| header.resultMessage | String | Result message |
+| domain | Object | Registered alias domain object |
+| domain.aliasDomainDomSeq | Integer | Alias domain ID |
+| domain.domain | String | Registered domain |
+| domain.validationStatus | String | Validation status code (refer to [Table] Alias Domain Validation Status Codes) |
+| domain.validationScope | String | Validation scope |
+| domain.validationTxtName | String | Record name for the DNS TXT record addition method |
+| domain.validationTxtValue | String | Record value for the DNS TXT record addition method |
+| domain.validationHttpPath | String | HTTP page URL for the HTTP file authentication method |
+| domain.validationHttpContent | String | Page content value for the HTTP file authentication method |
+| domain.validationHttpRedirectFrom | String | Redirect source URL for the HTTP redirect authentication method |
+| domain.validationHttpRedirectTo | String | Redirect target URL for the HTTP redirect authentication method |
+| domain.validationExpireDatetime | DateTime | Validation token expiration time |
+| domain.validationCompleteDatetime | DateTime | Validation completion time |
+| domain.distributionSeq | Integer | Integrated CDN service ID |
+| domain.distribution | Object | Integrated CDN service information |
+| domain.distribution.domain | String | CDN service domain |
+| domain.distribution.status | String | CDN service status code (refer to [Table] CDN Status Codes) |
+| domain.createdAt | DateTime | Creation time |
+| domain.updatedAt | DateTime | Last modified time |
+
+
+### List Alias Domains
+
+#### Request
+
+[URI]
+
+| Method | URI |
+| --- | -------------------------------------------- |
+| GET | /v2.0/appKeys/{appKey}/alias-domains |
+
+
+[Parameters]
+
+| Name | Type | Required | Valid range | Description |
+| ------ | ------- | ----- | --------------------------------------------------------------------------- | ---------------------------------------- |
+| domain | String | Optional | Maximum 253 characters | Domain to retrieve |
+| status | String | Optional | REQUEST_ACCEPTED, VALIDATION_IN_PROGRESS, VALIDATED, TOKEN_EXPIRED | Validation status code (multiple statuses can be entered with commas) |
+| page | Integer | Optional | Default: 1 | Page number |
+| limit | Integer | Optional | Default: 10, maximum: 1,000 | Number of items to display per page |
+
+[Example]
+```
+curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains?status=VALIDATED&page=1&limit=10" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### Response
+
+[Response body]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "paging": {
+        "page": 1,
+        "limit": 10,
+        "totalCount": 1
+    },
+    "domains": [
+        {
+            "aliasDomainDomSeq": 1,
+            "domain": "cdn.example.com",
+            "validationStatus": "VALIDATED",
+            "validationTxtName": "_acme-challenge.cdn.example.com.",
+            "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+            "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+            "validationHttpContent": "exampleToken.exampleContent",
+            "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+            "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
+            "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+            "validationCompleteDatetime": "2025-04-18T12:00:00.000+09:00",
+            "distributionSeq": null,
+            "distribution": null,
+            "createdAt": "2025-04-17T10:30:00.000+09:00",
+            "updatedAt": "2025-04-18T12:00:00.000+09:00"
+        }
+    ]
+}
+```
+
+
+[Fields]
+
+| Field | Type | Description |
+| ------------------------------------- | -------- | ------------------------------------------------------------------ |
+| header | Object | Response header |
+| header.isSuccessful | Boolean | Whether the request was successful |
+| header.resultCode | Integer | Result code |
+| header.resultMessage | String | Result message |
+| paging | Object | Paging area |
+| paging.page | Integer | Page number |
+| paging.limit | Integer | Number of items to display per page |
+| paging.totalCount | Integer | Total count |
+| domains | List | List of alias domain objects |
+| domains[0].aliasDomainDomSeq | Integer | Alias domain ID |
+| domains[0].domain | String | Registered domain |
+| domains[0].validationStatus | String | Validation status code (refer to [Table] Alias Domain Validation Status Codes) |
+| domains[0].validationTxtName | String | Record name for the DNS TXT record addition method |
+| domains[0].validationTxtValue | String | Record value for the DNS TXT record addition method |
+| domains[0].validationHttpPath | String | HTTP page URL for the HTTP file authentication method |
+| domains[0].validationHttpContent | String | Page content value for the HTTP file authentication method |
+| domains[0].validationHttpRedirectFrom | String | Redirect source URL for the HTTP redirect authentication method |
+| domains[0].validationHttpRedirectTo | String | Redirect target URL for the HTTP redirect authentication method |
+| domains[0].validationExpireDatetime | DateTime | Validation token expiration time |
+| domains[0].validationCompleteDatetime | DateTime | Validation completion time |
+| domains[0].distributionSeq | Integer | Integrated CDN service ID |
+| domains[0].distribution | Object | Integrated CDN service information |
+| domains[0].distribution.domain | String | CDN service domain |
+| domains[0].distribution.status | String | CDN service status code (refer to [Table] CDN Status Codes) |
+| domains[0].createdAt | DateTime | Creation time |
+| domains[0].updatedAt | DateTime | Last modified time |
+
+
+### Delete Alias Domain
+
+#### Request
+
+[URI]
+
+| Method | URI |
+| ------ | ---------------------------------------------------------- |
+| DELETE | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq} |
+
+
+[Parameters]
+
+| Name | Type | Required | Valid range | Description |
+| ----------------- | ------- | ----- | ----- | ----------- |
+| aliasDomainDomSeq | Integer | Required | | Alias domain ID |
+
+
+[Example]
+```
+curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### Response
+
+[Response body]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+
+
+[Fields]
+
+| Field | Type | Description |
+| -------------------- | ------- | ------ |
+| header | Object | Response header |
+| header.isSuccessful | Boolean | Whether the request was successful |
+| header.resultCode | Integer | Result code |
+| header.resultMessage | String | Result message |
+
+- Domains integrated with the CDN service cannot be deleted. Unlink the alias domain from the CDN service before deleting it.
+
+
+### Run Domain Validation
+
+#### Request
+
+[URI]
+
+| Method | URI |
+| ---- |-------------------------------------------------------------------------|
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/validate |
+
+
+[Request body]
+
+```json
+{
+    "validationMethod": "DNS_TXT"
+}
+```
+
+[Fields]
+
+| Name | Type | Required | Default | Valid range | Description |
+| ---------------- | ------ | ----- | --- | -------------- | ------------------------------------------------------------- |
+| validationMethod | String | Required | | DNS_TXT, HTTP | Validation method ("DNS_TXT": DNS TXT record addition method, "HTTP": HTTP file or redirect authentication method) |
+
+
+#### Response
+
+[Response body]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "VALIDATION_IN_PROGRESS",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+        "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpContent": "exampleToken.exampleContent",
+        "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
+        "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+        "validationCompleteDatetime": null,
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-04-17T14:00:00.000+09:00"
+    }
+}
+```
+
+[Fields]
+
+| Field | Type | Description |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header | Object | Response header |
+| header.isSuccessful | Boolean | Whether the request was successful |
+| header.resultCode | Integer | Result code |
+| header.resultMessage | String | Result message |
+| domain | Object | Alias domain object |
+| domain.aliasDomainDomSeq | Integer | Alias domain ID |
+| domain.domain | String | Registered domain |
+| domain.validationStatus | String | Validation status code (refer to [Table] Alias Domain Validation Status Codes) |
+| domain.validationScope | String | Validation scope |
+| domain.validationTxtName | String | Record name for the DNS TXT record addition method |
+| domain.validationTxtValue | String | Record value for the DNS TXT record addition method |
+| domain.validationHttpPath | String | HTTP page URL for the HTTP file authentication method |
+| domain.validationHttpContent | String | Page content value for the HTTP file authentication method |
+| domain.validationHttpRedirectFrom | String | Redirect source URL for the HTTP redirect authentication method |
+| domain.validationHttpRedirectTo | String | Redirect target URL for the HTTP redirect authentication method |
+| domain.validationExpireDatetime | DateTime | Validation token expiration time |
+| domain.validationCompleteDatetime | DateTime | Validation completion time |
+| domain.distributionSeq | Integer | Integrated CDN service ID |
+| domain.distribution | Object | Integrated CDN service information |
+| domain.distribution.domain | String | CDN service domain |
+| domain.distribution.status | String | CDN service status code (refer to [Table] CDN Status Codes) |
+| domain.createdAt | DateTime | Creation time |
+| domain.updatedAt | DateTime | Last modified time |
+
+- Before running domain validation, the DNS TXT record addition or HTTP file/redirect configuration must be completed first.
+- If the validation token has expired, validation cannot be run. Issue a new token using the Token Reissue API, then proceed with validation again.
+
+
+### Refresh Domain Validation Status
+
+#### Request
+
+[URI]
+
+| Method | URI |
+| ---- |------------------------------------------------------------------------|
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/refresh |
+
+
+[Example]
+```
+curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/refresh" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### Response
+
+[Response body]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "VALIDATED",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+        "validationHttpPath": null,
+        "validationHttpContent": null,
+        "validationHttpRedirectFrom": null,
+        "validationHttpRedirectTo": null,
+        "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+        "validationCompleteDatetime": "2025-04-18T12:00:00.000+09:00",
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-04-18T12:00:00.000+09:00"
+    }
+}
+```
+
+[Fields]
+
+| Field | Type | Description |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header | Object | Response header |
+| header.isSuccessful | Boolean | Whether the request was successful |
+| header.resultCode | Integer | Result code |
+| header.resultMessage | String | Result message |
+| domain | Object | Alias domain object |
+| domain.aliasDomainDomSeq | Integer | Alias domain ID |
+| domain.domain | String | Registered domain |
+| domain.validationStatus | String | Validation status code (refer to [Table] Alias Domain Validation Status Codes) |
+| domain.validationScope | String | Validation scope |
+| domain.validationTxtName | String | Record name for the DNS TXT record addition method |
+| domain.validationTxtValue | String | Record value for the DNS TXT record addition method |
+| domain.validationHttpPath | String | HTTP page URL for the HTTP file authentication method |
+| domain.validationHttpContent | String | Page content value for the HTTP file authentication method |
+| domain.validationHttpRedirectFrom | String | Redirect source URL for the HTTP redirect authentication method |
+| domain.validationHttpRedirectTo | String | Redirect target URL for the HTTP redirect authentication method |
+| domain.validationExpireDatetime | DateTime | Validation token expiration time |
+| domain.validationCompleteDatetime | DateTime | Validation completion time |
+| domain.distributionSeq | Integer | Integrated CDN service ID |
+| domain.distribution | Object | Integrated CDN service information |
+| domain.distribution.domain | String | CDN service domain |
+| domain.distribution.status | String | CDN service status code (refer to [Table] CDN Status Codes) |
+| domain.createdAt | DateTime | Creation time |
+| domain.updatedAt | DateTime | Last modified time |
+
+
+### Reissue Validation Token
+
+#### Request
+
+[URI]
+
+| Method | URI |
+| ---- |------------------------------------------------------------------------|
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/reissue |
+
+
+[Example]
+```
+curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/reissue" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### Response
+
+[Response body]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "REQUEST_ACCEPTED",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "newReissuedTokenValue",
+        "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/newToken",
+        "validationHttpContent": "newToken.newContent",
+        "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/newToken",
+        "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/newToken",
+        "validationExpireDatetime": "2025-05-15T00:00:00.000+09:00",
+        "validationCompleteDatetime": null,
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-05-01T10:00:00.000+09:00"
+    }
+}
+```
+
+[Fields]
+
+| Field | Type | Description |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header | Object | Response header |
+| header.isSuccessful | Boolean | Whether the request was successful |
+| header.resultCode | Integer | Result code |
+| header.resultMessage | String | Result message |
+| domain | Object | Alias domain object |
+| domain.aliasDomainDomSeq | Integer | Alias domain ID |
+| domain.domain | String | Registered domain |
+| domain.validationStatus | String | Validation status code (refer to [Table] Alias Domain Validation Status Codes) |
+| domain.validationScope | String | Validation scope |
+| domain.validationTxtName | String | Record name for the DNS TXT record addition method |
+| domain.validationTxtValue | String | Record value for the DNS TXT record addition method |
+| domain.validationHttpPath | String | HTTP page URL for the HTTP file authentication method |
+| domain.validationHttpContent | String | Page content value for the HTTP file authentication method |
+| domain.validationHttpRedirectFrom | String | Redirect source URL for the HTTP redirect authentication method |
+| domain.validationHttpRedirectTo | String | Redirect target URL for the HTTP redirect authentication method |
+| domain.validationExpireDatetime | DateTime | Validation token expiration time |
+| domain.validationCompleteDatetime | DateTime | Validation completion time |
+| domain.distributionSeq | Integer | Integrated CDN service ID |
+| domain.distribution | Object | Integrated CDN service information |
+| domain.distribution.domain | String | CDN service domain |
+| domain.distribution.status | String | CDN service status code (refer to [Table] CDN Status Codes) |
+| domain.createdAt | DateTime | Creation time |
+| domain.updatedAt | DateTime | Last modified time |
+
+- When the token is reissued, the previous validation information is reset, and validation must be performed again with the new token information.
+- If the validation token has expired (`TOKEN_EXPIRED`), call this API to issue a new token.
+
+#### Alias Domain Validation Status Codes
+
+The following are status codes indicating the validation status of an alias domain. The validation status can be checked when retrieving alias domains.
+
+| Value | Description |
+| ---------------------- | -------------------------------- |
+| REQUEST_ACCEPTED | Domain registered and awaiting validation |
+| VALIDATION_IN_PROGRESS | Domain ownership validation in progress |
+| VALIDATED | Domain ownership validation complete; CDN service integration available |
+| TOKEN_EXPIRED | Validation token expired; reissue the token and validate again |
+
 
 ## Certificate API
 ### Issue New Certificates
@@ -1038,7 +1533,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 [Example]
 ```
-curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
+curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -1089,7 +1584,6 @@ When the callback is called, the request body contains the following CDN service
       "status" : "OPEN",
       "defaultMaxAge" : 86400,
       "cacheKeyQueryParam": "INCLUDE_ALL",
-      "status" :  "OPENING",
       "referrerType" :  "BLACKLIST",
       "referrers" :  ["test.com"],    
       "useOriginCacheControl" :  false,

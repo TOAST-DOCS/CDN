@@ -1,5 +1,21 @@
 ## Content Delivery > CDN > Release Notes
 
+### April 28, 2026
+
+#### Added Features
+* Added alias domain feature
+	* Added an alias domain feature that allows you to register a domain you own as an alias for a CDN service domain.
+	* Supports DNS TXT record addition, HTTP file authentication, and HTTP redirect authentication as domain ownership validation methods.
+	* For more information, see [Console Guide > Alias Domain](./console-guide/#alias_domain).
+* Added alias domain API
+	* Added APIs for alias domain registration, retrieval, and deletion, as well as domain validation, validation status refresh, and validation token reissue.
+	* For more information, see [API v2.0 Guide > Alias Domain API](./api-guide-v2.0/#alias_domain_api).
+
+#### Feature Updates
+* Discontinued support for Top Contents by Hits statistics in the console
+	* Support for the Top Contents by Hits statistics feature (ranking of most downloaded content) provided in the Statistics tab of the console has been discontinued.
+
+
 ### April 29, 2025
 
 #### Feature Updates
@@ -73,7 +89,7 @@
 #### Feature Updates
 * Enabled HTTP/2 protocol support for the CDN service. HTTP/2 is supported by default.
 * Added the origin type setting feature
-	* You can set as the origin server by retrieving object storage and instance information from NHN Cloud. For more information, refer to [Console Guide > Origin Server](./console-guide/#origin-server).
+	* You can set as the origin server by retrieving object storage and instance information from NHN Cloud. For more information, refer to [Console Guide > Origin Server](./console-guide/#origin).
 
 ### November 23, 2021
 
@@ -84,13 +100,13 @@
 
 #### Feature Updates
 * The CDN Public API domain has been changed.
-    * AS-IS : https://api-gw.cloud.toast.com/tc-cdn
-    * TO-BE : https://kr1-cdn.api.nhncloudservice.com
+    * AS-IS: https://api-gw.cloud.toast.com/tc-cdn
+    * TO-BE: https://kr1-cdn.api.nhncloudservice.com
 
 ### May 25, 2021
 
 #### Feature Updates
-* The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#controlling-the-access-of-root-path).
+* The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#root_path_access_control).
 
 ### October 6, 2020
 
@@ -123,14 +139,14 @@
 	* For more details, see [Console User Guide](./console-guide/).
 * Added Certificate Management Features
 	* To use CDN service with your own domain, HTTPS protocol service is provided as part of certificate management features. With certificate management, certificates can be easily issued and automatically renewed before expired.
-	* For more details, see [Console User Guide > Certificate Management](./console-guide/#managing-certificates).
+	* For more details, see [Console User Guide > Certificate Management](./console-guide/#managing-certificate).
 * API Support for (Old) Service Domain (*.cdn.toastcloud.com) and (New) Service Domain (*.toastcdn.net)
 	* (Old) [ServiceID].cdn.toastcloud.com is available without changing the old API (lower than v1.5). However, newly added features are not available.
 	* (New) [ServiceID].toastcdn.net is available even without changing previous API (lower than v1.5). New features are added to API specifications that are higher than v1.5.
 * Cache Purging
 	* High-speed Cache Purging: Cache is completely purged within seconds after it is requested. With high-speed cache purging, changed content can be applied to raise its credibility.
 	* Changed Request Method for Cache Purging of Specific File Type: It has been updated to enter the entire URL address of a file to purge a cache.
-		* e.g.) Previously: /images/img.png -> Now: http://[ServiceID].toastcdn.net/images/img.png
+		* e.g., Previously: /images/img.png → Now: http://[ServiceID].toastcdn.net/images/img.png
 	* Closed the wildcard-type cache purging service
 	* Changed usage restriction policy
 		* For more details, see [Console User Guide > Purging CDN Cache](./console-guide/#cdn-purge).
@@ -146,7 +162,7 @@
 	* Fixed an error in which it was not properly purged when a multiple number of domain aliases were registered. 
 	
 * Domain Alias Restriction
-	* No more than 3 domain aliases are allowed. 
+	* No more than 3 domain aliases are allowed.
 
 
 ### January 15, 2019
@@ -164,7 +180,7 @@
 ### May 29, 2018
 
 #### Feature Updates
-* Updates for CDN API 1.5v 
+* Updates for CDN API v1.5
 	* Upgraded API stability to provide better quality service.
 	* With the completion of service deployment (change), successful task and service status is sent via callback.
 * Deployment status shows on dashboard to find processing status of service deployment (change).
@@ -197,7 +213,7 @@
 		* Every day when the search period is over 1 day 
 	* Three types of statistics are provided, and delays may occur between statistical data and actual data. 
 		* Traffic Usage Volume: Network bandwidth and transfer volume are available. 
-		* Statistics of Each HTTP Response: CDN cache hit ratio is available by HTTP status code. 
+		* Statistics of Each HTTP Response: CDN cache hit ratio is available by HTTP status code.
 		* Top contents: The most-searched content can be found. 
 
 #### Bug Fixes
