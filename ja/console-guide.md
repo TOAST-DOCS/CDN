@@ -1,4 +1,4 @@
-## Content Delivery > CDN > コンソールユーザーガイド
+## Content Delivery > CDN > コンソール使用ガイド
 
 このドキュメントでは、NHN Cloud CDNコンソールでCDNサービスを構成し、利用する方法を説明します。
 
