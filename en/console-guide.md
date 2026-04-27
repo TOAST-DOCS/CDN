@@ -751,7 +751,6 @@ To use an alias domain, register a domain in the **Alias Domain** tab, complete 
 
 ### Register a domain
 You can register a domain in the **Alias Domain** tab.
-![Alias domain - Register domain](https://static.toastoven.net/prod_cdn/v2/console-alias-domain-create_202504.png)
 
 1. Click the **Add Domain** button in the **Alias Domain** tab.
 2. Enter the domain to register in fully qualified domain name (FQDN) format (e.g., cdn.example.com).
@@ -765,7 +764,6 @@ You can register a domain in the **Alias Domain** tab.
 Domain verification must be performed to confirm ownership of the registered domain.
 There are three domain verification methods: DNS TXT record addition, HTTP file authentication, and HTTP redirect authentication. Only one of the three methods needs to be completed.
 Select the registered domain in the **Alias Domain** tab to view the information and methods required for verification.
-![Alias domain - Domain verification](https://static.toastoven.net/prod_cdn/v2/console-alias-domain-validation_202504.png)
 
 #### DNS TXT record addition method
 Verifies the domain by confirming DNS control authority over the domain.
@@ -810,7 +808,6 @@ Verifies the domain by configuring a redirect on the web server connected to the
 
 ### Integrate an alias domain with the CDN service
 Once domain verification is complete, you can integrate the alias domain with your CDN service.
-![Alias domain - CDN service integration](https://static.toastoven.net/prod_cdn/v2/console-alias-domain-select_202504.png)
 
 1. Select the CDN service to integrate in the **CDN Service** tab and click the **Edit** button.
 2. Select the verified domain in the **Alias Domain** field under **Basic Information**.
@@ -831,7 +828,6 @@ Once domain verification is complete, you can integrate the alias domain with yo
 
 ### Delete a domain
 You can delete a registered alias domain.
-![Alias domain - Delete domain](https://static.toastoven.net/prod_cdn/v2/console-alias-domain-delete_202504.png)
 
 1. Select the domain to delete in the **Alias Domain** tab.
 2. Click the **Delete** button.
