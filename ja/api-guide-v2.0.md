@@ -30,7 +30,7 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 #### Pathパラメータ
 
 すべてのAPIは、pathパラメータにアプリキーを指定する必要があります。
-* 例) /v2.0/appKeys/**{appKey}**/distributions
+* 例: /v2.0/appKeys/{appKey}/distributions
 
 | 名前 | 説明             |
 | ------ | --------------------- |
@@ -40,7 +40,7 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 
 #### ヘッダ
 
-すべてのAPIリクエストに対して、**200 OK**でレスポンスします。詳細なレスポンス結果は、次の例のようなレスポンス本文のヘッダを参照してください。
+すべてのAPIリクエストに対して、`200 OK`でレスポンスします。詳細なレスポンス結果は、次の例のようなレスポンス本文のヘッダを参照してください。
 
 ```json
 {
@@ -212,7 +212,7 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | distributions[0].callback.httpMethod                                                  | String  | 必須   |             | GET/POST/PUT                                                          | コールバックのHTTPメソッド                                                                                                             |
 | distributions[0].callback.url                                                         | String  | 必須   |             | 最大1024文字                                                             | コールバックURL                                                                                                                    |
 
-- forwardHostHeaderのデフォルト値は、domainAliasを設定した場合はREQUEST_HOST_HEADERで、未設定の場合はORIGIN_HOSTNAMEです。
+- `forwardHostHeader`のデフォルト値は、`domainAlias`を設定した場合は`REQUEST_HOST_HEADER`で、未設定の場合は`ORIGIN_HOSTNAME`です。
 
 
 #### レスポンス
@@ -364,7 +364,7 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 
 [例]
 ```
-curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
+curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -387,7 +387,6 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
     "status" : "OPEN",
     "defaultMaxAge" : 86400,
     "cacheKeyQueryParam": "INCLUDE_ALL",
-    "status" :  "OPENING",
     "referrerType" :  "BLACKLIST",
     "referrers" :  ["test.com"],
     "isAllowWhenEmptyReferrer" : true,
@@ -468,7 +467,6 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | distributions[0].origins[0].originPath | String  | オリジンサーバーの下層パス                                  |
 | distributions[0].origins[0].httpPort   | Integer | オリジンサーバーHTTPプロトコルポート                             |
 | distributions[0].origins[0].httpsPort  | Integer | オリジンサーバーHTTPSプロトコルポート                            |
-| distributions[0].forwardHostHeader     | String  | サービス配布処理結果を受け取るコールバック                   |
 | distributions[0].useOriginHttpProtocolDowngrade | Boolean | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するか |
 | distributions[0].forwardHostHeader     | String  | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時、伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名で設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定 |
 | distributions[0].rootPathAccessControl  | Object  | CDNサービスのルートパスに対するアクセス制御設定 | 
@@ -600,11 +598,11 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 任意   |         | ACCESS_CONTROL_ALLOW_CREDENTIALS<br/>ACCESS_CONTROL_ALLOW_HEADERS<br/>ACCESS_CONTROL_ALLOW_METHODS<br/>ACCESS_CONTROL_ALLOW_ORIGIN<br/>ACCESS_CONTROL_EXPOSE_HEADERS<br/>ACCESS_CONTROL_MAX_AGE<br/>CACHE_CONTROL<br/>CONTENT_DISPOSITION<br/>CONTENT_TYPE<br/>P3P<br/>PRAGMA<br/>OTHER | 一般HTTPレスポンスヘッダ名                                                                                                         |
 | modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | 任意   |         |                                                      | standardHeaderNameが"OTHER"の場合は必須入力。ユーザー定義HTTPレスポンスヘッダ名                                                              |
 | modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | 必須   |         |                                                      | HTTPレスポンスヘッダ値                                                                                                             |
-| callback              | Object  | 任意  |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
+| callback              | Object  | 任意  |        |                                                              | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。)  |                                  |
 | callback.httpMethod   | String  | 必須  |        | GET/POST/PUT                                                 | コールバックのHTTPメソッド                                          |
 | callback.url          | String  | 必須 |        | 最大1024文字                                             | コールバックURL                                                     |
 
-- forwardHostHeaderのデフォルト値は、domainAliasを設定した場合はREQUEST_HOST_HEADERで、未設定の場合はORIGIN_HOSTNAMEです。
+- `forwardHostHeader`の既定値は、`domainAlias`を設定した場合は`REQUEST_HOST_HEADER`であり、設定しない場合は`ORIGIN_HOSTNAME`です。 
 
 #### レスポンス
 
@@ -660,7 +658,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | ------- | ------ | ----- | ---- | ----- | --------------------- |
 | domains | String | 必須 |      |       | 削除するドメイン、複数ドメイン入力可 |
 
-**\* 複数のドメイン入力時、該当サービスはすべて終了します。**
+> [注意] 複数のドメインを入力すると、該当するサービスはすべて終了します。
 
 #### レスポンス
 
@@ -719,14 +717,14 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 | 名前   | タイプ | 必須かどうか | デフォルト値 | 有効範囲          | 説明                                                      |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| encryptKey    | String | 必須 |        |             | NHN Cloud CDNコンソールに表示されたAuth Token認証制御管理 > トークン暗号化キー |
+| encryptKey | String | 必須 | | | NHN Cloud CDNコンソールに表示されたAuth Token認証アクセス管理 > トークン暗号化キー |
 | durationSeconds | Integer | 必須 |        | 0～2,147,483,647 | 作成されたトークンが有効な時間(秒) |
 | singlePath      | String | 任意 |        |             | 作成されたトークンを利用してアクセスする単一パス |
 | singleWildcardPath | String | 任意 |     |             | 作成されたトークンを利用してアクセスする単一ワイルドカードパス |
 | multipleWildcardPath | String | 任意 |   |             | 作成されたトークンを利用してアクセスする複数のワイルドカードパス |
 | sessionId |           String | 任意 |    | 文字列の長さ最大36バイト        | 単一アクセスリクエストに対してsessionIdを含めてトークンを作成 |
 
-* singlePath、singleWildcardPath、multipleWildcardPathのうち1つ以上の値が必ず存在する必要があります。
+* `singlePath`, `singleWildcardPath`, `multipleWildcardPath`のうち1つ以上の値が必ず存在する必要があります。
 * トークン作成および使用についての詳細は[コンソール使用ガイド > Auth Token認証アクセス管理 > 2. トークン作成](./console-guide/#auth-token)を参照してください。
 
 
@@ -868,11 +866,506 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 | header.resultCode    | Integer | 結果コード |
 | header.resultMessage | String  | 結果メッセージ |
 
-- CDNサービスを新規で作成した後、約1時間はキャッシュ再配布リクエストが失敗する場合もあります。その後も失敗が続く場合はサポートへお問い合わせください。
-- パージAPI使用量制限ポリシーがあります。詳細な内容は[コンソール使用ガイド > CDNキャッシュ再配布](./console-guide/#cdnpurge)のキャッシュ再配布使用量制限]を確認してください。
+- CDNサービスを新規作成した後、約1時間はキャッシュ再配布リクエストが失敗する場合があります。その後も失敗が続く場合は、サポートへお問い合わせください。
+- パージAPI使用量制限ポリシーがあります。詳細な内容は[コンソール使用ガイド > CDNキャッシュ再配布](./console-guide/#cdnpurge)の'キャッシュ再配布使用量制限']を確認してください。
 
 ### キャッシュ再配布(Purge)照会
 - API v2.0を通してキャッシュを再配布する時、高速キャッシュ再配布が実行され、リクエスト後、数秒以内に完了するため、キャッシュ再配布状態を照会するAPIが別途提供されません。
+
+<a id="alias_domain_api"></a>
+## ドメインエイリアスAPI
+
+### ドメインエイリアス登録
+
+#### リクエスト
+
+[URI]
+
+| メソッド | URI                                          |
+| ---- | -------------------------------------------- |
+| POST | /v2.0/appKeys/{appKey}/alias-domains         |
+
+
+[リクエスト本文]
+
+```json
+{
+    "domain": "cdn.example.com"
+}
+```
+
+[フィールド]
+
+| 名前 | タイプ | 必須 | 既定値 | 有効範囲 | 説明 |
+| --------------- | ------ | ----- | ---- | ----------------------- | -------------------------------------------------------------------------------------- |
+| domain | String | 必須 | | FQDN形式、最小4文字～最大253文字 | 登録するドメイン(全体ドメインアドレス形式で入力、toastcdn.netドメインは使用不可) |
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "REQUEST_ACCEPTED",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+        "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpContent": "exampleToken.exampleContent",
+        "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
+        "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+        "validationCompleteDatetime": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-04-17T10:30:00.000+09:00"
+    }
+}
+```
+
+
+[フィールド]
+
+| フィールド                                 | タイプ     | 説明                                                                |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header                              | Object  | ヘッダ領域                                                              |
+| header.isSuccessful                 | Boolean | 成否                                                             |
+| header.resultCode                   | Integer | 結果コード                                                             |
+| header.resultMessage                | String  | 結果メッセージ                                                            |
+| domain                              | Object  | 登録されたドメインエイリアスオブジェクト                                                   |
+| domain.aliasDomainDomSeq            | Integer | ドメインエイリアスID                                                          |
+| domain.domain                       | String  | 登録されたドメイン                                                           |
+| domain.validationStatus | String | 検証状態コード([表]ドメインエイリアス検証状態コードを参照) |
+| domain.validationScope              | String  | 検証範囲                                 |
+| domain.validationTxtName            | String  | DNS TXTレコード追加方式のレコード名                                         |
+| domain.validationTxtValue           | String  | DNS TXTレコード追加方式のレコード値                                           |
+| domain.validationHttpPath           | String  | HTTPファイル認証方式のHTTPページURL                                        |
+| domain.validationHttpContent        | String  | HTTPファイル認証方式のページコンテンツ値                                          |
+| domain.validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domain.validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domain.validationExpireDatetime | DateTime | 検証トークン期限切れ日時 |
+| domain.validationCompleteDatetime   | DateTime | 検証完了日時                                                           |
+| domain.distributionSeq | Integer | 連携したCDNサービスID |
+| domain.distribution | Object | 連携したCDNサービス情報 |
+| domain.distribution.domain          | String  | CDNサービスドメイン                                                        |
+| domain.distribution.status | String | CDNサービス状態コード([表]CDN状態コードを参照) |
+| domain.createdAt                    | DateTime | 作成日時                                                             |
+| domain.updatedAt                    | DateTime | 変更日時                                                             |
+
+
+### ドメインエイリアス一覧照会
+
+#### リクエスト
+
+[URI]
+
+| メソッド | URI                                          |
+| --- | -------------------------------------------- |
+| GET | /v2.0/appKeys/{appKey}/alias-domains         |
+
+
+[パラメータ]
+
+| 名前 | タイプ | 必須 | 有効範囲 | 説明 |
+| ------ | ------- | ----- | --------------------------------------------------------------------------- | ---------------------------------------- |
+| domain | String | 任意 | 最大253文字 | 照会するドメイン |
+| status | String | 任意 | REQUEST_ACCEPTED, VALIDATION_IN_PROGRESS, VALIDATED, TOKEN_EXPIRED | 検証状態コード(カンマ区切りで複数の状態を入力可能) |
+| page | Integer | 任意 | 既定値: 1 | ページ番号 |
+| limit | Integer | 任意 | 既定値: 10、最大: 1000 | 1ページあたりの照会件数 |
+
+[例]
+```
+curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains?status=VALIDATED&page=1&limit=10" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "paging": {
+        "page": 1,
+        "limit": 10,
+        "totalCount": 1
+    },
+    "domains": [
+        {
+            "aliasDomainDomSeq": 1,
+            "domain": "cdn.example.com",
+            "validationStatus": "VALIDATED",
+            "validationTxtName": "_acme-challenge.cdn.example.com.",
+            "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+            "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+            "validationHttpContent": "exampleToken.exampleContent",
+            "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+            "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
+            "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+            "validationCompleteDatetime": "2025-04-18T12:00:00.000+09:00",
+            "distributionSeq": null,
+            "distribution": null,
+            "createdAt": "2025-04-17T10:30:00.000+09:00",
+            "updatedAt": "2025-04-18T12:00:00.000+09:00"
+        }
+    ]
+}
+```
+
+
+[フィールド]
+
+| フィールド                                   | タイプ      | 説明                                                                |
+| ------------------------------------- | -------- | ------------------------------------------------------------------ |
+| header                                | Object   | ヘッダ領域                                                              |
+| header.isSuccessful                   | Boolean  | 成否                                                             |
+| header.resultCode                     | Integer  | 結果コード                                                             |
+| header.resultMessage                  | String   | 結果メッセージ                                                            |
+| paging                                | Object   | ページング領域                                                            |
+| paging.page                           | Integer  | ページ番号                                                            |
+| paging.limit                          | Integer  | 1ページあたりの照会件数                                                        |
+| paging.totalCount | Integer | 総件数 |
+| domains | List | ドメインエイリアスオブジェクト一覧 |
+| domains[0].aliasDomainDomSeq          | Integer  | ドメインエイリアスID                                                          |
+| domains[0].domain | String | 登録されたドメイン |
+| domains[0].validationStatus           | String   | 検証ステータスコード([表]ドメインエイリアス検証ステータスコード参考)                                   |
+| domains[0].validationTxtName          | String   | DNS TXTレコード追加方式のレコード名                                         |
+| domains[0].validationTxtValue         | String   | DNS TXTレコード追加方式のレコード値                                           |
+| domains[0].validationHttpPath         | String   | HTTPファイル認証方式のHTTPページURL                                        |
+| domains[0].validationHttpContent      | String   | HTTPファイル認証方式のページコンテンツ値                                          |
+| domains[0].validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domains[0].validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domains[0].validationExpireDatetime | DateTime | 検証トークン期限切れ日時 |
+| domains[0].validationCompleteDatetime | DateTime | 検証完了日時                                                           |
+| domains[0].distributionSeq | Integer | 連携したCDNサービスID |
+| domains[0].distribution | Object | 連携したCDNサービス情報 |
+| domains[0].distribution.domain          | String  | CDNサービスドメイン                                                        |
+| domains[0].distribution.status | String | CDNサービス状態コード([表]CDN状態コードを参照) |
+| domains[0].createdAt                    | DateTime | 作成日時                                                             |
+| domains[0].updatedAt                    | DateTime | 変更日時                                                             |
+
+
+### ドメインエイリアス削除
+
+#### リクエスト
+
+[URI]
+
+| メソッド   | URI                                                        |
+| ------ | ---------------------------------------------------------- |
+| DELETE | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}   |
+
+
+[パラメータ]
+
+| 名前 | タイプ | 必須 | 有効範囲 | 説明 |
+| ----------------- | ------- | ----- | ----- | ----------- |
+| aliasDomainDomSeq | Integer | 必須   |       | ドメインエイリアスID  |
+
+
+[例]
+```
+curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+
+
+[フィールド]
+
+| フィールド                  | タイプ     | 説明    |
+| -------------------- | ------- | ------ |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否 |
+| header.resultCode    | Integer | 結果コード |
+| header.resultMessage | String  | 結果メッセージ |
+
+- CDNサービスに連携されたドメインは削除できません。CDNサービスでドメインエイリアスの連携を解除してから削除してください。
+
+
+### ドメイン検証の実行
+
+#### リクエスト
+
+[URI]
+
+| メソッド | URI |
+| ---- |-------------------------------------------------------------------------|
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/validate |
+
+
+[リクエスト本文]
+
+```json
+{
+    "validationMethod": "DNS_TXT"
+}
+```
+
+[フィールド]
+
+| 名前 | タイプ | 必須 | 既定値 | 有効範囲 | 説明 |
+| ---------------- | ------ | ----- | --- | -------------- | ------------------------------------------------------------- |
+| validationMethod | String | 必須   |     | DNS_TXT, HTTP  | 検証方式("DNS_TXT": DNS TXTレコード追加方式、 "HTTP": HTTPファイルまたはリダイレクト認証方式) |
+
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "VALIDATION_IN_PROGRESS",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+        "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpContent": "exampleToken.exampleContent",
+        "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/exampleToken",
+        "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
+        "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+        "validationCompleteDatetime": null,
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-04-17T14:00:00.000+09:00"
+    }
+}
+```
+
+[フィールド]
+
+| フィールド                                 | タイプ     | 説明                                                                |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header                              | Object  | ヘッダ領域                                                              |
+| header.isSuccessful                 | Boolean | 成否                                                             |
+| header.resultCode                   | Integer | 結果コード                                                             |
+| header.resultMessage                | String  | 結果メッセージ                                                            |
+| domain                              | Object  | ドメインエイリアスオブジェクト                                                       |
+| domain.aliasDomainDomSeq            | Integer | ドメインエイリアスID                                                          |
+| domain.domain                       | String  | 登録されたドメイン                                                           |
+| domain.validationStatus | String | 検証状態コード([表]ドメインエイリアス検証状態コードを参照) |
+| domain.validationScope              | String  | 検証範囲                                 |
+| domain.validationTxtName            | String  | DNS TXTレコード追加方式のレコード名                                         |
+| domain.validationTxtValue           | String  | DNS TXTレコード追加方式のレコード値                                           |
+| domain.validationHttpPath           | String  | HTTPファイル認証方式のHTTPページURL                                        |
+| domain.validationHttpContent        | String  | HTTPファイル認証方式のページコンテンツ値                                          |
+| domain.validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domain.validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domain.validationExpireDatetime | DateTime | 検証トークン期限切れ日時 |
+| domain.validationCompleteDatetime   | DateTime | 検証完了日時                                                           |
+| domain.distributionSeq | Integer | 連携したCDNサービスID |
+| domain.distribution | Object | 連携したCDNサービス情報 |
+| domain.distribution.domain          | String  | CDNサービスドメイン                                                        |
+| domain.distribution.status | String | CDNサービス状態コード([表]CDN状態コードを参照) |
+| domain.createdAt                    | DateTime | 作成日時                                                             |
+| domain.updatedAt                    | DateTime | 変更日時                                                             |
+
+- ドメイン検証を実行する前に、DNS TXTレコードの追加、またはHTTPファイル/リダイレクトの設定を先に完了しておく必要があります。
+- 検証トークンが期限切れになった場合は検証を実行できません。トークン再発行APIで新しいトークンを発行してから再度検証を進めてください。
+
+
+### ドメイン検証状態の更新
+
+#### リクエスト
+
+[URI]
+
+| メソッド | URI                                                                    |
+| ---- |------------------------------------------------------------------------|
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/refresh |
+
+
+[例]
+```
+curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/refresh" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "VALIDATED",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "16WKuUX7ebmYEREEU1CqnPWx0I7wY04EvtF-QL2n-lU",
+        "validationHttpPath": null,
+        "validationHttpContent": null,
+        "validationHttpRedirectFrom": null,
+        "validationHttpRedirectTo": null,
+        "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
+        "validationCompleteDatetime": "2025-04-18T12:00:00.000+09:00",
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-04-18T12:00:00.000+09:00"
+    }
+}
+```
+
+[フィールド]
+
+| フィールド                                 | タイプ     | 説明                                                                |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header                              | Object  | ヘッダ領域                                                              |
+| header.isSuccessful                 | Boolean | 成否                                                             |
+| header.resultCode                   | Integer | 結果コード                                                             |
+| header.resultMessage                | String  | 結果メッセージ                                                            |
+| domain                              | Object  | ドメインエイリアスオブジェクト                                                       |
+| domain.aliasDomainDomSeq            | Integer | ドメインエイリアスID                                                          |
+| domain.domain                       | String  | 登録されたドメイン                                                           |
+| domain.validationStatus | String | 検証状態コード([表]ドメインエイリアス検証状態コードを参照) |
+| domain.validationScope              | String  | 検証範囲                                 |
+| domain.validationTxtName            | String  | DNS TXTレコード追加方式のレコード名                                         |
+| domain.validationTxtValue           | String  | DNS TXTレコード追加方式のレコード値                                           |
+| domain.validationHttpPath           | String  | HTTPファイル認証方式のHTTPページURL                                        |
+| domain.validationHttpContent        | String  | HTTPファイル認証方式のページコンテンツ値                                          |
+| domain.validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domain.validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domain.validationExpireDatetime | DateTime | 検証トークン期限切れ日時 |
+| domain.validationCompleteDatetime   | DateTime | 検証完了日時                                                           |
+| domain.distributionSeq | Integer | 連携したCDNサービスID |
+| domain.distribution | Object | 連携したCDNサービス情報 |
+| domain.distribution.domain          | String  | CDNサービスドメイン                                                        |
+| domain.distribution.status | String | CDNサービス状態コード([表]CDN状態コードを参照) |
+| domain.createdAt                    | DateTime | 作成日時                                                             |
+| domain.updatedAt                    | DateTime | 変更日時                                                             |
+
+
+### 検証トークン再発行
+
+#### リクエスト
+
+[URI]
+
+| メソッド | URI                                                                    |
+| ---- |------------------------------------------------------------------------|
+| POST | /v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/reissue |
+
+
+[例]
+```
+curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/reissue" \
+ -H "Authorization: {secretKey}" \
+ -H "Content-Type: application/json"
+```
+
+#### レスポンス
+
+[レスポンス本文]
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "domain": {
+        "aliasDomainDomSeq": 1,
+        "domain": "cdn.example.com",
+        "validationStatus": "REQUEST_ACCEPTED",
+        "validationTxtName": "_acme-challenge.cdn.example.com.",
+        "validationTxtValue": "newReissuedTokenValue",
+        "validationHttpPath": "http://cdn.example.com/.well-known/acme-challenge/newToken",
+        "validationHttpContent": "newToken.newContent",
+        "validationHttpRedirectFrom": "http://cdn.example.com/.well-known/acme-challenge/newToken",
+        "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/newToken",
+        "validationExpireDatetime": "2025-05-15T00:00:00.000+09:00",
+        "validationCompleteDatetime": null,
+        "distributionSeq": null,
+        "distribution": null,
+        "createdAt": "2025-04-17T10:30:00.000+09:00",
+        "updatedAt": "2025-05-01T10:00:00.000+09:00"
+    }
+}
+```
+
+[フィールド]
+
+| フィールド                                 | タイプ     | 説明                                                                |
+| ----------------------------------- | ------- | ------------------------------------------------------------------ |
+| header                              | Object  | ヘッダ領域                                                              |
+| header.isSuccessful                 | Boolean | 成否                                                             |
+| header.resultCode                   | Integer | 結果コード                                                             |
+| header.resultMessage                | String  | 結果メッセージ                                                            |
+| domain                              | Object  | ドメインエイリアスオブジェクト                                                       |
+| domain.aliasDomainDomSeq            | Integer | ドメインエイリアスID                                                          |
+| domain.domain                       | String  | 登録されたドメイン                                                           |
+| domain.validationStatus | String | 検証状態コード([表]ドメインエイリアス検証状態コードを参照) |
+| domain.validationScope              | String  | 検証範囲                                 |
+| domain.validationTxtName            | String  | DNS TXTレコード追加方式のレコード名                                         |
+| domain.validationTxtValue           | String  | DNS TXTレコード追加方式のレコード値                                           |
+| domain.validationHttpPath           | String  | HTTPファイル認証方式のHTTPページURL                                        |
+| domain.validationHttpContent        | String  | HTTPファイル認証方式のページコンテンツ値                                          |
+| domain.validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domain.validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domain.validationExpireDatetime | DateTime | 検証トークン期限切れ日時 |
+| domain.validationCompleteDatetime   | DateTime | 検証完了日時                                                           |
+| domain.distributionSeq | Integer | 連携したCDNサービスID |
+| domain.distribution | Object | 連携したCDNサービス情報 |
+| domain.distribution.domain          | String  | CDNサービスドメイン                                                        |
+| distribution.status | String | CDNサービス状態コード([表]CDN状態コードを参照) |
+| domain.createdAt                    | DateTime | 作成日時                                                             |
+| domain.updatedAt                    | DateTime | 変更日時                                                             |
+
+- トークンが再発行されると以前の検証情報はリセットされ、新しいトークン情報で再度検証を進める必要があります。
+- 検証トークンが期限切れ(`TOKEN_EXPIRED`)になった場合、このAPIを呼び出して新しいトークンを発行できます。
+
+#### ドメインエイリアス検証状態コード
+
+以下はドメインエイリアスの検証状態を示す状態コードであり、ドメインエイリアス照会時に検証状態を確認できます。
+
+| 値 | 説明 |
+| ---------------------- | -------------------------------- |
+| REQUEST_ACCEPTED | ドメインが登録されて検証待機中 |
+| VALIDATION_IN_PROGRESS | ドメイン所有権の検証が進行中 |
+| VALIDATED | ドメイン所有権の検証が完了し、CDNサービスに連携可能 |
+| TOKEN_EXPIRED | 検証トークン期限切れ、トークン再発行後に再検証が必要 |
 
 ## 証明書API
 ### 新規証明書の発行
@@ -1036,7 +1529,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distr
 
 [例]
 ```
-curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
+curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
