@@ -1,6 +1,6 @@
 ## Content Delivery > CDN > API v3.0 가이드
 
-NHN Cloud CDN에서 제공하는 Public API를 설명합니다.
+NHN Cloud CDN에서 제공하는 Public API v3.0을 설명합니다.
 
 ## API 공통 정보
 
@@ -9,7 +9,6 @@ NHN Cloud CDN에서 제공하는 Public API를 설명합니다.
 | 이름              | 도메인                                   |
 | --------------- | ------------------------------------- |
 | CDN Public API 도메인 | https://cdn.api.gov-nhncloudservice.com |
-
 
 ### 인증 및 권한
 CDN API v3.0은 API 인증 호출 및 인증을 위해 Appkey와 User Access Key 토큰을 지원합니다.
@@ -71,7 +70,6 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 | CANCELED           | 도메인 검증 취소 완료                 |
 | DELETED            | 도메인 인증서 삭제 완료               |
 | EXPIRED            | 도메인 인증서 만료                   |
-
 
 
 ## 서비스 API
@@ -141,8 +139,8 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
           ]          
       },
       "callback": {
-          "httpMethod": "GET",
-          "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+        "httpMethod": "GET",
+        "url": "http://test.callback.com/cdn?appKey={appKey}&status={status}&domain={domain}"
       }
     }
   ]
@@ -172,13 +170,13 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 | distributions[0].cacheKeyQueryParam                                                   | String  | 선택    | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                                               | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함)                                                     |
 | distributions[0].origins                                                              | List    | 필수    |             |                                                                       | 원본 서버 오브젝트 목록                                                                                                             |
 | distributions[0].origins[0].origin                                                    | String  | 필수    |             | 최대 255자                                                               | 원본 서버(도메인 또는 IP)                                                                                                          |
-| distributions[0].origins[0].originPath                                                | String  | 선택    |             | 최대 8192자                                                              | 원본 서버 하위 경로(/를 포함한 경로로 입력하세요.)                                                                                          |
-| distributions[0].origins[0].httpPort                                                  | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide-gov/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                         |
-| distributions[0].origins[0].httpsPort                                                 | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide-gov/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                        |
-| distributions[0].rootPathAccessControl                                                | Object  | 선택    |             |                                                                       | CDN 서비스의 루트 경로에 대한 접근 제어 설정                                                                                               |
+| distributions[0].origins[0].originPath                                                | String  | 선택    |             | 최대 8192자                                                              | 원본 서버 하위 경로(/를 포함한 경로로 입력합니다.)                                                                                          |
+| distributions[0].origins[0].httpPort                                                  | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                         |
+| distributions[0].origins[0].httpsPort                                                 | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                        |
+| distributions[0].rootPathAccessControl                                                | Object  | 선택    |             |                                                                       | CDN 서비스의 루트 경로에 대한 접근 제어 설정                                                                                               | 
 | distributions[0].rootPathAccessControl.enable                                         | Boolean | 필수    | true        | true/false                                                            | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부                                                                                    |
 | distributions[0].rootPathAccessControl.controlType                                    | String  | 선택    |             | DENY, REDIRECT                                                        | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트)                                      | 
-| distributions[0].rootPathAccessControl.redirectPath                                   | String  | 선택    |             |                                                                       | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력하세요.)                                           |
+| distributions[0].rootPathAccessControl.redirectPath                                   | String  | 선택    |             |                                                                       | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)                                           |
 | distributions[0].rootPathAccessControl.redirectStatusCode                             | Integer | 선택    |             | 301, 302, 303, 307                                                    | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드                                                                 |
 | distributions[0].modifyOutgoingResponseHeaderControl                                  | Object  | 선택    |             |                                                                       | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정                                                                                         |
 | distributions[0].modifyOutgoingResponseHeaderControl.enable                           | Boolean | 필수    | true        | true/false                                                            | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부                                                                          |
@@ -264,7 +262,7 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
             },          
             "callback": {
                 "httpMethod": "GET",
-                "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+                "url": "http://test.callback.com/cdn?appKey={appKey}&status={status}&domain={domain}"
             }
         }
     ]
@@ -281,7 +279,7 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 | header.resultCode                      | Integer | 결과 코드                                                  |
 | header.resultMessage                   | String  | 결과 메시지                                                |
 | distributions                          | List    | 생성된 CDN 오브젝트 목록                                 |
-| distributions[0].domain                | String  | 생성된 도메인(서비스) 이름                                 |
+| distributions[0].domain                | String  | 생성된 도메인(서비스 이름)                                 |
 | distributions[0].domainAlias           | List    | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)            |
 | distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)          |
 | distributions[0].description           | String  | 설명                                                       |
@@ -308,7 +306,7 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 | distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
 | distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부        |
 | distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력하세요.)      |
+| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)      |
 | distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드        |
 | distributions[0].modifyOutgoingResponseHeaderControl                                  | Object  | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정  |
 | distributions[0].modifyOutgoingResponseHeaderControl.enable                           | Boolean | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부  |
@@ -345,7 +343,7 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 [예]
 ```
 curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distributions?domain={domain}" \
- -H "Authorization: {secretKey}" \
+ -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
@@ -410,7 +408,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
     },  
     "callback": {
         "httpMethod": "GET",
-        "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+        "url": "http://test.callback.com/cdn?appKey={appKey}&status={status}&domain={domain}"
     }
 }
 ```
@@ -425,7 +423,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultCode                      | Integer | 결과 코드                                                    |
 | header.resultMessage                   | String  | 결과 메시지                                                  |
 | distributions                          | List    | 생성된 CDN 오브젝트 목록                                     |
-| distributions[0].domain                | String  | 도메인 이름(서비스 이름)                                     |
+| distributions[0].domain                | String  | 도메인(서비스 이름)                                     |
 | distributions[0].domainAlias           | List  | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)                                                  |
 | distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
 | distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
@@ -451,7 +449,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
 | distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
 | distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력하세요.)        |
+| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)        |
 | distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드          |
 | distributions[0].modifyOutgoingResponseHeaderControl                                  | Object  | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정  |
 | distributions[0].modifyOutgoingResponseHeaderControl.enable                           | Boolean | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부  |
@@ -530,7 +528,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
       },      
       "callback": {
           "httpMethod": "GET",
-          "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+          "url": "http://test.callback.com/cdn?appKey={appKey}&status={status}&domain={domain}"
       },
       "description" : "change contents"        
     }
@@ -561,15 +559,14 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
 | origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(도메인 또는 IP)                                      |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide-gov/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide-gov/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.) |
+| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)  |
+| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.) |
 | useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
-| useOrigin             | String  | 필수      |        | Y/N                                                          | 캐시 만료 설정(Y: 원본 설정 사용, "N": 사용자 설정 사용)      |
 | rootPathAccessControl  | Object  | 선택 |  |  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
 | rootPathAccessControl.enable | Boolean | 필수 | false | true/false | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
 | rootPathAccessControl.controlType  | String  | 선택 |  | DENY, REDIRECT | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| rootPathAccessControl.redirectPath | String | 선택 |  | | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력하세요.)        |
+| rootPathAccessControl.redirectPath | String | 선택 |  | | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)        |
 | rootPathAccessControl.redirectStatusCode | Integer | 선택 | | 301, 302, 303, 307 |controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드          |
 | modifyOutgoingResponseHeaderControl                                  | Object  | 선택    |             |                                                                       | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정                                                                                         |
 | modifyOutgoingResponseHeaderControl.enable                           | Boolean | 필수    | true        | true/false                                                            | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부                                                                          |
@@ -745,7 +742,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 ## 캐시 재배포 API
 
-### 캐시 재배포(Purge) -  ITEM(특정 파일 타입)
+### 캐시 재배포(Purge) - ITEM(특정 파일 타입)
 
 #### 요청
 
@@ -771,7 +768,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 | 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스) 이름                                 |
+| domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스 이름)                                 |
 | purgeList | List | 필수      |        |                       | 재배포 대상 URL 목록 |
 
 #### 응답
@@ -798,7 +795,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultCode    | Integer | 결과 코드     |
 | header.resultMessage | String  | 결과 메시지    |
 
-### 캐시 재배포(Purge) -  ALL(전체 파일 타입)
+### 캐시 재배포(Purge) - ALL(전체 파일 타입)
 
 #### 요청
 
@@ -822,7 +819,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 | 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스) 이름                                 |
+| domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스 이름)                                 |
 
 #### 응답
 
@@ -905,8 +902,6 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
         "validationHttpRedirectTo": "http://dcv.akamai.com/.well-known/acme-challenge/exampleToken",
         "validationExpireDatetime": "2025-05-01T00:00:00.000+09:00",
         "validationCompleteDatetime": null,
-        "distributionSeq": null,
-        "distribution": null,
         "createdAt": "2025-04-17T10:30:00.000+09:00",
         "updatedAt": "2025-04-17T10:30:00.000+09:00"
     }
@@ -966,7 +961,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 [예]
 ```
 curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-domains?status=VALIDATED&page=1&limit=10" \
- -H "Authorization: {secretKey}" \
+ -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
@@ -1062,7 +1057,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-dom
 [예]
 ```
 curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}" \
- -H "Authorization: {secretKey}" \
+ -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
@@ -1090,7 +1085,7 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 | header.resultCode    | Integer | 결과 코드  |
 | header.resultMessage | String  | 결과 메시지 |
 
-- CDN 서비스에 연동된 도메인은 삭제할 수 없습니다. CDN 서비스에서 도메인 별칭 연동을 해제한 후 삭제해 주세요.
+- CDN 서비스에 연동된 도메인은 삭제할 수 없습니다. CDN 서비스에서 도메인 별칭 연동을 해제한 후 삭제하세요.
 
 
 ### 도메인 검증 실행
@@ -1179,7 +1174,7 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 | domain.updatedAt                    | DateTime | 변경 일시                                                              |
 
 - 도메인 검증을 실행하기 전에 DNS TXT 레코드 추가 또는 HTTP 파일/리다이렉트 설정을 먼저 완료해야 합니다.
-- 검증 토큰이 만료된 경우 검증 실행이 불가합니다. 토큰 재발급 API로 새 토큰을 발급받은 후 다시 검증을 진행해 주세요.
+- 검증 토큰이 만료된 경우 검증 실행이 불가합니다. 토큰 재발급 API로 새 토큰을 발급받은 후 다시 검증을 진행하세요.
 
 
 ### 도메인 검증 상태 새로고침
@@ -1196,7 +1191,7 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 [예]
 ```
 curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/refresh" \
- -H "Authorization: {secretKey}" \
+ -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
@@ -1274,7 +1269,7 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 [예]
 ```
 curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/reissue" \
- -H "Authorization: {secretKey}" \
+ -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
@@ -1514,8 +1509,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 
 [예]
 ```
-curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
- -H "Authorization: {secretKey}" \
+curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
+ -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
@@ -1619,7 +1614,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | header.resultMessage                   | String  | 결과 메시지                                                  |
 | distribution                          | Object    | 변경 작업이 완료된 CDN 오브젝트                                   |
 | distribution.appKey                   | String    | 앱키                                  |
-| distribution.domain                | String  | 도메인 이름(서비스 이름)                                     |
+| distribution.domain                | String  | 도메인(서비스 이름)                                     |
 | distribution.domainAlias           | List  | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)                                 |
 | distribution.region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
 | distribution.status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
@@ -1640,7 +1635,7 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
 | distribution.rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
 | distribution.rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distribution.rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력하세요.)        |
+| distribution.rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)        |
 | distribution.rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드         |
 | distribution.modifyOutgoingResponseHeaderControl                      | Object  | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정  |
 | distribution.modifyOutgoingResponseHeaderControl.enable               | Boolean | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부  |
