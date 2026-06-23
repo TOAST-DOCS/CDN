@@ -1,6 +1,10 @@
+<!-- pre-align:aligned sig=f359fef37302 -->
+
 ## Contents > CDN > Getting Started
 
 본 문서에서는 웹콘솔을 이용하여 CDN Service를 구성하고 이용하는 방법을 설명합니다.
+
+<a id="cdn-service"></a>
 
 ## CDN Service 생성 순서
 
@@ -46,6 +50,8 @@ TOAST Cloud에서 발급받은 CDN Service 주소를 CNAME 레코드로 추가 �
 7.[CDN 생성] 버튼을 클릭하면 CDN 서비스 생성 요청이 완료됩니다.  
 생성 요청 이후 서비스 배포가 완료까지 수 분 정도(최대 한시간) 소요됩니다. 배포가 완료된 후 서비스 이용이 가능합니다.
 
+<a id="cdn-service-2"></a>
+
 ## CDN Service 설정 변경
 
 설정 변경을 통해 추가 설명 및 원본 서버 정보를 변경할 수 있습니다.  
@@ -62,6 +68,8 @@ TOAST Cloud에서 발급받은 CDN Service 주소를 CNAME 레코드로 추가 �
 3.변경 가능한 항목은 설명, 원본 서버 정보, Domain Alias 설정입니다.  
 4.[확인] 버튼을 클릭해 변경을 완료합니다.  
 **원본 서버가 변경되면 기존 캐시되어있던 모든 내용은 재배포되며 컨텐츠 양에 따라 재배포 시간은 달라집니다.**
+
+<a id="cdn-cache"></a>
 
 ## CDN Cache 설정 변경
 
@@ -83,6 +91,8 @@ TOAST Cloud에서 발급받은 CDN Service 주소를 CNAME 레코드로 추가 �
 4.원하는 경우 Referrer를 이용해 접근 관리를 할 수 있습니다.  
 특정 referrer의 경우 사용자 컨텐츠에 접근 가능 여부를 관리할 수 있습니다. Regular expression 형태로 입력하고 여러개의 referrer를 제어할 경우 입력창에 라인을 추가하여 입력합니다.    
 5.[확인] 버튼을 클릭해 Cache 설정을 변경합니다.  
+
+<a id="cache"></a>
 
 ## Cache 재배포
 
@@ -112,6 +122,8 @@ TOAST Cloud에서 발급받은 CDN Service 주소를 CNAME 레코드로 추가 �
 5.[Cache 재배포] 버튼을 클릭해 재배포 요청을 합니다.  
 재배포 까지는 수 분의 시간이 소요됩니다. (용량에 따라 소요 시간은 달라질 수 있습니다.)
 
+<a id="section-1"></a>
+
 ## 감시설정
 
 예상치 못한 Traffic 이 발생 할 경우를 대비하여, 감시 설정을 등록할 수 있습니다. 지정된 값 이상의 Traffic 이 발생할 경우 이메일을 발송하며, 강제 정지 옵션을 설정하면 이메일 발송 후 CDN 서비스를 정지합니다.  
@@ -127,6 +139,8 @@ TOAST Cloud에서 발급받은 CDN Service 주소를 CNAME 레코드로 추가 �
 5.지정한 Traffic 이상의 Traffic이 감지 되었을 경우 서비스 강제 정지를 원하면 강제 정지 설정을 [예]로 활성화합니다.  
 6.[확인] 버튼을 눌러 변경된 내용을 적용합니다.  
 
+<a id="section-2"></a>
+
 ## 통계 확인하기
 
 네트워크 전송량, Status 코드별 통계 및 Top 컨텐츠에 대한 통계를 확인 가능합니다.  
@@ -140,6 +154,8 @@ TOAST Cloud에서 발급받은 CDN Service 주소를 CNAME 레코드로 추가 �
 3.검색 기간을 입력합니다.  
 4.검색 기간내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다.  
 5.[검색] 버튼을 클릭합니다.  
+
+<a id="domain-alias"></a>
 
 ## Domain Alias 사용 예
 
