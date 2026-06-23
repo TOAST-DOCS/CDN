@@ -1,3 +1,5 @@
+<!-- pre-align:aligned sig=ec416b7f4d48 -->
+
 ## Content Delivery > CDN > 오류 코드
 
 | errorCode | errorMessage | 설명                                                                                                       |
