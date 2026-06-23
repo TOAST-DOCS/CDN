@@ -1,6 +1,10 @@
+<!-- pre-align:aligned sig=11d7aefe3384 -->
+
 ## Contents > CDN > Developer's Guide
 
 > ※ 본 문서는 CDN에서 제공하는 Public API에 대한 명세입니다.
+
+<a id="cdn-api"></a>
 
 ## CDN API
 
@@ -10,7 +14,11 @@
 |---|---|
 |Real|	https://api-gw.cloud.toast.com/tc-cdn|
 
+<a id="cdn"></a>
+
 ### CDN 생성
+
+<a id="cdn-1"></a>
 
 #### 요청
 
@@ -76,6 +84,8 @@
 }
 ```
 
+<a id="cdn-2"></a>
+
 #### 응답
 
 ```
@@ -131,7 +141,11 @@
 |-- originPath|	String|	원본서버 하위 경로 (/를 포함한 하위 path를 입력해주세요.) |
 |-- port|	Integer| 원본서버 포트|
 
+<a id="cdn-3"></a>
+
 ### CDN 조회
+
+<a id="cdn-3-1"></a>
 
 #### 요청
 
@@ -162,6 +176,8 @@
 |값|	타입|	필수| 기본값 |	설명|
 |---|---|---|---|---|
 |domain| String | O | - | 조회할 도메인(서비스 이름)|
+
+<a id="cdn-3-2"></a>
 
 #### 응답
 
@@ -218,7 +234,11 @@
 |-- originPath|	String|	원본서버 하위 경로 |
 |-- port|	Integer| 원본서버 포트|
 
+<a id="cdn-4"></a>
+
 ### CDN 수정
+
+<a id="cdn-4-1"></a>
 
 #### 요청
 
@@ -280,6 +300,8 @@
 }
 ```
 
+<a id="cdn-4-2"></a>
+
 #### 응답
 
 ```
@@ -299,7 +321,11 @@
 |- resultMessage|	String|	실패 메시지|
 
 
+<a id="purge"></a>
+
 ### 캐시 재배포(Purge)
+
+<a id="purge-1"></a>
 
 #### 요청
 
@@ -342,6 +368,8 @@
 	"purgeList":"/img_01.png"
 }
 ```
+<a id="purge-2"></a>
+
 #### 응답
 
 ```
@@ -363,7 +391,11 @@
 |purgeSeq|	String|	Purge 요청 번호|
 
 
+<a id="purge-3"></a>
+
 ### 캐시 재배포(Purge) 조회
+
+<a id="purge-3-1"></a>
 
 #### 요청
 
@@ -396,6 +428,8 @@
 |---|---|---|---|---|
 |domain|	String|	O| -| Purge할 도메인(서비스) 이름 |
 
+
+<a id="purge-3-2"></a>
 
 #### 응답
 
@@ -433,7 +467,11 @@
 |- type|	String|	Purge Type("ITEM", "WILDCARD", "ALL") |
 |- path|	String| purge 요청 항목 |
 
+<a id="cdn-5"></a>
+
 ## CDN 코드
+
+<a id="cdn-6"></a>
 
 ### CDN 상태 코드
 
