@@ -1,6 +1,24 @@
+<!-- pre-align:aligned sig=dead32bfc6a5 -->
+
 ## Content Delivery > CDN > Release Notes
 
+<a id="section-1"></a>
+
+### June 23, 2026
+
+<!-- TODO: translate body -->
+
+<a id="section-1-1"></a>
+
+#### Feature Updates
+
+<!-- TODO: translate body -->
+
+<a id="april-28-2026"></a>
+
 ### April 28, 2026
+
+<a id="added-features"></a>
 
 #### Added Features
 * Added alias domain feature
@@ -11,12 +29,18 @@
 	* Added APIs for alias domain registration, retrieval, and deletion, as well as domain validation, validation status refresh, and validation token reissue.
 	* For more information, see [API v2.0 Guide > Alias Domain API](./api-guide-v2.0/#alias_domain_api).
 
+<a id="feature-updates"></a>
+
 #### Feature Updates
 * Discontinued support for Top Contents by Hits statistics in the console
 	* Support for the Top Contents by Hits statistics feature (ranking of most downloaded content) provided in the Statistics tab of the console has been discontinued.
 
 
+<a id="april-29-2025"></a>
+
 ### April 29, 2025
+
+<a id="feature-updates-2"></a>
 
 #### Feature Updates
 * Ended support for the Statistics Public API 
@@ -25,43 +49,71 @@
 		* Query Statistics by HTTP Status Code
 		* Query Ranking Statistics for Content with the Most Downloads
 		
+<a id="june-25-2024"></a>
+
 ### June 25, 2024
+
+<a id="feature-updates-3"></a>
 
 #### Feature Updates
 * Changed the CDN Public API domain
 	* Previous: https://kr1-cdn.api.nhncloudservice.com
 	* Current: https://cdn.api.nhncloudservice.com
 
+<a id="march-12-2024"></a>
+
 ### March 12, 2024
+
+<a id="feature-updates-4"></a>
 
 #### Feature Updates
 * Changed UI design of the console page
 
+<a id="november-28-2023"></a>
+
 ### November 28, 2023
+
+<a id="feature-updates-5"></a>
 
 #### Feature Updates
 * Improved Top Content By Hits graph
   * Fixed an issue where, when the number of content rank data is more than 10, the circular graph is broken. The graph only shows up to 10 content rankings.
 
+<a id="september-26-2023"></a>
+
 ### September 26, 2023
+
+<a id="feature-updates-6"></a>
 
 #### Feature Updates
 * Restriction on Statistics Search Period
   * Restricted the date range so that statistics can only be viewed within 90 days.
 
+<a id="june-27-2023"></a>
+
 ### June 27, 2023
+
+<a id="feature-updates-7"></a>
 
 #### Feature Updates
 * Added a featrue to set HTTP response headers
   * You can add, change, and delete headers that are passed when the CDN responds to the user. For more information, see [Console User Guide > HTTP Response Header](./console-guide/#http).
 
+<a id="august-23-2022"></a>
+
 ### August 23, 2022
+
+<a id="feature-updates-8"></a>
 
 #### Feature Updates
 * Added Large File Optimization
 	* You can set a feature to handle large files. For more information, refer to [Console Guide > Cache](./console-guide/#cache).
 
+<a id="july-26-2022"></a>
+
 ### July 26, 2022
+
+<a id="feature-updates-9"></a>
 
 #### Feature Updates
 * Added Allow Method Settings
@@ -69,7 +121,11 @@
 * Added Configuration of Cache
 	* Added Bypass Cache, No Store in Configuration of Cache. For more information, refer to [Console Guide > Cache](./console-guide/#cache).
 
+<a id="june-30-2022"></a>
+
 ### June 30, 2022
+
+<a id="feature-updates-10"></a>
 
 #### Feature Updates
 * Added Certificate API
@@ -78,49 +134,81 @@
 	* Added API to query network traffic volume, statistics by HTTP status code, and ranking statistics for content with the most downloads. For more information, refer to [API v2.0 Guide > Statistics API](./api-guide-v2.0/#statistics-api).
 
 
+<a id="may-24-2022"></a>
+
 ### May 24, 2022
+
+<a id="feature-updates-11"></a>
 
 #### Feature Updates
 * Added an API to create an Auth Token
 	* Added an API to create an authentication token that is required to access content for which access control for Auth Token authentication is enabled. For more information, refer to [API v2.0 Guide > Create an Auth Token](./api-guide-v2.0/#create-an-auth-token).
 
+<a id="december-28-2021"></a>
+
 ### December 28, 2021
+
+<a id="feature-updates-12"></a>
 
 #### Feature Updates
 * Enabled HTTP/2 protocol support for the CDN service. HTTP/2 is supported by default.
 * Added the origin type setting feature
 	* You can set as the origin server by retrieving object storage and instance information from NHN Cloud. For more information, refer to [Console Guide > Origin Server](./console-guide/#origin).
 
+<a id="november-23-2021"></a>
+
 ### November 23, 2021
+
+<a id="feature-updates-13"></a>
 
 #### Feature Updates
 * Added a feature to set whether to include a query string in cache key. For more information, refer to [Console Guide > Cache](./console-guide/#cache).
 
+<a id="july-27-2021"></a>
+
 ### July 27, 2021
+
+<a id="feature-updates-14"></a>
 
 #### Feature Updates
 * The CDN Public API domain has been changed.
     * AS-IS: https://api-gw.cloud.toast.com/tc-cdn
     * TO-BE: https://kr1-cdn.api.nhncloudservice.com
 
+<a id="may-25-2021"></a>
+
 ### May 25, 2021
+
+<a id="feature-updates-15"></a>
 
 #### Feature Updates
 * The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#root_path_access_control).
 
+<a id="october-6-2020"></a>
+
 ### October 6, 2020
+
+<a id="feature-updates-16"></a>
 
 #### Feature Updates
 * Access management by token authentication has been added. For more details, visit [Console Guide > Auth Token Access Management](./console-guide/#access-management-for-auth-token-authentication).
 * Access Management for Referrer Header: Added the setting to enable or disable content access, when there is no referrer request header.
 
+<a id="june-23-2020"></a>
+
 ### June 23, 2020
+
+<a id="feature-updates-17"></a>
 
 #### Feature Updates
 * Support for the following service domain has been closed:[ServiceID].cdn.toastcloud.com
 
 
+<a id="march-24-2020"></a>
+
 ### March 24, 2020
+
+<a id="feature-updates-18"></a>
 
 #### Feature Updates
 * CDN Service Regions: Provided for the GLOBAL region only.
@@ -153,7 +241,11 @@
 * Surveillance setting is to be closed.
 
 
+<a id="february-26-2019"></a>
+
 ### February 26, 2019
+
+<a id="feature-updates-19"></a>
 
 #### Feature Updates
 * Fixed Purging Error at Particular CDN Service 
@@ -165,19 +257,31 @@
 	* No more than 3 domain aliases are allowed.
 
 
+<a id="january-15-2019"></a>
+
 ### January 15, 2019
+
+<a id="feature-updates-20"></a>
 
 #### Feature Updates
 * APIs for Partial CDN Modification 
 	* Added APIs to modify only partial service settings.
 
+<a id="august-28-2018"></a>
+
 ### August 28, 2018
+
+<a id="feature-updates-21"></a>
 
 #### Feature Updates
 * Validity Checks for CDN Service Setting 
 	* Added validity checks for setting information to check invalid CDN setting information. 
 
+<a id="may-29-2018"></a>
+
 ### May 29, 2018
+
+<a id="feature-updates-22"></a>
 
 #### Feature Updates
 * Updates for CDN API v1.5
@@ -187,7 +291,11 @@
 	* When service deployment (change) is made via API, service status can be found on console, via v1.5 or higher APIs only. 
 
 
+<a id="january-25-2018"></a>
+
 ### January 25, 2018
+
+<a id="feature-updates-23"></a>
 
 #### Feature Updates
 * Added Delete CDN API 
@@ -195,7 +303,11 @@
 	* Calls to create or modify CDN service can be registered via console or API.
 		* After service is completely created or modified, the newly created or modified CDN information is delivered via registered callback. 
 
+<a id="july-20-2017"></a>
+
 ### July 20, 2017
+
+<a id="feature-updates-24"></a>
 
 #### Feature Updates
 * Deployed CDN APIs. For more details, see API Guide.  
@@ -216,15 +328,23 @@
 		* Statistics of Each HTTP Response: CDN cache hit ratio is available by HTTP status code.
 		* Top contents: The most-searched content can be found. 
 
+<a id="bug-fixes"></a>
+
 #### Bug Fixes
 * Fixed bugs in Statistics > Service Name Selection UI
 	* Fixed an error in which the service name selection UI is only partially exposed when service description is long.
 
+<a id="december-22-2016"></a>
+
 ### December 22, 2016
+
+<a id="feature-updates-25"></a>
 
 #### Feature Updates
 * Updated to change status to 'OPEN' at an available access time when creating a service 
 * Supports CORS (Cross-Origin Resource Sharing)
+
+<a id="bug-fixes-2"></a>
 
 #### Bug Fixes
 * Fixed inoperability of Global Purge
