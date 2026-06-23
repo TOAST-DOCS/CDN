@@ -1,3 +1,5 @@
+<!-- pre-align:aligned sig=453f96eb6b05 -->
+
 ## Content Delivery > CDN > Overview
 
 The CDN service allows you to store the original content to be distributed on the origin server, so that the content can be distributed to cache servers around the world. End users can get files from the nearest cache server at high speed.
@@ -5,6 +7,8 @@ The CDN service allows you to store the original content to be distributed on th
 In addition, if the service provider uses the CDN service, since most of the traffic is handled by the cache server, the service failure caused by the congestion of the origin server can be prevented in advance and the availability of the origin server can be increased.
 
 When delivering content to end users, it is possible to provide much higher quality service by using a dedicated line rather than a general Internet network, thereby increasing service reliability.
+
+<a id="main-features"></a>
 
 ## Main Features
 
