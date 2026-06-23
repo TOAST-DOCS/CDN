@@ -1,14 +1,22 @@
+<!-- pre-align:aligned sig=d955c506b577 -->
+
 ## Content Delivery > CDN > API v2.0 Guide
 
 This document describes Public API v2.0 of NHN Cloud CDN.
 
+<a id="common-api-information"></a>
+
 ## Common API Information
+
+<a id="domain"></a>
 
 ### Domain
 
 | Name              | Domain                                   |
 | --------------- | ------------------------------------- |
 | CDN Public API Domain |  https://cdn.api.nhncloudservice.com |
+
+<a id="prerequisites"></a>
 
 ### Prerequisites
 
@@ -18,13 +26,19 @@ An Appkey is a unique authentication key issued for each NHN Cloud service, used
 Project Integrated Appkey can be used in place of the Appkey. Project Integrated Appkey is a common authentication key that can be shared across multiple services within a single NHN Cloud project.
 For more information on creating and using Project Integrated Appkeys, please refer to the [Project Integrated Appkey](https://docs.nhncloud.com/en/nhncloud/en/public-api/project-integrated-appkey).
 
+<a id="common-request-information"></a>
+
 ### Common Request Information
+
+<a id="request-header"></a>
 
 #### Request Header
 
 | Name            | Description                        |
 | ------------- | ------------------------- |
 | Authorization | SecretKey issued from the console |
+
+<a id="path-parameter"></a>
 
 #### Path Parameter
 
@@ -35,7 +49,11 @@ In all APIs, the appKey must be specified in the path parameter.
 | ------ | --------------------- |
 | appKey | Appkey issued from the console |
 
+<a id="common-response-information"></a>
+
 ### Common Response Information
+
+<a id="header"></a>
 
 #### Header
 
@@ -61,6 +79,8 @@ The API responds with `200 OK` to all API requests. For more details, see the he
 | header.resultCode    | Integer | Result code  |
 | header.resultMessage | String  | Result message |
 
+<a id="cdn-status-codes"></a>
+
 #### CDN Status Codes
 
 The following shows the status codes of CDN service, which are available at the query of service.
@@ -76,6 +96,8 @@ The following shows the status codes of CDN service, which are available at the 
 | CLOSING    | Closing service             |
 | CLOSE      | Closed                |
 | ERROR      | Error occurred while creating service |
+
+<a id="certificate-issuance-status-codes"></a>
 
 #### Certificate Issuance Status Codes
 
@@ -95,9 +117,15 @@ The following are status codes that indicate the certificate issuance status of 
 | EXPIRED            | Domain certificate expired                   |
 
 
+<a id="service-api"></a>
+
 ## Service API
 
+<a id="create-a-service"></a>
+
 ### Create a Service
+
+<a id="request"></a>
 
 #### Request
 
@@ -215,6 +243,8 @@ The following are status codes that indicate the certificate issuance status of 
 - The default value of `forwardHostHeader` is `REQUEST_HOST_HEADER` if `domainAlias` is set, or `ORIGIN_HOSTNAME` otherwise. 
 
 
+
+<a id="response"></a>
 
 #### Response
 
@@ -344,7 +374,11 @@ The following are status codes that indicate the certificate issuance status of 
 
 
 
+<a id="query-a-service"></a>
+
 ### Query a Service
+
+<a id="request-2"></a>
 
 #### Request
 
@@ -369,6 +403,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-2"></a>
 
 #### Response
 
@@ -486,7 +522,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | distributions[0].callback.url          | String  | Callback URL                                                     |
 
 
+<a id="modify-a-service"></a>
+
 ### Modify a Service
+
+<a id="request-3"></a>
 
 #### Request
 
@@ -605,6 +645,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 
 - The default value of `forwardHostHeader` is `REQUEST_HOST_HEADER` if `domainAlias` is set, or `ORIGIN_HOSTNAME` otherwise. 
 
+<a id="response-3"></a>
+
 #### Response
 
 
@@ -630,7 +672,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultCode    | Integer | Result code  |
 | header.resultMessage | String  | Result message |
 
+<a id="delete-a-service"></a>
+
 ### Delete a Service
+
+<a id="request-4"></a>
 
 #### Request
 
@@ -661,6 +707,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 
 > [Caution] When multiple domains are provided as input, all corresponding services are closed.
 
+<a id="response-4"></a>
+
 #### Response
 
 
@@ -687,9 +735,15 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | Result message |
 
 
+<a id="auth-token-api"></a>
+
 ## Auth Token API
 
+<a id="create-an-auth-token"></a>
+
 ### Create an Auth Token
+
+<a id="request-5"></a>
 
 #### Request
 
@@ -729,6 +783,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 * For details on creating and using tokens, refer to [Console User Guide > Access Control for Auth Token Authentication > 2. Create a Token](./console-guide/#access-control-for-auth-token-authentication).
 
 
+<a id="response-5"></a>
+
 #### Response
 
 [Response Body]
@@ -764,9 +820,15 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 
 
 
+<a id="purge-cache-api"></a>
+
 ## Purge Cache API
 
+<a id="purge-cache---item-particular-file-type"></a>
+
 ### Purge Cache -  ITEM (particular file type)
+
+<a id="request-6"></a>
 
 #### Request
 
@@ -795,6 +857,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | domain    | String | Required      |        | Up to 255 characters            | Domain (service) name to be purged                                 |
 | purgeList | List | Required      |        |                       | List of purge target URLs |
 
+<a id="response-6"></a>
+
 #### Response
 
 [Response Body]
@@ -819,7 +883,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultCode    | Integer | Result code     |
 | header.resultMessage | String  | Result message    |
 
+<a id="purge-cache---all-all-file-types"></a>
+
 ### Purge Cache -  ALL (All file types)
+
+<a id="request-7"></a>
 
 #### Request
 
@@ -844,6 +912,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | Name      | Type   | Required | Default | Valid Range             | Description                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
 | domain    | String | Required      |        | Up to 255 characters            | Domain (service) name to be purged                                 |
+
+<a id="response-7"></a>
 
 #### Response
 
@@ -872,13 +942,19 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 - Cache purge requests may fail within an hour after the CDN service is newly created. If the failure continues, contact Customer Support.
 - A usage limit policy exists for Purge APIs. For more details, see the 'Cache Purge Usage Limit' of [Console User Guide > Purging CDN Cache](./console-guide/#cdn-purge).
 
+<a id="query-cache-purge"></a>
+
 ### Query Cache Purge
 - In case of purging cache through API v2.0, high-speed cache purge is performed and completed within a few seconds after request, so an API to query cache purge status is not provided separately.
 
 <a id="alias_domain_api"></a>
 ## Alias Domain API
 
+<a id="register-alias-domain"></a>
+
 ### Register Alias Domain
+
+<a id="request-8"></a>
 
 #### Request
 
@@ -902,6 +978,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | Name | Type | Required | Default | Valid range | Description |
 | --------------- | ------ | ----- | ---- | ----------------------- | -------------------------------------------------------------------------------------- |
 | domain | String | Required | | FQDN format, minimum 4 to maximum 253 characters | Domain to register (enter in full domain address format; toastcdn.net domains cannot be used) |
+
+<a id="response-8"></a>
 
 #### Response
 
@@ -962,7 +1040,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | domain.updatedAt | DateTime | Last modified time |
 
 
+<a id="list-alias-domains"></a>
+
 ### List Alias Domains
+
+<a id="request-9"></a>
 
 #### Request
 
@@ -988,6 +1070,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-dom
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-9"></a>
 
 #### Response
 
@@ -1060,7 +1144,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-dom
 | domains[0].updatedAt | DateTime | Last modified time |
 
 
+<a id="delete-alias-domain"></a>
+
 ### Delete Alias Domain
+
+<a id="request-10"></a>
 
 #### Request
 
@@ -1084,6 +1172,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-10"></a>
 
 #### Response
 
@@ -1112,7 +1202,11 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-
 - Domains integrated with the CDN service cannot be deleted. Unlink the alias domain from the CDN service before deleting it.
 
 
+<a id="run-domain-validation"></a>
+
 ### Run Domain Validation
+
+<a id="request-11"></a>
 
 #### Request
 
@@ -1137,6 +1231,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-
 | ---------------- | ------ | ----- | --- | -------------- | ------------------------------------------------------------- |
 | validationMethod | String | Required | | DNS_TXT, HTTP | Validation method ("DNS_TXT": DNS TXT record addition method, "HTTP": HTTP file or redirect authentication method) |
 
+
+<a id="response-11"></a>
 
 #### Response
 
@@ -1201,7 +1297,11 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-
 - If the validation token has expired, validation cannot be run. Issue a new token using the Token Reissue API, then proceed with validation again.
 
 
+<a id="refresh-domain-validation-status"></a>
+
 ### Refresh Domain Validation Status
+
+<a id="request-12"></a>
 
 #### Request
 
@@ -1218,6 +1318,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-12"></a>
 
 #### Response
 
@@ -1279,7 +1381,11 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | domain.updatedAt | DateTime | Last modified time |
 
 
+<a id="reissue-validation-token"></a>
+
 ### Reissue Validation Token
+
+<a id="request-13"></a>
 
 #### Request
 
@@ -1296,6 +1402,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-13"></a>
 
 #### Response
 
@@ -1359,6 +1467,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 - When the token is reissued, the previous validation information is reset, and validation must be performed again with the new token information.
 - If the validation token has expired (`TOKEN_EXPIRED`), call this API to issue a new token.
 
+<a id="alias-domain-validation-status-codes"></a>
+
 #### Alias Domain Validation Status Codes
 
 The following are status codes indicating the validation status of an alias domain. The validation status can be checked when retrieving alias domains.
@@ -1371,8 +1481,14 @@ The following are status codes indicating the validation status of an alias doma
 | TOKEN_EXPIRED | Validation token expired; reissue the token and validate again |
 
 
+<a id="certificate-api"></a>
+
 ## Certificate API
+<a id="issue-new-certificates"></a>
+
 ### Issue New Certificates
+<a id="request-14"></a>
+
 #### Request
 
 [URI]
@@ -1403,6 +1519,8 @@ The following are status codes indicating the validation status of an alias doma
 
 * For details on issuing a certificate, refer to [Console User Guide > Certificate Management > Issue New Certificates](./console-guide/#_7).
 
+<a id="response-14"></a>
+
 #### Response
 
 [Response Body]
@@ -1454,7 +1572,11 @@ The following are status codes indicating the validation status of an alias doma
 | certificates[0].renewalStartDate | DateTime | Certificate renewal start date |
 | certificates[0].renewalEndDate | DateTime | Certificate renewal end date |
 
+<a id="list-certificates"></a>
+
 ### List Certificates
+<a id="request-15"></a>
+
 #### Request
 
 [URI]
@@ -1464,6 +1586,8 @@ The following are status codes indicating the validation status of an alias doma
 | GET | /v2.0/appKeys/{appKey}/certificates|
 
 
+<a id="response-15"></a>
+
 #### Response
 
 [Response Body]
@@ -1515,7 +1639,11 @@ The following are status codes indicating the validation status of an alias doma
 | certificates[0].renewalStartDate | DateTime | Certificate renewal start date |
 | certificates[0].renewalEndDate | DateTime | Certificate renewal end date |
 
+<a id="delete-certificates"></a>
+
 ### Delete Certificates
+<a id="request-16"></a>
+
 #### Request
 
 [URI]
@@ -1537,6 +1665,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certifica
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-16"></a>
 
 #### Response
 
@@ -1563,7 +1693,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certifica
 | header.resultMessage | String  | Result message    |
 
 
+<a id="callback-response"></a>
+
 ## Callback Response
+<a id="cdn-service"></a>
+
 ### CDN Service
 If the callback function is set in the CDN service, the configured callback URL is called when creation, modification, pause, resume, deletion change is completed.
 When the callback is called, the request body contains the following CDN service settings information.
@@ -1671,6 +1805,8 @@ When the callback is called, the request body contains the following CDN service
 | distribution.callback              | Object  | Callback to receive service deployment result                        |
 | distribution.callback.httpMethod   | String  | HTTP method of callback                                           |
 | distribution.callback.url          | String  | Callback URL                                                     |
+
+<a id="certificate"></a>
 
 ### Certificate
 If callback information is set when requesting issuance of a certificate, the configured callback URL is called when the status changes to domain validation, domain validated, or certificate issued.
