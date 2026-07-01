@@ -1,6 +1,12 @@
+<!-- pre-align:aligned sig=5b78ed758e34 -->
+
 ## Contents > CDN > Release Notes
 
+<a id="0720"></a>
+
 ### 2017.07.20
+
+<a id="0720-1"></a>
 
 #### 기능 개선/변경
 * CDN API를 배포하였습니다. 자세한 내용은 Developer`s guide를 참고해주세요.  
@@ -21,15 +27,23 @@
 		* Http Response별 통계: Http Response Code별로 Cache hit raito를 확인할 수 있습니다. 
 		* Top contents : 가장 많이 조회된 Content를 확인할 수 있습니다. 
 
+<a id="0720-2"></a>
+
 #### 버그 수정
 * 통계 > 서비스이름 선택 UI 버그 수정
 	* 서비스 설명에 대한 문구가 길어지면 서비스 이름 선택 UI가 일부만 노출되는 현상을 수정하였습니다.
 
+<a id="1222"></a>
+
 ### 2016.12.22
+
+<a id="1222-1"></a>
 
 #### 기능 개선/변경
 * 서비스 생성 시 실제 접속 가능한 시점에 OPEN 으로 상태 변경 하도록 수정 
 * CORS(Cross-Origin Resource Sharing) 지원
+
+<a id="1222-2"></a>
 
 #### 버그 수정
 * Global Purge 기능이 동작하지 않던 문제 수정
