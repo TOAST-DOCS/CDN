@@ -6,13 +6,12 @@
 
 ### June 23, 2026
 
-<!-- TODO: translate body -->
-
 <a id="section-1-1"></a>
 
 #### Feature Updates
 
-<!-- TODO: translate body -->
+* Added CDN Public API v3.0
+  * For more information, see [API v2.0 Guide](./api-guide-v3.0).
 
 <a id="april-28-2026"></a>
 
