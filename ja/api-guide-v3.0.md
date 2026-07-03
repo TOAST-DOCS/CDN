@@ -1,42 +1,42 @@
 <!-- pre-align:aligned sig=73fb7cfa0df0 -->
 
-## Content Delivery > CDN > API v3.0 가이드
+## Content Delivery > CDN > API v3.0 ガイド
 
-NHN Cloud CDN에서 제공하는 Public API v3.0을 설명합니다.
+NHN Cloud CDNで提供するPublic API v3.0について説明します。
 
 <a id="api"></a>
 
-## API 공통 정보
+## API共通情報
 
 <a id="api-1"></a>
 
-### 도메인
+### ドメイン
 
-| 이름              | 도메인                                 |
+| 名前             | ドメイン                                |
 | --------------- | ----------------------------------- |
-| CDN Public API 도메인 | https://cdn.api.nhncloudservice.com |
+| CDN Public APIドメイン | https://cdn.api.nhncloudservice.com |
 
 <a id="api-2"></a>
 
-### 인증 및 권한
-CDN API v3.0은 API 인증 호출 및 인증을 위해 Appkey와 User Access Key 토큰을 지원합니다.
+### 認証及び権限
+CDN API v3.0は、API認証の呼び出し及び認証のためにAppkeyとUser Access Keyトークンをサポートします。
 
-Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API 요청 시 서비스 식별과 유효성 검증에 사용됩니다.<br>User Access Key 토큰은 User Access Key를 기반으로 발급되는 Bearer 타입의 일시적 액세스 토큰입니다.
-각 인증 방법의 확인 및 사용에 대한 자세한 내용은 각각 [Appkey](/nhncloud/ko/public-api/appkey/)와 [User Access Key 토큰](/nhncloud/ko/public-api/user-access-key-token)을 참고하세요.
+Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証キーであり、APIリクエスト時にサービスの識別と有効性の検証に使用されます。<br>User Access Keyトークンは、User Access Keyを基に発行されるBearerタイプの一時的なアクセストークンです。
+各認証方法の確認及び使用に関する詳細は、それぞれ[Appkey](/nhncloud/ko/public-api/appkey/)と[User Access Keyトークン](/nhncloud/ko/public-api/user-access-key-token)をご参照ください。
 
-발급 받은 토큰은 요청 Header에 포함해야 합니다.
+発行されたトークンはリクエストHeaderに含める必要があります。
 
-| 이름 | 종류 | 형식 | 필수 | 설명 |
+| 名前 | 種類 | 形式 | 必須 | 説明 |
 |---|---|---|---|---|
-| X-NHN-AUTHORIZATION | Header | String | O | Public API로 발급 받은 Bearer 유형 토큰 |
+| X-NHN-AUTHORIZATION | Header | String | O | Public APIで発行されたBearerタイプのトークン |
 
 <a id="api-3"></a>
 
-### 응답 공통 정보
+### 共通レスポンス情報
 
-- 모든 API 요청에 '200 OK'로 응답합니다. 자세한 응답 결과는 응답 본문의 헤더를 참고하세요.
+- すべてのAPIリクエストに対して'200 OK'のレスポンスを返します。詳細なレスポンス結果は、レスポンスボディのヘッダーをご参照ください。
 
-[성공 응답 본문]
+[成功レスポンスボディ]
 
 ```
 {
@@ -50,63 +50,63 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 
 <a id="cdn"></a>
 
-#### CDN 상태 코드
+#### CDNステータスコード
 
-다음은 CDN 서비스 상태를 나타내는 상태 코드로, 서비스 조회 시 서비스 상태를 확인할 수 있습니다.
+以下はCDNサービスのステータスを示すステータスコードであり、サービスの照会時にサービスのステータスを確認できます。
 
-| 값         | 설명                     |
+| 値  | 説明              |
 | ---------- | ------------------------ |
-| OPENING    | 서비스 시작 중           |
-| OPEN       | 서비스 중                |
-| MODIFYING  | 수정 중                  |
-| RESUME     | 시작                     |
-| SUSPENDING | 정지 진행 중             |
-| SUSPEND    | 정지                     |
-| CLOSING    | 사용 종료 중             |
-| CLOSE      | 사용 종료                |
-| ERROR      | 서비스 생성 중 오류 발생 |
+| OPENING    | サービス起動中    |
+| OPEN       | サービス中         |
+| MODIFYING  | 修正中           |
+| RESUME     | 開始              |
+| SUSPENDING | 停止進行中      |
+| SUSPEND    | 停止              |
+| CLOSING    | 使用終了中      |
+| CLOSE      | 使用終了         |
+| ERROR      | サービス作成中にエラーが発生 |
 
 <a id="api-3-1"></a>
 
-#### 인증서 발급 상태 코드
+#### 証明書発行ステータスコード
 
-다음은 도메인의 인증서 발급 상태를 나타내는 상태 코드로, 인증서 조회 시 발급 상태를 확인할 수 있습니다.
+以下はドメインの証明書の発行ステータスを示すステータスコードであり、証明書の照会時に発行ステータスを確認できます。
 
-| 값         | 설명                     |
+| 値  | 説明              |
 | ---------- | ------------------------ |
-| PENDING_NEW        | 인증서 신규 발급이 요청되어 처리 대기 중   |
-| PENDING_CANCEL     | 인증서 발급이 취소 요청되어 도메인 검증 취소 처리 대기 중   |
-| PENDING_DELETE     | 발급된 인증서가 삭제 요청되어 처리 대기 중  |
-| PENDING_EXPIRE     | 발급된 인증서가 만료되어 만료 처리 대기 중  |
-| VALIDATED          | 도메인 검증 완료                     |
-| DEPLOYED           | 인증서 배포 완료                     |
-| WAITING_VALIDATION | 도메인 검증 대기 중                  |
-| CANCELED           | 도메인 검증 취소 완료                 |
-| DELETED            | 도메인 인증서 삭제 완료               |
-| EXPIRED            | 도메인 인증서 만료                   |
+| PENDING_NEW        | 証明書の新規発行がリクエストされ、処理待機中   |
+| PENDING_CANCEL     | 証明書発行のキャンセルがリクエストされ、ドメイン検証のキャンセル処理待機中   |
+| PENDING_DELETE     | 発行された証明書の削除がリクエストされ、処理待機中  |
+| PENDING_EXPIRE     | 発行された証明書の有効期限が切れ、有効期限切れ処理待機中  |
+| VALIDATED          | ドメインの検証完了                     |
+| DEPLOYED           | 証明書のデプロイ完了                     |
+| WAITING_VALIDATION | ドメインの検証待機中                  |
+| CANCELED           | ドメイン検証のキャンセル完了                 |
+| DELETED            | ドメイン証明書の削除完了               |
+| EXPIRED            | ドメイン証明書の有効期限切れ                   |
 
 
 <a id="api-4"></a>
 
-## 서비스 API
+## サービスAPI
 
 <a id="api-4-1"></a>
 
-### 서비스 생성
+### サービスの作成
 
 <a id="api-4-1-1"></a>
 
-#### 요청
+#### リクエスト
 
 
 [URI]
 
-| 메서드  | URI                                  |
+| メソッド | URI                                  |
 | ---- |--------------------------------------|
 | POST | /v3.0/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[リクエスト本文]
 
 ```json
 {
@@ -167,58 +167,58 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 }
 ```
 
-[필드]
+[フィールド]
 
-| 이름                                                                                    | 타입      | 필수 여부 | 기본값         | 유효 범위                                                                 | 설명                                                                                                                        |
+| 名前                                                                                    | タイプ      | 必須かどうか | デフォルト値         | 有効範囲                                                                 | 説明                                                                                                                        |
 |---------------------------------------------------------------------------------------|---------|-------|-------------|-----------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| distributions                                                                         | List    | 필수    |             |                                                                       | 생성할 CDN의 오브젝트 목록                                                                                                          |
-| distributions[0].useOriginHttpProtocolDowngrade                                       | Boolean | 필수    | false       | true/false                                                            | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부                                     |
-| distributions[0].forwardHostHeader                                                    | String  | 필수    |             | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER                               | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정) |
-| distributions[0].useOriginCacheControl                                                | Boolean | 선택    |             | true/false                                                            | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정 사용). useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.                      |
-| distributions[0].cacheType                                                            | String  | 선택    |             | BYPASS, NO_STORE                                                      | 캐시 타입 설정. useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.                                                           |
-| distributions[0].referrerType                                                         | String  | 필수    |             | BLACKLIST/WHITELIST                                                   | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트)                                                                        |
-| distributions[0].referrers                                                            | List    | 선택    |             |                                                                       | 정규 표현식 형태의 리퍼러 헤더 목록                                                                                                      |
-| distributions[0].isAllowWhenEmptyReferrer                                             | Boolean | 선택    | true        | true/false                                                            | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부                                                                                |
-| distributions[0].isAllowPost                                                          | Boolean | 선택    | false       | true/false                                                            | POST 메서드 허용(true)/거부(false) 여부                                                                                            |
-| distributions[0].isAllowPut                                                           | Boolean | 선택    | false       | true/false                                                            | PUT 메서드 허용(true)/거부(false) 여부                                                                                             |
-| distributions[0].isAllowPatch                                                         | Boolean | 선택    | false       | true/false                                                            | PATCH 메서드 허용(true)/거부(false) 여부                                                                                           |
-| distributions[0].isAllowDelete                                                        | Boolean | 선택    | false       | true/false                                                            | DELETE 메서드 허용(true)/거부(false) 여부                                                                                          |
-| distributions[0].useLargeFileOptimization                                             | Boolean | 선택    | false       | true/false                                                            | 대용량 파일 최적화 설정 사용 여부                                                                                                       |
-| distributions[0].description                                                          | String  | 선택    |             | 최대 255자                                                               | 설명                                                                                                                        |
-| distributions[0].domainAlias                                                          | List    | 선택    |             |                                                                       | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)                                                                                           |
-| distributions[0].defaultMaxAge                                                        | Integer | 선택    | 0           | 0~2,147,483,647                                                       | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.                                                                                          |
-| distributions[0].cacheKeyQueryParam                                                   | String  | 선택    | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                                               | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함)                                                     |
-| distributions[0].origins                                                              | List    | 필수    |             |                                                                       | 원본 서버 오브젝트 목록                                                                                                             |
-| distributions[0].origins[0].origin                                                    | String  | 필수    |             | 최대 255자                                                               | 원본 서버(도메인 또는 IP)                                                                                                          |
-| distributions[0].origins[0].originPath                                                | String  | 선택    |             | 최대 8192자                                                              | 원본 서버 하위 경로(/를 포함한 경로로 입력합니다.)                                                                                          |
-| distributions[0].origins[0].httpPort                                                  | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                         |
-| distributions[0].origins[0].httpsPort                                                 | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                        |
-| distributions[0].rootPathAccessControl                                                | Object  | 선택    |             |                                                                       | CDN 서비스의 루트 경로에 대한 접근 제어 설정                                                                                               | 
-| distributions[0].rootPathAccessControl.enable                                         | Boolean | 필수    | true        | true/false                                                            | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부                                                                                    |
-| distributions[0].rootPathAccessControl.controlType                                    | String  | 선택    |             | DENY, REDIRECT                                                        | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트)                                      | 
-| distributions[0].rootPathAccessControl.redirectPath                                   | String  | 선택    |             |                                                                       | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)                                           |
-| distributions[0].rootPathAccessControl.redirectStatusCode                             | Integer | 선택    |             | 301, 302, 303, 307                                                    | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드                                                                 |
-| distributions[0].modifyOutgoingResponseHeaderControl                                  | Object  | 선택    |             |                                                                       | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정                                                                                         |
-| distributions[0].modifyOutgoingResponseHeaderControl.enable                           | Boolean | 필수    | true        | true/false                                                            | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부                                                                          |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList                       | List    | 선택    |         |                                                                       | HTTP 응답 헤더 목록                                                                                                             |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].action             | String  | 선택    |         | ADD, MODIFY, DELETE                                                   | HTTP 응답 헤더 변경 방식                                                                                                          |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 선택    |         | ACCESS_CONTROL_ALLOW_CREDENTIALS<br/>ACCESS_CONTROL_ALLOW_HEADERS<br/>ACCESS_CONTROL_ALLOW_METHODS<br/>ACCESS_CONTROL_ALLOW_ORIGIN<br/>ACCESS_CONTROL_EXPOSE_HEADERS<br/>ACCESS_CONTROL_MAX_AGE<br/>CACHE_CONTROL<br/>CONTENT_DISPOSITION<br/>CONTENT_TYPE<br/>P3P<br/>PRAGMA<br/>OTHER | 일반 HTTP 응답 헤더 이름                                                                                                          |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | 선택    |         |                                                      | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름                                                               |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | 필수    |         |                                                      | HTTP 응답 헤더 값                                                                                                              |
-| distributions[0].callback                                                             | Object  | 선택    |             |                                                                       | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.)                                                                               |
-| distributions[0].callback.httpMethod                                                  | String  | 필수    |             | GET/POST/PUT                                                          | 콜백의 HTTP 메서드                                                                                                              |
-| distributions[0].callback.url                                                         | String  | 필수    |             | 최대 1024자                                                              | 콜백 URL                                                                                                                    |
+| distributions                                                                         | List    | 必須    |             |                                                                       | 作成するCDNのオブジェクト一覧                                                                                                          |
+| distributions[0].useOriginHttpProtocolDowngrade                                       | Boolean | 必須    | false       | true/false                                                                            | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーへのリクエスト時にHTTPSリクエストをHTTPリクエストにダウングレードするための設定の使用有無                                     |
+| distributions[0].forwardHostHeader                                                    | String  | 必須    |             | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER                               | CDNサーバーがオリジンサーバーにコンテンツをリクエストする際に送信するホストヘッダの設定("ORIGIN_HOSTNAME": オリジンサーバーのホスト名に設定、"REQUEST_HOST_HEADER": クライアントリクエストのホストヘッダに設定) |
+| distributions[0].useOriginCacheControl                                                | Boolean | 任意    |             | true/false                                                            | キャッシュ有効期限の設定(true: オリジンサーバーの設定を使用、false: ユーザー設定を使用)。useOriginCacheControlまたはcacheTypeのいずれかを必ず入力する必要があります。                      |
+| distributions[0].cacheType                                                            | String  | 任意    |             | BYPASS, NO_STORE                                                      | キャッシュタイプの設定。useOriginCacheControlまたはcacheTypeのいずれかを必ず入力する必要があります。                                                           |
+| distributions[0].referrerType                                                         | String  | 必須    |             | BLACKLIST/WHITELIST                                                   | リファラーアクセスの管理("BLACKLIST": ブラックリスト、"WHITELIST": ホワイトリスト)                                                                        |
+| distributions[0].referrers                                                            | List    | 任意    |             |                                                                       | 正規表現形式のリファラーヘッダ一覧                                                                                                      |
+| distributions[0].isAllowWhenEmptyReferrer                                           | Boolean | 任意    | true        | true/false                                                                            | リファラーヘッダーがない場合のコンテンツアクセスを許可するかどうか (true: 許可、false: 拒否)                                                                                                              |
+| distributions[0].isAllowPost                                                          | Boolean | 任意    | false       | true/false                                                                            | POSTメソッドを許可するかどうか (true: 許可、false: 拒否)                                                                                                                                              |
+| distributions[0].isAllowPut                                                           | Boolean | 任意    | false       | true/false                                                                            | PUTメソッドを許可するかどうか (true: 許可、false: 拒否)                                                                                                                                               |
+| distributions[0].isAllowPatch                                                         | Boolean | 任意    | false       | true/false                                                                            | PATCHメソッドを許可するかどうか (true: 許可、false: 拒否)                                                                                                                                             |
+| distributions[0].isAllowDelete                                                        | Boolean | 任意    | false       | true/false                                                                            | DELETEメソッドを許可するかどうか (true: 許可、false: 拒否)                                                                                                                                            |
+| distributions[0].useLargeFileOptimization                                             | Boolean | 任意    | false       | true/false                                                            | 大容量ファイル最適化設定の使用有無                                                                                                       |
+| distributions[0].description                                                          | String  | 任意    |             | 最大255文字                                                               | 説明                                                                                                                        |
+| distributions[0].domainAlias                                                          | List    | 任意    |             |                                                                       | ドメインエイリアス一覧(個人または会社が所有するドメインを使用)                                                                                         |
+| distributions[0].defaultMaxAge                                                        | Integer | 任意    | 0           | 0～2,147,483,647                                                       | キャッシュの有効期限(秒)、デフォルト値0は604,800秒です。                                                                                          |
+| distributions[0].cacheKeyQueryParam                                                   | String  | 任意    | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                                               | キャッシュキーにリクエストクエリ文字列を含めるかどうかの設定("INCLUDE_ALL": 全て含む、"EXCLUDE_ALL": 全て含まない)                                                     |
+| distributions[0].origins                                                              | List    | 必須    |             |                                                                       | オリジンサーバーオブジェクト一覧                                                                                                             |
+| distributions[0].origins[0].origin                                                    | String  | 必須    |             | 最大255文字                                                               | オリジンサーバー(ドメインまたはIP)                                                                                                          |
+| distributions[0].origins[0].originPath                                                | String  | 任意    |             | 最大8192文字                                                              | オリジンサーバーのサブパス(/を含むパスで入力します。)                                                                                          |
+| distributions[0].origins[0].httpPort                                                  | Integer | 任意    |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の'[表 2] 使用可能なオリジンサーバーのポート番号'を参照 | オリジンサーバーのHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれかを必ず入力する必要があります。)                                         |
+| distributions[0].origins[0].httpsPort                                                 | Integer | 任意    |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の'[表 2] 使用可能なオリジンサーバーのポート番号'を参照 | オリジンサーバーのHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれかを必ず入力する必要があります。)                                        |
+| distributions[0].rootPathAccessControl                                                | Object  | 任意    |             |                                                                       | CDNサービスのルートパスに対するアクセス制御の設定                                                                                               |
+| distributions[0].rootPathAccessControl.enable                                         | Boolean | 必須    | true        | true/false                                                                            | ルートパスに対するアクセス制御を使用するかどうか (true: 使用、false: 未使用)                                                                                                                            |
+| distributions[0].rootPathAccessControl.controlType                                    | String  | 任意    |             | DENY, REDIRECT                                                        | enableがtrueの場合に必須入力。ルートパスに対するアクセス制御方式("DENY": アクセス拒否、"REDIRECT": 指定したパスへリダイレクト)                                      |
+| distributions[0].rootPathAccessControl.redirectPath                                   | String  | 任意    |             |                                                                       | controlTypeが"REDIRECT"の場合に必須入力。ルートパスへのリクエストをリダイレクトするパス(/を含むパスで入力します。)                                           |
+| distributions[0].rootPathAccessControl.redirectStatusCode                             | Integer | 任意    |             | 301, 302, 303, 307                                                    | controlTypeが"REDIRECT"の場合に必須入力。リダイレクト時に送信されるHTTPレスポンスコード                                                                 |
+| distributions[0].modifyOutgoingResponseHeaderControl                                  | Object  | 任意    |             |                                                                                       | CDNから返されるHTTPレスポンスヘッダーを追加/変更/削除する設定                                                                                                                              |
+| distributions[0].modifyOutgoingResponseHeaderControl.enable                           | Boolean | 必須    | true        | true/false                                                                            | HTTPレスポンスヘッダーを追加/変更/削除する設定を使用するかどうか (true: 使用、false: 未使用)                                                                                                          |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList                       | List    | 任意    |         |                                                                       | HTTPレスポンスヘッダ一覧                                                                                                             |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].action             | String  | 任意    |         | ADD, MODIFY, DELETE                                                   | HTTPレスポンスヘッダの変更方式                                                                                                          |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 任意    |         | ACCESS_CONTROL_ALLOW_CREDENTIALS<br/>ACCESS_CONTROL_ALLOW_HEADERS<br/>ACCESS_CONTROL_ALLOW_METHODS<br/>ACCESS_CONTROL_ALLOW_ORIGIN<br/>ACCESS_CONTROL_EXPOSE_HEADERS<br/>ACCESS_CONTROL_MAX_AGE<br/>CACHE_CONTROL<br/>CONTENT_DISPOSITION<br/>CONTENT_TYPE<br/>P3P<br/>PRAGMA<br/>OTHER | 一般的なHTTPレスポンスヘッダ名                                                                                                          |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | 任意    |         |                                                      | standardHeaderNameが"OTHER"の場合に必須入力。ユーザー定義のHTTPレスポンスヘッダ名                                                               |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | 必須    |         |                                                      | HTTPレスポンスヘッダ値                                                                                                              |
+| distributions[0].callback                                                             | Object  | 任意    |             |                                                                       | CDN作成の処理結果の通知を受け取るコールバックURL(コールバックの設定は任意入力です。)                                                                               |
+| distributions[0].callback.httpMethod                                                  | String  | 必須    |             | GET/POST/PUT                                                          | コールバックのHTTPメソッド                                                                                                              |
+| distributions[0].callback.url                                                         | String  | 必須    |             | 最大1024文字                                                              | コールバックURL                                                                                                                    |
 
-- `forwardHostHeader`의 기본값은 `domainAlias`를 설정한 경우 `REQUEST_HOST_HEADER`이고, 설정하지 않으면 `ORIGIN_HOSTNAME`입니다.
+- `forwardHostHeader`のデフォルト値は、`domainAlias`を設定した場合は`REQUEST_HOST_HEADER`であり、設定していない場合は`ORIGIN_HOSTNAME`です。
 
 
 
 <a id="api-4-1-2"></a>
 
-#### 응답
+#### レスポンス
 
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -292,81 +292,81 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                                   | 타입    | 설명                                                       |
+| フィールド                                  | タイプ   | 説明                                                      |
 | -------------------------------------- | ------- | ---------------------------------------------------------- |
-| header                                 | Object  | 헤더 영역                                                  |
-| header.isSuccessful                    | Boolean | 성공 여부                                                  |
-| header.resultCode                      | Integer | 결과 코드                                                  |
-| header.resultMessage                   | String  | 결과 메시지                                                |
-| distributions                          | List    | 생성된 CDN 오브젝트 목록                                 |
-| distributions[0].domain                | String  | 생성된 도메인(서비스 이름)                                 |
-| distributions[0].domainAlias           | List    | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)            |
-| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)          |
-| distributions[0].description           | String  | 설명                                                       |
-| distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                               |
-| distributions[0].defaultMaxAge         | Integer | 캐시 만료 시간(초)                                         |
-| distributions[0].cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
-| distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
-| distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
-| distributions[0].isAllowPost | Boolean | POST 메서드 허용(true)/거부(false) 여부           |
-| distributions[0].isAllowPut | Boolean | PUT 메서드 허용(true)/거부(false) 여부           |
-| distributions[0].isAllowPatch | Boolean | PATCH 메서드 허용(true)/거부(false) 여부           |
-| distributions[0].isAllowDelete | Boolean | DELETE 메서드 허용(true)/거부(false) 여부           |
-| distributions[0].useLargeFileOptimization | Boolean | 대용량 파일 최적화 설정 사용 여부   |
-| distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
-| distributions[0].cacheType             | String  | 캐시 타입 설정                                        |
-| distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                    |
-| distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                    |
-| distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                        |
-| distributions[0].origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                             |
-| distributions[0].origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                             |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정) |
-| distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부        |
-| distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)      |
-| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드        |
-| distributions[0].modifyOutgoingResponseHeaderControl                                  | Object  | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정  |
-| distributions[0].modifyOutgoingResponseHeaderControl.enable                           | Boolean | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부  |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList                       | List    | HTTP 응답 헤더 목록 |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].action             | String  | HTTP 응답 헤더 변경 방식 |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 일반 HTTP 응답 헤더 이름 |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름 |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | HTTP 응답 헤더 값 |
-| distributions[0].callback              | Object  | 서비스 생성 처리 결과를 통보받을 콜백                      |
-| distributions[0].callback.httpMethod   | String  | 콜백의 HTTP 메서드                                         |
-| distributions[0].callback.url          | String  | 콜백 URL                                                   |
+| header                                 | Object  | ヘッダ領域                                                 |
+| header.isSuccessful                    | Boolean | 成否                                                 |
+| header.resultCode                      | Integer | 結果コード                                                 |
+| header.resultMessage                   | String  | 結果メッセージ                                               |
+| distributions                          | List    | 作成されたCDNオブジェクト一覧                                |
+| distributions[0].domain                | String  | 作成されたドメイン(サービス名)                                 |
+| distributions[0].domainAlias           | List    | ドメインエイリアス一覧(個人または会社が所有するドメインを使用)            |
+| distributions[0].region                | String  | サービス地域("GLOBAL":グローバル)          |
+| distributions[0].description           | String  | 説明                                                      |
+| distributions[0].status                | String  | CDNステータスコード([表] CDNステータスコードを参照)                               |
+| distributions[0].defaultMaxAge         | Integer | キャッシュの有効期限(秒)                                         |
+| distributions[0].cacheKeyQueryParam    | String  | キャッシュキーにリクエストクエリ文字列を含めるかどうかの設定("INCLUDE_ALL": 全て含む、"EXCLUDE_ALL": 全て含まない) |
+| distributions[0].referrerType          | String  | リファラーアクセスの管理("BLACKLIST": ブラックリスト、"WHITELIST": ホワイトリスト) |
+| distributions[0].referrers             | List    | 正規表現形式のリファラーヘッダ一覧                                |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | リファラーヘッダがない場合のコンテンツアクセスを許可するかどうか (true: 許可、false: 拒否) |
+| distributions[0].isAllowPost | Boolean | POSTメソッドを許可するかどうか (true: 許可、false: 拒否)           |
+| distributions[0].isAllowPut | Boolean | PUTメソッドを許可するかどうか (true: 許可、false: 拒否)           |
+| distributions[0].isAllowPatch | Boolean | PATCHメソッドを許可するかどうか (true: 許可、false: 拒否)           |
+| distributions[0].isAllowDelete | Boolean | DELETEメソッドを許可するかどうか (true: 許可、false: 拒否)           |
+| distributions[0].useLargeFileOptimization | Boolean | 大容量ファイル最適化設定を使用するかどうか |
+| distributions[0].useOriginCacheControl | Boolean | オリジンサーバーの設定を使用するかどうか (true: オリジンサーバーの設定を使用、false: ユーザー設定を使用) |
+| distributions[0].cacheType             | String  | キャッシュタイプの設定                                        |
+| distributions[0].origins               | List    | オリジンサーバーオブジェクト一覧                                    |
+| distributions[0].origins[0].origin     | String  | オリジンサーバー(ドメインまたはIP)                                    |
+| distributions[0].origins[0].originPath | String  | オリジンサーバーのサブパス                                        |
+| distributions[0].origins[0].httpPort   | Integer | オリジンサーバーのHTTPプロトコルポート                                             |
+| distributions[0].origins[0].httpsPort  | Integer | オリジンサーバーのHTTPSプロトコルポート                                             |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーへのリクエスト時にHTTPSリクエストをHTTPリクエストにダウングレードする設定を使用するかどうか |
+| distributions[0].forwardHostHeader     | String  | CDNサーバーがオリジンサーバーにコンテンツをリクエストする際に送信するホストヘッダの設定("ORIGIN_HOSTNAME": オリジンサーバーのホスト名に設定、"REQUEST_HOST_HEADER": クライアントリクエストのホストヘッダに設定) |
+| distributions[0].rootPathAccessControl  | Object  | CDNサービスのルートパスに対するアクセス制御の設定 |
+| distributions[0].rootPathAccessControl.enable | Boolean | ルートパスに対するアクセス制御を使用するかどうか (true: 使用、false: 未使用)        |
+| distributions[0].rootPathAccessControl.controlType  | String  | enableがtrueの場合に必須入力。ルートパスに対するアクセス制御方式("DENY": アクセス拒否、"REDIRECT": 指定したパスへリダイレクト) |
+| distributions[0].rootPathAccessControl.redirectPath | String | controlTypeが"REDIRECT"の場合に必須入力。ルートパスへのリクエストをリダイレクトするパス(/を含むパスで入力します。)      |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlTypeが"REDIRECT"の場合に必須入力。リダイレクト時に送信されるHTTPレスポンスコード        |
+| distributions[0].modifyOutgoingResponseHeaderControl                                  | Object  | CDNから返されるHTTPレスポンスヘッダを追加/変更/削除する設定  |
+| distributions[0].modifyOutgoingResponseHeaderControl.enable                           | Boolean | HTTPレスポンスヘッダを追加/変更/削除する設定を使用するかどうか (true: 使用、false: 未使用)  |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList                       | List    | HTTPレスポンスヘッダ一覧 |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].action             | String  | HTTPレスポンスヘッダの変更方式 |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 一般的なHTTPレスポンスヘッダ名 |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | standardHeaderNameが"OTHER"の場合に必須入力。ユーザー定義のHTTPレスポンスヘッダ名 |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | HTTPレスポンスヘッダ値 |
+| distributions[0].callback              | Object  | サービスの作成処理結果の通知を受け取るコールバック                      |
+| distributions[0].callback.httpMethod   | String  | コールバックのHTTPメソッド                                        |
+| distributions[0].callback.url          | String  | コールバックURL                                                   |
 
 
 
 <a id="api-4-2"></a>
 
-### 서비스 조회
+### サービスの照会
 
 <a id="api-4-2-1"></a>
 
-#### 요청
+#### リクエスト
 
 
 [URI]
 
-| 메서드  | URI                                  |
+| メソッド | URI                                  |
 | ---- | ------------------------------------ |
 | GET  | /v3.0/appKeys/{appKey}/distributions |
 
 
-[파라미터]
+[パラメータ]
 
-| 이름   | 타입   | 필수 여부 | 유효 범위     | 설명                         |
+| 名前   | タイプ   | 必須かどうか | 有効範囲      | 説明                         |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
-| domain | String | 선택      | 최대 255자    | 조회할 도메인(서비스 이름)   |
-| status | String | 선택      | CDN 상태 코드 | CDN 상태 코드([표] CDN 상태 코드 참고) |
+| domain | String | 任意  | 最大255文字 | 照会するドメイン(サービス名)   |
+| status | String | 任意      | CDNステータスコード | CDNステータスコード([表] CDNステータスコードを参照) |
 
-[예]
+[例]
 ```
 curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distributions?domain={domain}" \
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
@@ -375,10 +375,10 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 <a id="api-4-2-2"></a>
 
-#### 응답
+#### レスポンス
 
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -442,72 +442,72 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                                   | 타입    | 설명                                                         |
+| フィールド                           | タイプ | 説明                                                 |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 헤더 영역                                                    |
-| header.isSuccessful                    | Boolean | 성공 여부                                                    |
-| header.resultCode                      | Integer | 결과 코드                                                    |
-| header.resultMessage                   | String  | 결과 메시지                                                  |
-| distributions                          | List    | 생성된 CDN 오브젝트 목록                                     |
-| distributions[0].domain                | String  | 도메인(서비스 이름)                                     |
-| distributions[0].domainAlias           | List  | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)                                                  |
-| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
-| distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
-| distributions[0].defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
-| distributions[0].cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
-| distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
-| distributions[0].referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
-| distributions[0].isAllowWhenEmptyReferrer | Boolean | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부 |
-| distributions[0].isAllowPost          | Boolean | POST 메서드 허용(true)/거부(false) 여부             |
-| distributions[0].isAllowPut           | Boolean | PUT 메서드 허용(true)/거부(false) 여부             |
-| distributions[0].isAllowPatch         | Boolean | PATCH 메서드 허용(true)/거부(false) 여부             |
-| distributions[0].isAllowDelete        | Boolean | DELETE 메서드 허용(true)/거부(false) 여부             |
-| distributions[0].useLargeFileOptimization | Boolean | 대용량 파일 최적화 설정 사용 여부     |
-| distributions[0].useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
-| distributions[0].cacheType             | String  | 캐시 타입 설정                                          |
-| distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
-| distributions[0].origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
-| distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
-| distributions[0].origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                  |
-| distributions[0].origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                 |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정) |
-| distributions[0].rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| distributions[0].rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
-| distributions[0].rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distributions[0].rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)        |
-| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드          |
-| distributions[0].modifyOutgoingResponseHeaderControl                                  | Object  | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정  |
-| distributions[0].modifyOutgoingResponseHeaderControl.enable                           | Boolean | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부  |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList                       | List    | HTTP 응답 헤더 목록 |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].action             | String  | HTTP 응답 헤더 변경 방식 |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 일반 HTTP 응답 헤더 이름 |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름 |
-| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | HTTP 응답 헤더 값 |
-| distributions[0].callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
-| distributions[0].callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
-| distributions[0].callback.url          | String  | 콜백 URL                                                     |
+| header                                 | Object  | ヘッダ領域                                            |
+| header.isSuccessful                    | Boolean | 成否                                             |
+| header.resultCode                      | Integer | 結果コード                                            |
+| header.resultMessage                   | String  | 結果メッセージ                                          |
+| distributions                          | List    | 作成されたCDNオブジェクト一覧                                     |
+| distributions[0].domain                | String  | ドメイン(サービス名)                                     |
+| distributions[0].domainAlias           | List  | ドメインエイリアス一覧(個人または会社が所有するドメインを使用)                                         |
+| distributions[0].region                | String  | サービス地域("GLOBAL"：グローバル)             |
+| distributions[0].status                | String  | CDNステータスコード([表] CDNステータスコードを参照)                                 |
+| distributions[0].defaultMaxAge         | Integer  | キャッシュの有効期限(秒)                                          |
+| distributions[0].cacheKeyQueryParam    | String  | キャッシュキーにリクエストクエリ文字列を含めるかどうかの設定("INCLUDE_ALL": 全て含む、"EXCLUDE_ALL": 全て含まない) |
+| distributions[0].referrerType          | String  | リファラーアクセスの管理("BLACKLIST": ブラックリスト、"WHITELIST": ホワイトリスト) |
+| distributions[0].referrers             | List    | 正規表現形式のリファラーヘッダ一覧                                 |
+| distributions[0].isAllowWhenEmptyReferrer | Boolean | リファラーヘッダがない場合のコンテンツアクセスを許可するかどうか (true: 許可、false: 拒否) |
+| distributions[0].isAllowPost          | Boolean | POSTメソッドを許可するかどうか (true: 許可、false: 拒否)             |
+| distributions[0].isAllowPut           | Boolean | PUTメソッドを許可するかどうか (true: 許可、false: 拒否)             |
+| distributions[0].isAllowPatch         | Boolean | PATCHメソッドを許可するかどうか (true: 許可、false: 拒否)             |
+| distributions[0].isAllowDelete        | Boolean | DELETEメソッドを許可するかどうか (true: 許可、false: 拒否)             |
+| distributions[0].useLargeFileOptimization | Boolean | 大容量ファイル最適化設定を使用するかどうか |
+| distributions[0].useOriginCacheControl | Boolean | オリジンサーバーの設定を使用するかどうか (true: オリジンサーバーの設定を使用、false: ユーザー設定を使用) |
+| distributions[0].cacheType             | String  | キャッシュタイプの設定                                        |
+| distributions[0].origins               | List    | オリジンサーバーオブジェクト一覧                                      |
+| distributions[0].origins[0].origin     | String  | オリジンサーバー(ドメインまたはIP)                                      |
+| distributions[0].origins[0].originPath | String  | オリジンサーバーのサブパス                                         |
+| distributions[0].origins[0].httpPort   | Integer | オリジンサーバーのHTTPプロトコルポート                                  |
+| distributions[0].origins[0].httpsPort  | Integer | オリジンサーバーのHTTPSプロトコルポート                                 |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーへのリクエスト時にHTTPSリクエストをHTTPリクエストにダウングレードする設定を使用するかどうか |
+| distributions[0].forwardHostHeader     | String  | CDNサーバーがオリジンサーバーにコンテンツをリクエストする際に送信するホストヘッダの設定("ORIGIN_HOSTNAME": オリジンサーバーのホスト名に設定、"REQUEST_HOST_HEADER": クライアントリクエストのホストヘッダに設定) |
+| distributions[0].rootPathAccessControl  | Object  | CDNサービスのルートパスに対するアクセス制御の設定 |
+| distributions[0].rootPathAccessControl.enable | Boolean | ルートパスに対するアクセス制御を使用するかどうか (true: 使用、false: 未使用)          |
+| distributions[0].rootPathAccessControl.controlType  | String  | enableがtrueの場合に必須入力。ルートパスに対するアクセス制御方式("DENY": アクセス拒否、"REDIRECT": 指定したパスへリダイレクト) |
+| distributions[0].rootPathAccessControl.redirectPath | String | controlTypeが"REDIRECT"の場合に必須入力。ルートパスへのリクエストをリダイレクトするパス(/を含むパスで入力します。)        |
+| distributions[0].rootPathAccessControl.redirectStatusCode | Integer | controlTypeが"REDIRECT"の場合に必須入力。リダイレクト時に送信されるHTTPレスポンスコード          |
+| distributions[0].modifyOutgoingResponseHeaderControl                                  | Object  | CDNから返されるHTTPレスポンスヘッダを追加/変更/削除する設定  |
+| distributions[0].modifyOutgoingResponseHeaderControl.enable                           | Boolean | HTTPレスポンスヘッダを追加/変更/削除する設定を使用するかどうか (true: 使用、false: 未使用)  |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList                       | List    | HTTPレスポンスヘッダ一覧 |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].action             | String  | HTTPレスポンスヘッダの変更方式 |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 一般的なHTTPレスポンスヘッダ名 |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | standardHeaderNameが"OTHER"の場合に必須入力。ユーザー定義のHTTPレスポンスヘッダ名 |
+| distributions[0].modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | HTTPレスポンスヘッダ値 |
+| distributions[0].callback              | Object  | サービスのデプロイ処理結果の通知を受け取るコールバック                        |
+| distributions[0].callback.httpMethod   | String  | コールバックのHTTPメソッド                                          |
+| distributions[0].callback.url          | String  | コールバックURL                                                     |
 
 
 <a id="api-4-3"></a>
 
-### 서비스 수정
+### サービスの修正
 
 <a id="api-4-3-1"></a>
 
-#### 요청
+#### リクエスト
 
 
 [URI]
 
-| 메서드  | URI                                  |
+| メソッド | URI                                  |
 | ---- | ------------------------------------ |
 | PUT  | /v3.0/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[リクエスト本文]
 
 ```json
 {
@@ -569,56 +569,56 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 이름                  | 타입    | 필수 여부 | 기본값 | 유효 범위                                                    | 설명                                                         |
+| 名前                  | タイプ    | 必須かどうか | デフォルト値 | 有効範囲                                                     | 説明                                                         |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| domain                | String  | 필수      |        | 최대 255자                                                   | 수정할 도메인(서비스 이름)                                   |
-| useOriginCacheControl | Boolean | 선택      |        | true/false                                                        | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정 사용). useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.      |
-| cacheType             | String  | 선택      |        | BYPASS, NO_STORE            | 캐시 타입 설정. useOriginCacheControl이나 cacheType 중 하나는 반드시 입력해야 합니다.                                          |
-| referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST                                          | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
-| referrers             | List    | 선택      |        |                                                              | 정규 표현식 형태의 리퍼러 헤더 목록 |
-| isAllowWhenEmptyReferrer | Boolean | 선택      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
-| isAllowPost           | Boolean | 선택      | false      | true/false             | POST 메서드 허용(true)/거부(false) 여부             |
-| isAllowPut            | Boolean | 선택      | false      | true/false             | PUT 메서드 허용(true)/거부(false) 여부             |
-| isAllowPatch          | Boolean | 선택      | false      | true/false             | PATCH 메서드 허용(true)/거부(false) 여부             |
-| isAllowDelete         | Boolean | 선택      | false      | true/false             | DELETE 메서드 허용(true)/거부(false) 여부             |
-| useLargeFileOptimization | Boolean | 선택   | false      | true/false             | 대용량 파일 최적화 설정 사용 여부     |
-| description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
-| domainAlias           | List    | 선택      |        | 최대 255자                                                   | 도메인 별칭(개인 또는 회사가 소유한 도메인 사용) |
-| defaultMaxAge         | Integer | 선택      | 0      | 0~2,147,483,647                                            | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.              |
-| cacheKeyQueryParam    | String  | 선택      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                               | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
-| origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
-| origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(도메인 또는 IP)                                      |
-| origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.) |
-| useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
-| rootPathAccessControl  | Object  | 선택 |  |  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| rootPathAccessControl.enable | Boolean | 필수 | false | true/false | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
-| rootPathAccessControl.controlType  | String  | 선택 |  | DENY, REDIRECT | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| rootPathAccessControl.redirectPath | String | 선택 |  | | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)        |
-| rootPathAccessControl.redirectStatusCode | Integer | 선택 | | 301, 302, 303, 307 |controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드          |
-| modifyOutgoingResponseHeaderControl                                  | Object  | 선택    |             |                                                                       | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정                                                                                         |
-| modifyOutgoingResponseHeaderControl.enable                           | Boolean | 필수    | true        | true/false                                                            | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부                                                                          |
-| modifyOutgoingResponseHeaderControl.headerList                       | List    | 선택    |         |                                                                       | HTTP 응답 헤더 목록                                                                                                             |
-| modifyOutgoingResponseHeaderControl.headerList[0].action             | String  | 선택    |         | ADD, MODIFY, DELETE                                                   | HTTP 응답 헤더 변경 방식                                                                                                          |
-| modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 선택    |         | ACCESS_CONTROL_ALLOW_CREDENTIALS<br/>ACCESS_CONTROL_ALLOW_HEADERS<br/>ACCESS_CONTROL_ALLOW_METHODS<br/>ACCESS_CONTROL_ALLOW_ORIGIN<br/>ACCESS_CONTROL_EXPOSE_HEADERS<br/>ACCESS_CONTROL_MAX_AGE<br/>CACHE_CONTROL<br/>CONTENT_DISPOSITION<br/>CONTENT_TYPE<br/>P3P<br/>PRAGMA<br/>OTHER | 일반 HTTP 응답 헤더 이름                                                                                                          |
-| modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | 선택    |         |                                                      | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름                                                               |
-| modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | 필수    |         |                                                      | HTTP 응답 헤더 값                                                                                                              |
-| callback              | Object  | 선택      |        |                                                              | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |
-| callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                                                 | 콜백의 HTTP 메서드                                           |
-| callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                                                     |
+| domain                | String  | 必須  |        | 最大255文字                                            | 修正するドメイン(サービス名)                                   |
+| useOriginCacheControl | Boolean | 任意      |        | true/false                                                        | キャッシュ有効期限の設定(true: オリジンサーバーの設定を使用、false: ユーザー設定を使用)。useOriginCacheControlまたはcacheTypeのいずれかを必ず入力する必要があります。      |
+| cacheType             | String  | 任意      |        | BYPASS, NO_STORE            | キャッシュタイプの設定。useOriginCacheControlまたはcacheTypeのいずれかを必ず入力する必要があります。                                         |
+| referrerType          | String  | 必須      |        | BLACKLIST/WHITELIST                                          | リファラーアクセスの管理("BLACKLIST": ブラックリスト、"WHITELIST": ホワイトリスト) |
+| referrers             | List    | 任意      |        |                                                              | 正規表現形式のリファラーヘッダ一覧 |
+| isAllowWhenEmptyReferrer | Boolean | 任意      | true      | true/false             | リファラーヘッダがない場合のコンテンツアクセスを許可するかどうか (true: 許可、false: 拒否)             |
+| isAllowPost           | Boolean | 任意      | false      | true/false             | POSTメソッドを許可するかどうか (true: 許可、false: 拒否)             |
+| isAllowPut            | Boolean | 任意      | false      | true/false             | PUTメソッドを許可するかどうか (true: 許可、false: 拒否)             |
+| isAllowPatch          | Boolean | 任意      | false      | true/false             | PATCHメソッドを許可するかどうか (true: 許可、false: 拒否)             |
+| isAllowDelete         | Boolean | 任意      | false      | true/false             | DELETEメソッドを許可するかどうか (true: 許可、false: 拒否)             |
+| useLargeFileOptimization | Boolean | 任意   | false      | true/false             | 大容量ファイル最適化設定を使用するかどうか |
+| description           | String  | 任意  |        | 最大255文字                                            | 説明                                                 |
+| domainAlias           | List    | 任意      |        | 最大255文字                                                  | ドメインエイリアス(個人または会社が所有するドメインを使用) |
+| defaultMaxAge         | Integer | 任意      | 0      | 0～2,147,483,647                                            | キャッシュの有効期限(秒)、デフォルト値0は604,800秒です。              |
+| cacheKeyQueryParam    | String  | 任意      | INCLUDE_ALL | INCLUDE_ALL/EXCLUDE_ALL                               | キャッシュキーにリクエストクエリ文字列を含めるかどうかの設定("INCLUDE_ALL": 全て含む、"EXCLUDE_ALL": 全て含まない) |
+| origins               | List    | 必須  |        |                                                              | オリジンサーバー                                            |
+| origins[0].origin     | String  | 必須  |        | 最大255文字                                            | オリジンサーバー(ドメインまたはIP)                                      |
+| origins[0].originPath | String  | 任意      |        | 最大8192文字                                                 | オリジンサーバーのサブパス                                         |
+| origins[0].httpPort   | Integer  | 任意      |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表 2] 使用可能なオリジンサーバーのポート番号」を参照| オリジンサーバーのHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれかを必ず入力する必要があります。)  |
+| origins[0].httpsPort  | Integer  | 任意      |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表 2] 使用可能なオリジンサーバーのポート番号」を参照 | オリジンサーバーのHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれかを必ず入力する必要があります。) |
+| useOriginHttpProtocolDowngrade | Boolean  | 必須     | false       | true/false         | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーへのリクエスト時にHTTPSリクエストをHTTPリクエストにダウングレードする設定を使用するかどうか |
+| forwardHostHeader     | String  | 必須      |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストする際に送信するホストヘッダの設定("ORIGIN_HOSTNAME": オリジンサーバーのホスト名に設定、"REQUEST_HOST_HEADER": クライアントリクエストのホストヘッダに設定)|
+| rootPathAccessControl  | Object  | 任意 |  |  | CDNサービスのルートパスに対するアクセス制御の設定 |
+| rootPathAccessControl.enable | Boolean | 必須 | false | true/false | ルートパスに対するアクセス制御を使用するかどうか (true: 使用、false: 未使用)          |
+| rootPathAccessControl.controlType  | String  | 任意 |  | DENY, REDIRECT | enableがtrueの場合に必須入力。ルートパスに対するアクセス制御方式("DENY": アクセス拒否、"REDIRECT": 指定したパスへリダイレクト) |
+| rootPathAccessControl.redirectPath | String | 任意 |  | | controlTypeが"REDIRECT"の場合に必須入力。ルートパスへのリクエストをリダイレクトするパス(/を含むパスで入力します。)        |
+| rootPathAccessControl.redirectStatusCode | Integer | 任意 | | 301, 302, 303, 307 |controlTypeが"REDIRECT"の場合に必須入力。リダイレクト時に送信されるHTTPレスポンスコード          |
+| modifyOutgoingResponseHeaderControl                                  | Object  | 任意    |             |                                                                                       | CDNから返されるHTTPレスポンスヘッダーを追加/変更/削除する設定                                                                                                                              |
+| modifyOutgoingResponseHeaderControl.enable                           | Boolean | 必須    | true        | true/false                                                                            | HTTPレスポンスヘッダーを追加/変更/削除する設定を使用するかどうか (true: 使用、false: 未使用)                                                                                                          |
+| modifyOutgoingResponseHeaderControl.headerList                       | List    | 任意    |         |                                                                       | HTTPレスポンスヘッダ一覧                                                                                                             |
+| modifyOutgoingResponseHeaderControl.headerList[0].action             | String  | 任意    |         | ADD, MODIFY, DELETE                                                   | HTTPレスポンスヘッダの変更方式                                                                                                          |
+| modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 任意    |         | ACCESS_CONTROL_ALLOW_CREDENTIALS<br/>ACCESS_CONTROL_ALLOW_HEADERS<br/>ACCESS_CONTROL_ALLOW_METHODS<br/>ACCESS_CONTROL_ALLOW_ORIGIN<br/>ACCESS_CONTROL_EXPOSE_HEADERS<br/>ACCESS_CONTROL_MAX_AGE<br/>CACHE_CONTROL<br/>CONTENT_DISPOSITION<br/>CONTENT_TYPE<br/>P3P<br/>PRAGMA<br/>OTHER | 一般的なHTTPレスポンスヘッダ名                                                                                                          |
+| modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName   | String  | 任意    |         |                                                      | standardHeaderNameが"OTHER"の場合に必須入力。ユーザー定義のHTTPレスポンスヘッダ名                                                               |
+| modifyOutgoingResponseHeaderControl.headerList[0].headerValue        | String  | 必須    |         |                                                      | HTTPレスポンスヘッダ値                                                                                                              |
+| callback              | Object  | 任意      |        |                                                              | CDNサービスのデプロイ処理結果の通知を受け取るコールバックURL(コールバックの設定は任意入力です。) |
+| callback.httpMethod   | String  | 必須  |        | GET/POST/PUT                                                 | コールバックのHTTPメソッド                                          |
+| callback.url          | String  | 必須 |        | 最大1024文字                                             | コールバックURL                                                     |
 
-- `forwardHostHeader`의 기본값은 `domainAlias`를 설정한 경우 `REQUEST_HOST_HEADER`이고, 설정하지 않으면 `ORIGIN_HOSTNAME`입니다.
+- `forwardHostHeader`のデフォルト値は、`domainAlias`を設定した場合は`REQUEST_HOST_HEADER`であり、設定していない場合は`ORIGIN_HOSTNAME`です。
 
 <a id="api-4-3-2"></a>
 
-#### 응답
+#### レスポンス
 
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -631,32 +631,32 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                   | 타입      | 설명     |
+| フィールド            | タイプ | 説明 |
 | -------------------- | ------- | ------ |
-| header               | Object  | 헤더 영역  |
-| header.isSuccessful  | Boolean | 성공 여부  |
-| header.resultCode    | Integer | 결과 코드  |
-| header.resultMessage | String  | 결과 메시지 |
+| header               | Object  | ヘッダ領域 |
+| header.isSuccessful  | Boolean | 成否 |
+| header.resultCode | Integer | 結果コード |
+| header.resultMessage | String | 結果メッセージ |
 
 <a id="api-4-4"></a>
 
-### 서비스 삭제
+### サービスの削除
 
 <a id="api-4-4-1"></a>
 
-#### 요청
+#### リクエスト
 
 
 [URI]
 
-| 메서드    | URI                                  |
+| メソッド | URI                                  |
 | ------ | ------------------------------------ |
 | DELETE | /v3.0/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[リクエスト本文]
 
 ```json
 {
@@ -667,20 +667,20 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 이름      | 타입     | 필수 여부 | 기본값  | 유효 범위 | 설명                    |
+| 名前      | タイプ     | 必須かどうか | デフォルト値  | 有効範囲 | 説明                    |
 | ------- | ------ | ----- | ---- | ----- | --------------------- |
-| domains | String | 필수    |      |       | 삭제할 도메인, 여러 도메인 입력 가능 |
+| domains | String | 必須    |      |       | 削除するドメイン、複数のドメインを入力可能 |
 
-> [주의] 여러 도메인을 입력하면 해당하는 서비스는 모두 종료됩니다.
+> [注意] 複数のドメインを入力すると、該当するサービスはすべて終了します。
 
 <a id="api-4-4-2"></a>
 
-#### 응답
+#### レスポンス
 
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -693,14 +693,14 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                   | 타입      | 설명     |
+| フィールド            | タイプ | 説明 |
 | -------------------- | ------- | ------ |
-| header               | Object  | 헤더 영역  |
-| header.isSuccessful  | Boolean | 성공 여부  |
-| header.resultCode    | Integer | 결과 코드  |
-| header.resultMessage | String  | 결과 메시지 |
+| header               | Object  | ヘッダ領域 |
+| header.isSuccessful  | Boolean | 成否 |
+| header.resultCode | Integer | 結果コード |
+| header.resultMessage | String | 結果メッセージ |
 
 
 <a id="auth-token-api"></a>
@@ -709,20 +709,20 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 <a id="auth-token"></a>
 
-### Auth Token 생성
+### Auth Token の作成
 
 <a id="auth-token-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                           |
+| メソッド | URI                           |
 | ---- | ----------------------------- |
 | POST | /v3.0/appKeys/{appKey}/auth-token |
 
 
-[요청 본문]
+[リクエスト本文]
 
 ```json
 {
@@ -736,26 +736,26 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
+| 名前   | タイプ | 必須かどうか | デフォルト値 | 有効範囲          | 説明                                                      |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| encryptKey    | String | 필수   |        |             | NHN Cloud CDN 콘솔에 표시된 Auth Token 인증 접근 관리 > 토큰 암호화 키 |
-| durationSeconds | Integer | 필수 |        | 0~2,147,483,647 | 생성된 토큰이 유효한 시간(초) |
-| singlePath      | String | 선택 |        |             | 생성된 토큰을 이용하여 접근할 단일 경로 |
-| singleWildcardPath | String | 선택 |     |             | 생성된 토큰을 이용하여 접근할 단일 와일드카드 경로 |
-| multipleWildcardPath | String | 선택 |   |             | 생성된 토큰을 이용하여 접근할 여러 개의 와일드카드 경로 |
-| sessionId |           String | 선택 |    |  문자열 길이 최대 36바이트           | 단일 접근 요청에 대해 sessionId를 포함하여 토큰을 생성 |
+| encryptKey | String | 必須 | | | NHN Cloud CDNコンソールに表示されたAuth Token認証アクセス管理 > トークン暗号化キー |
+| durationSeconds | Integer | 必須 |        | 0～2,147,483,647 | 生成されたトークンが有効な時間(秒) |
+| singlePath      | String | 任意 |        |             | 生成されたトークンを利用してアクセスする単一のパス |
+| singleWildcardPath | String | 任意 |     |             | 生成されたトークンを利用してアクセスする単一のワイルドカードパス |
+| multipleWildcardPath | String | 任意 |   |             | 生成されたトークンを利用してアクセスする複数のワイルドカードパス |
+| sessionId |           String | 任意 |    |  文字列の長さは最大36バイト           | 単一のアクセスリクエストに対してsessionIdを含めてトークンを生成 |
 
-* `singlePath`, `singleWildcardPath`, `multipleWildcardPath` 중 하나 이상의 값이 필수로 존재해야 합니다.
-* 토큰 생성 및 사용에 대한 상세한 내용은 [콘솔 사용 가이드 > Auth Token 인증 접근 관리 > 2. 토큰 생성](./console-guide/#auth-token)을 참고하세요.
+* `singlePath`、`singleWildcardPath`、`multipleWildcardPath`のうち、1つ以上の値が必須で存在する必要があります。
+* トークンの生成及び使用に関する詳細な内容は、[コンソール使用ガイド > Auth Token 認証アクセス管理 > 2. トークン生成](./console-guide/#auth-token)をご参照ください。
 
 
 <a id="auth-token-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -773,41 +773,41 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                   | 타입      | 설명        |
+| フィールド                | タイプ   | 説明     |
 | -------------------- | ------- | --------- |
-| header               | Object  | 헤더 영역     |
-| header.isSuccessful  | Boolean | 성공 여부     |
-| header.resultCode    | Integer | 결과 코드     |
-| header.resultMessage | String  | 결과 메시지    |
-| authToken             | Object    | 생성된 Auth Token 오브젝트 |
-| authToken.singlePathToken | String    | 단일 경로에 접근할 수 있도록 생성된 인증 토큰                                 |
-| authToken.singleWildcardPathToken | String    | 단일 와일드카드 경로에 접근할 수 있도록 생성된 인증 토큰                 |
-| authToken.multipleWildcardPathToken | String  | 여러 개의 와일드카드 경로에 접근할 수 있도록 생성된 인증 토큰             |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否  |
+| header.resultCode    | Integer | 結果コード  |
+| header.resultMessage | String  | 結果メッセージ |
+| authToken             | Object    | 作成されたAuth Tokenオブジェクト |
+| authToken.singlePathToken | String    | 単一のパスにアクセスできるように生成された認証トークン                                 |
+| authToken.singleWildcardPathToken | String    | 単一のワイルドカードパスにアクセスできるように生成された認証トークン                 |
+| authToken.multipleWildcardPathToken | String  | 複数のワイルドカードパスにアクセスできるように生成された認証トークン             |
 
 
 
 <a id="api-5"></a>
 
-## 캐시 재배포 API
+## キャッシュ再配布API
 
 <a id="purge---item"></a>
 
-### 캐시 재배포(Purge) - ITEM(특정 파일 타입)
+### キャッシュ再配布(Purge) - ITEM(特定のファイルタイプ)
 
 <a id="purge---item-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                           |
+| メソッド | URI                           |
 | ---- | ----------------------------- |
 | POST | /v3.0/appKeys/{appKey}/purge/item |
 
 
-[요청 본문]
+[リクエスト本文]
 
 ```json
 {
@@ -818,18 +818,18 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
+| 名前   | タイプ | 必須かどうか | デフォルト値 | 有効範囲          | 説明                                                      |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스 이름)                                 |
-| purgeList | List | 필수      |        |                       | 재배포 대상 URL 목록 |
+| domain    | String | 必須      |        | 最大255文字            | 再配布するドメイン(サービス名)                                 |
+| purgeList | List | 必須      |        |                       | 再配布対象のURL一覧 |
 
 <a id="purge---item-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -842,31 +842,31 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                   | 타입      | 설명        |
+| フィールド                | タイプ   | 説明     |
 | -------------------- | ------- | --------- |
-| header               | Object  | 헤더 영역     |
-| header.isSuccessful  | Boolean | 성공 여부     |
-| header.resultCode    | Integer | 결과 코드     |
-| header.resultMessage | String  | 결과 메시지    |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否  |
+| header.resultCode    | Integer | 結果コード  |
+| header.resultMessage | String  | 結果メッセージ |
 
 <a id="purge---all"></a>
 
-### 캐시 재배포(Purge) - ALL(전체 파일 타입)
+### キャッシュの再配布(Purge) - ALL(全てのファイルタイプ)
 
 <a id="purge---all-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                           |
+| メソッド | URI                           |
 | ---- | ----------------------------- |
 | POST | /v3.0/appKeys/{appKey}/purge/all |
 
 
-[요청 본문]
+[リクエスト本文]
 
 ```json
 {
@@ -875,17 +875,17 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
+| 名前   | タイプ | 必須かどうか | デフォルト値 | 有効範囲          | 説明                                                      |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스 이름)                                 |
+| domain    | String | 必須      |        | 最大255文字            | 再配布するドメイン(サービス名)                                 |
 
 <a id="purge---all-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -898,42 +898,42 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                   | 타입      | 설명        |
+| フィールド                | タイプ   | 説明     |
 | -------------------- | ------- | --------- |
-| header               | Object  | 헤더 영역     |
-| header.isSuccessful  | Boolean | 성공 여부     |
-| header.resultCode    | Integer | 결과 코드     |
-| header.resultMessage | String  | 결과 메시지    |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否  |
+| header.resultCode    | Integer | 結果コード  |
+| header.resultMessage | String  | 結果メッセージ |
 
-- CDN 서비스를 신규로 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 계속되면 고객지원으로 문의하세요.
-- Purge API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide/#cdn-purge)의 '캐시 재배포 사용량 제한' 내용을 확인하세요.
+- CDNサービスを新規に構築した後、約1時間以内はキャッシュの再配布リクエストに失敗する場合があります。それ以降も失敗が続く場合は、カスタマーサポートへお問い合わせください。
+- Purge APIの使用量制限ポリシーがあります。詳細は[コンソール使用ガイド > CDN キャッシュの再配布](./console-guide/#cdn-purge)の「キャッシュ再配布の使用量制限」の内容をご確認ください。
 
 <a id="purge"></a>
 
-### 캐시 재배포(Purge) 조회
-- API v3.0을 통한 캐시 재배포 시, 고속 캐시 재배포가 수행되어 요청 후 수 초 이내에 완료되므로 캐시 재배포 상태를 조회하는 API가 별도로 제공되지 않습니다.
+### キャッシュの再配布(Purge)の照会
+- API v3.0によるキャッシュの再配布時は、高速キャッシュ再配布が実行されリクエスト後数秒以内に完了するため、キャッシュ再配布の状態を照会するAPIは別途提供されません。
 
 <a id="alias_domain_api"></a>
-## 도메인 별칭 API
+## ドメインエイリアスAPI
 
 <a id="alias_domain_api-1"></a>
 
-### 도메인 별칭 등록
+### ドメインエイリアスの登録
 
 <a id="alias_domain_api-1-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                                          |
+| メソッド | URI                                          |
 | ---- | -------------------------------------------- |
 | POST | /v3.0/appKeys/{appKey}/alias-domains         |
 
 
-[요청 본문]
+[リクエスト本文]
 
 ```json
 {
@@ -941,17 +941,17 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 }
 ```
 
-[필드]
+[フィールド]
 
-| 이름              | 타입     | 필수 여부 | 기본값  | 유효 범위                   | 설명                                                                                     |
+| 名前              | タイプ     | 必須かどうか | デフォルト値  | 有効範囲                   | 説明                                                                               |
 | --------------- | ------ | ----- | ---- | ----------------------- | -------------------------------------------------------------------------------------- |
-| domain          | String | 필수    |      | FQDN 형식, 최소 4자~최대 253자 | 등록할 도메인(전체 도메인 주소 형식으로 입력, toastcdn.net 도메인은 사용 불가)                                    |
+| domain          | String | 必須    |      | FQDN形式、最小4文字～最大253文字 | 登録するドメイン(フルドメインアドレス形式で入力、toastcdn.netドメインは使用不可)                                    |
 
 <a id="alias_domain_api-1-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -979,60 +979,60 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                                  | 타입      | 설명                                                                 |
+| フィールド                                 | タイプ     | 説明                                                                |
 | ----------------------------------- | ------- | ------------------------------------------------------------------ |
-| header                              | Object  | 헤더 영역                                                              |
-| header.isSuccessful                 | Boolean | 성공 여부                                                              |
-| header.resultCode                   | Integer | 결과 코드                                                              |
-| header.resultMessage                | String  | 결과 메시지                                                             |
-| domain                              | Object  | 등록된 도메인 별칭 오브젝트                                                    |
-| domain.aliasDomainDomSeq            | Integer | 도메인 별칭 ID                                                          |
-| domain.domain                       | String  | 등록된 도메인                                                            |
-| domain.validationStatus             | String  | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
-| domain.validationScope              | String  | 검증 범위                                  |
-| domain.validationTxtName            | String  | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
-| domain.validationTxtValue           | String  | DNS TXT 레코드 추가 방식의 레코드값                                            |
-| domain.validationHttpPath           | String  | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
-| domain.validationHttpContent        | String  | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
-| domain.validationHttpRedirectFrom   | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
-| domain.validationHttpRedirectTo     | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
-| domain.validationExpireDatetime     | DateTime | 검증 토큰 만료 일시                                                        |
-| domain.validationCompleteDatetime   | DateTime | 검증 완료 일시                                                            |
-| domain.distributionSeq              | Integer | 연동된 CDN 서비스 ID                                                      |
-| domain.distribution                 | Object  | 연동된 CDN 서비스 정보                                                      |
-| domain.distribution.domain          | String  | CDN 서비스 도메인                                                         |
-| domain.distribution.status          | String  | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
-| domain.createdAt                    | DateTime | 생성 일시                                                              |
-| domain.updatedAt                    | DateTime | 변경 일시                                                              |
+| header                              | Object  | ヘッダ領域                                                              |
+| header.isSuccessful                 | Boolean | 成否                                                             |
+| header.resultCode                   | Integer | 結果コード                                                             |
+| header.resultMessage                | String  | 結果メッセージ                                                            |
+| domain                                | Object  | 登録されたドメインエイリアスのオブジェクト                                                    |
+| domain.aliasDomainDomSeq            | Integer | ドメインエイリアスID                                                          |
+| domain.domain                       | String  | 登録されたドメイン                                                           |
+| domain.validationStatus               | String  | 検証ステータスコード([表] ドメインエイリアスの検証ステータスコードを参照)                                   |
+| domain.validationScope              | String  | 検証範囲                                 |
+| domain.validationTxtName            | String  | DNS TXTレコード追加方式のレコード名                                         |
+| domain.validationTxtValue           | String  | DNS TXTレコード追加方式のレコード値                                           |
+| domain.validationHttpPath           | String  | HTTPファイル認証方式のHTTPページURL                                        |
+| domain.validationHttpContent        | String  | HTTPファイル認証方式のページコンテンツ値                                          |
+| domain.validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domain.validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domain.validationExpireDatetime       | DateTime | 検証トークンの有効期限切れ日時                                                        |
+| domain.validationCompleteDatetime   | DateTime | 検証完了日時                                                           |
+| domain.distributionSeq                | Integer | 連携されたCDNサービスID                                                      |
+| domain.distribution                   | Object  | 連携されたCDNサービス情報                                                      |
+| domain.distribution.domain            | String  | CDNサービスドメイン                                                          |
+| domain.distribution.status            | String  | CDNサービスステータスコード([表] CDNステータスコードを参照)                                     |
+| domain.createdAt                    | DateTime | 作成日時                                                             |
+| domain.updatedAt                    | DateTime | 変更日時                                                             |
 
 
 <a id="alias_domain_api-2"></a>
 
-### 도메인 별칭 목록 조회
+### ドメインエイリアス一覧の照会
 
 <a id="alias_domain_api-2-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드 | URI                                          |
+| メソッド | URI                                          |
 | --- | -------------------------------------------- |
 | GET | /v3.0/appKeys/{appKey}/alias-domains         |
 
 
-[파라미터]
+[パラメータ]
 
-| 이름     | 타입      | 필수 여부 | 유효 범위                                                                       | 설명                                       |
+| 名前     | タイプ      | 必須かどうか | 有効範囲                                                              | 説明                                       |
 | ------ | ------- | ----- | --------------------------------------------------------------------------- | ---------------------------------------- |
-| domain | String  | 선택    | 최대 253자                                                                     | 조회할 도메인                                  |
-| status | String  | 선택    | REQUEST_ACCEPTED, VALIDATION_IN_PROGRESS, VALIDATED, TOKEN_EXPIRED | 검증 상태 코드(,로 여러 상태 입력 가능)                |
-| page   | Integer | 선택    | 기본값: 1                                                                      | 페이지 번호                                   |
-| limit  | Integer | 선택    | 기본값: 10, 최대: 1000                                                           | 페이지당 조회 건수                               |
+| domain | String | 任意 | 最大253文字 | 照会するドメイン |
+| status | String  | 任意    | REQUEST_ACCEPTED, VALIDATION_IN_PROGRESS, VALIDATED, TOKEN_EXPIRED | 検証ステータスコード(カンマ(,)で複数のステータスを入力可能)                |
+| page   | Integer | 任意    | デフォルト値: 1                                                              | ページ番号                                   |
+| limit  | Integer | 任意    | デフォルト値: 10、最大: 1000                                                   | ページごとの照会件数                               |
 
-[예]
+[例]
 ```
 curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-domains?status=VALIDATED&page=1&limit=10" \
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
@@ -1041,9 +1041,9 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-dom
 
 <a id="alias_domain_api-2-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -1080,61 +1080,61 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-dom
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                                    | 타입       | 설명                                                                 |
+| フィールド                                   | タイプ      | 説明                                                                |
 | ------------------------------------- | -------- | ------------------------------------------------------------------ |
-| header                                | Object   | 헤더 영역                                                              |
-| header.isSuccessful                   | Boolean  | 성공 여부                                                              |
-| header.resultCode                     | Integer  | 결과 코드                                                              |
-| header.resultMessage                  | String   | 결과 메시지                                                             |
-| paging                                | Object   | 페이징 영역                                                             |
-| paging.page                           | Integer  | 페이지 번호                                                             |
-| paging.limit                          | Integer  | 페이지당 조회 건수                                                         |
-| paging.totalCount                     | Integer  | 전체 건수                                                              |
-| domains                               | List     | 도메인 별칭 오브젝트 목록                                                     |
-| domains[0].aliasDomainDomSeq          | Integer  | 도메인 별칭 ID                                                          |
-| domains[0].domain                     | String   | 등록된 도메인                                                            |
-| domains[0].validationStatus           | String   | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
-| domains[0].validationTxtName          | String   | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
-| domains[0].validationTxtValue         | String   | DNS TXT 레코드 추가 방식의 레코드값                                            |
-| domains[0].validationHttpPath         | String   | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
-| domains[0].validationHttpContent      | String   | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
-| domains[0].validationHttpRedirectFrom | String   | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
-| domains[0].validationHttpRedirectTo   | String   | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
-| domains[0].validationExpireDatetime   | DateTime | 검증 토큰 만료 일시                                                        |
-| domains[0].validationCompleteDatetime | DateTime | 검증 완료 일시                                                            |
-| domains[0].distributionSeq            | Integer  | 연동된 CDN 서비스 ID                                                      |
-| domains[0].distribution               | Object   | 연동된 CDN 서비스 정보                                                      |
-| domains[0].distribution.domain        | String   | CDN 서비스 도메인                                                         |
-| domains[0].distribution.status        | String   | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
-| domains[0].createdAt                  | DateTime | 생성 일시                                                              |
-| domains[0].updatedAt                  | DateTime | 변경 일시                                                              |
+| header                                | Object   | ヘッダ領域                                                              |
+| header.isSuccessful                   | Boolean  | 成否                                                             |
+| header.resultCode                     | Integer  | 結果コード                                                             |
+| header.resultMessage                  | String   | 結果メッセージ                                                            |
+| paging                                | Object   | ページング領域                                                            |
+| paging.page                           | Integer  | ページ番号                                                            |
+| paging.limit                          | Integer  | ページごとの照会件数                                                          |
+| paging.totalCount | Integer | 総件数 |
+| domains                               | List     | ドメインエイリアスのオブジェクト一覧                                                    |
+| domains[0].aliasDomainDomSeq          | Integer  | ドメインエイリアスID                                                          |
+| domains[0].domain | String | 登録されたドメイン |
+| domains[0].validationStatus           | String   | 検証ステータスコード([表] ドメインエイリアスの検証ステータスコードを参照)                                   |
+| domains[0].validationTxtName          | String   | DNS TXTレコード追加方式のレコード名                                         |
+| domains[0].validationTxtValue         | String   | DNS TXTレコード追加方式のレコード値                                           |
+| domains[0].validationHttpPath         | String   | HTTPファイル認証方式のHTTPページURL                                        |
+| domains[0].validationHttpContent      | String   | HTTPファイル認証方式のページコンテンツ値                                          |
+| domains[0].validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domains[0].validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domains[0].validationExpireDatetime   | DateTime | 検証トークンの有効期限切れ日時                                                        |
+| domains[0].validationCompleteDatetime | DateTime | 検証完了日時                                                           |
+| domains[0].distributionSeq            | Integer  | 連携されたCDNサービスID                                                      |
+| domains[0].distribution               | Object   | 連携されたCDNサービス情報                                                      |
+| domains[0].distribution.domain          | String  | CDNサービスドメイン                                                        |
+| domains[0].distribution.status        | String   | CDNサービスステータスコード([表] CDNステータスコードを参照)                                     |
+| domains[0].createdAt                    | DateTime | 作成日時                                                             |
+| domains[0].updatedAt                    | DateTime | 変更日時                                                             |
 
 
 <a id="alias_domain_api-3"></a>
 
-### 도메인 별칭 삭제
+### ドメインエイリアスの削除
 
 <a id="alias_domain_api-3-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드    | URI                                                        |
+| メソッド   | URI                                                        |
 | ------ | ---------------------------------------------------------- |
 | DELETE | /v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}   |
 
 
-[파라미터]
+[パラメータ]
 
-| 이름                | 타입      | 필수 여부 | 유효 범위 | 설명          |
+| 名前                | タイプ      | 必須かどうか | 有効範囲 | 説明          |
 | ----------------- | ------- | ----- | ----- | ----------- |
-| aliasDomainDomSeq | Integer | 필수    |       | 도메인 별칭 ID  |
+| aliasDomainDomSeq | Integer | 必須   |       | ドメインエイリアスID  |
 
 
-[예]
+[例]
 ```
 curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}" \
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
@@ -1143,9 +1143,9 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 
 <a id="alias_domain_api-3-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -1158,34 +1158,34 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                   | 타입      | 설명     |
+| フィールド            | タイプ | 説明 |
 | -------------------- | ------- | ------ |
-| header               | Object  | 헤더 영역  |
-| header.isSuccessful  | Boolean | 성공 여부  |
-| header.resultCode    | Integer | 결과 코드  |
-| header.resultMessage | String  | 결과 메시지 |
+| header               | Object  | ヘッダ領域 |
+| header.isSuccessful  | Boolean | 成否 |
+| header.resultCode | Integer | 結果コード |
+| header.resultMessage | String | 結果メッセージ |
 
-- CDN 서비스에 연동된 도메인은 삭제할 수 없습니다. CDN 서비스에서 도메인 별칭 연동을 해제한 후 삭제하세요.
+- CDNサービスに連携されたドメインは削除できません。CDNサービスでドメインエイリアスの連携を解除してから削除してください。
 
 
 <a id="alias_domain_api-4"></a>
 
-### 도메인 검증 실행
+### ドメイン検証の実行
 
 <a id="alias_domain_api-4-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                                                                     |
+| メソッド | URI |
 | ---- |-------------------------------------------------------------------------|
 | POST | /v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/validate |
 
 
-[요청 본문]
+[リクエスト本文]
 
 ```json
 {
@@ -1193,18 +1193,18 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 }
 ```
 
-[필드]
+[フィールド]
 
-| 이름               | 타입     | 필수 여부 | 기본값 | 유효 범위          | 설명                                                            |
+| 名前               | タイプ     | 必須かどうか | デフォルト値 | 有効範囲          | 説明                                                            |
 | ---------------- | ------ | ----- | --- | -------------- | ------------------------------------------------------------- |
-| validationMethod | String | 필수    |     | DNS_TXT, HTTP  | 검증 방식("DNS_TXT": DNS TXT 레코드 추가 방식, "HTTP": HTTP 파일 또는 리다이렉트 인증 방식) |
+| validationMethod | String | 必須   |     | DNS_TXT, HTTP  | 検証方式("DNS_TXT": DNS TXTレコード追加方式、 "HTTP": HTTPファイルまたはリダイレクト認証方式) |
 
 
 <a id="alias_domain_api-4-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -1233,54 +1233,54 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 }
 ```
 
-[필드]
+[フィールド]
 
-| 필드                                  | 타입      | 설명                                                                 |
+| フィールド                                 | タイプ     | 説明                                                                |
 | ----------------------------------- | ------- | ------------------------------------------------------------------ |
-| header                              | Object  | 헤더 영역                                                              |
-| header.isSuccessful                 | Boolean | 성공 여부                                                              |
-| header.resultCode                   | Integer | 결과 코드                                                              |
-| header.resultMessage                | String  | 결과 메시지                                                             |
-| domain                              | Object  | 도메인 별칭 오브젝트                                                        |
-| domain.aliasDomainDomSeq            | Integer | 도메인 별칭 ID                                                          |
-| domain.domain                       | String  | 등록된 도메인                                                            |
-| domain.validationStatus             | String  | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
-| domain.validationScope              | String  | 검증 범위                                  |
-| domain.validationTxtName            | String  | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
-| domain.validationTxtValue           | String  | DNS TXT 레코드 추가 방식의 레코드값                                            |
-| domain.validationHttpPath           | String  | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
-| domain.validationHttpContent        | String  | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
-| domain.validationHttpRedirectFrom   | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
-| domain.validationHttpRedirectTo     | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
-| domain.validationExpireDatetime     | DateTime | 검증 토큰 만료 일시                                                        |
-| domain.validationCompleteDatetime   | DateTime | 검증 완료 일시                                                            |
-| domain.distributionSeq              | Integer | 연동된 CDN 서비스 ID                                                      |
-| domain.distribution                 | Object  | 연동된 CDN 서비스 정보                                                      |
-| domain.distribution.domain          | String  | CDN 서비스 도메인                                                         |
-| domain.distribution.status          | String  | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
-| domain.createdAt                    | DateTime | 생성 일시                                                              |
-| domain.updatedAt                    | DateTime | 변경 일시                                                              |
+| header                              | Object  | ヘッダ領域                                                              |
+| header.isSuccessful                 | Boolean | 成否                                                             |
+| header.resultCode                   | Integer | 結果コード                                                             |
+| header.resultMessage                | String  | 結果メッセージ                                                            |
+| domain                              | Object  | ドメインエイリアスのオブジェクト                                                        |
+| domain.aliasDomainDomSeq            | Integer | ドメインエイリアスID                                                          |
+| domain.domain                       | String  | 登録されたドメイン                                                           |
+| domain.validationStatus               | String  | 検証ステータスコード([表] ドメインエイリアスの検証ステータスコードを参照)                                   |
+| domain.validationScope              | String  | 検証範囲                                 |
+| domain.validationTxtName            | String  | DNS TXTレコード追加方式のレコード名                                         |
+| domain.validationTxtValue           | String  | DNS TXTレコード追加方式のレコード値                                           |
+| domain.validationHttpPath           | String  | HTTPファイル認証方式のHTTPページURL                                        |
+| domain.validationHttpContent        | String  | HTTPファイル認証方式のページコンテンツ値                                          |
+| domain.validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domain.validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domain.validationExpireDatetime       | DateTime | 検証トークンの有効期限切れ日時                                                        |
+| domain.validationCompleteDatetime   | DateTime | 検証完了日時                                                           |
+| domain.distributionSeq                | Integer | 連携されたCDNサービスID                                                      |
+| domain.distribution                   | Object  | 連携されたCDNサービス情報                                                      |
+| domain.distribution.domain            | String  | CDNサービスドメイン                                                          |
+| domain.distribution.status            | String  | CDNサービスステータスコード([表] CDNステータスコードを参照)                                     |
+| domain.createdAt                    | DateTime | 作成日時                                                             |
+| domain.updatedAt                    | DateTime | 変更日時                                                             |
 
-- 도메인 검증을 실행하기 전에 DNS TXT 레코드 추가 또는 HTTP 파일/리다이렉트 설정을 먼저 완료해야 합니다.
-- 검증 토큰이 만료된 경우 검증 실행이 불가합니다. 토큰 재발급 API로 새 토큰을 발급받은 후 다시 검증을 진행하세요.
+- ドメインの検証を実行する前に、DNS TXTレコードの追加またはHTTPファイル/リダイレクトの設定を先に完了する必要があります。
+- 検証トークンの有効期限が切れた場合、検証を実行できません。トークン再発行APIで新しいトークンを発行した後、再度検証を進めてください。
 
 
 <a id="alias_domain_api-5"></a>
 
-### 도메인 검증 상태 새로고침
+### ドメイン検証ステータスの更新
 
 <a id="alias_domain_api-5-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                                                                    |
+| メソッド | URI                                                                    |
 | ---- |------------------------------------------------------------------------|
 | POST | /v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/refresh |
 
 
-[예]
+[例]
 ```
 curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/refresh" \
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
@@ -1289,9 +1289,9 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 
 <a id="alias_domain_api-5-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -1320,51 +1320,51 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 }
 ```
 
-[필드]
+[フィールド]
 
-| 필드                                  | 타입      | 설명                                                                 |
+| フィールド                                 | タイプ     | 説明                                                                |
 | ----------------------------------- | ------- | ------------------------------------------------------------------ |
-| header                              | Object  | 헤더 영역                                                              |
-| header.isSuccessful                 | Boolean | 성공 여부                                                              |
-| header.resultCode                   | Integer | 결과 코드                                                              |
-| header.resultMessage                | String  | 결과 메시지                                                             |
-| domain                              | Object  | 도메인 별칭 오브젝트                                                        |
-| domain.aliasDomainDomSeq            | Integer | 도메인 별칭 ID                                                          |
-| domain.domain                       | String  | 등록된 도메인                                                            |
-| domain.validationStatus             | String  | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
-| domain.validationScope              | String  | 검증 범위                                  |
-| domain.validationTxtName            | String  | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
-| domain.validationTxtValue           | String  | DNS TXT 레코드 추가 방식의 레코드값                                            |
-| domain.validationHttpPath           | String  | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
-| domain.validationHttpContent        | String  | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
-| domain.validationHttpRedirectFrom   | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
-| domain.validationHttpRedirectTo     | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
-| domain.validationExpireDatetime     | DateTime | 검증 토큰 만료 일시                                                        |
-| domain.validationCompleteDatetime   | DateTime | 검증 완료 일시                                                            |
-| domain.distributionSeq              | Integer | 연동된 CDN 서비스 ID                                                      |
-| domain.distribution                 | Object  | 연동된 CDN 서비스 정보                                                      |
-| domain.distribution.domain          | String  | CDN 서비스 도메인                                                         |
-| domain.distribution.status          | String  | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
-| domain.createdAt                    | DateTime | 생성 일시                                                              |
-| domain.updatedAt                    | DateTime | 변경 일시                                                              |
+| header                              | Object  | ヘッダ領域                                                              |
+| header.isSuccessful                 | Boolean | 成否                                                             |
+| header.resultCode                   | Integer | 結果コード                                                             |
+| header.resultMessage                | String  | 結果メッセージ                                                            |
+| domain                              | Object  | ドメインエイリアスのオブジェクト                                                        |
+| domain.aliasDomainDomSeq            | Integer | ドメインエイリアスID                                                          |
+| domain.domain                       | String  | 登録されたドメイン                                                           |
+| domain.validationStatus               | String  | 検証ステータスコード([表] ドメインエイリアスの検証ステータスコードを参照)                                   |
+| domain.validationScope              | String  | 検証範囲                                 |
+| domain.validationTxtName            | String  | DNS TXTレコード追加方式のレコード名                                         |
+| domain.validationTxtValue           | String  | DNS TXTレコード追加方式のレコード値                                           |
+| domain.validationHttpPath           | String  | HTTPファイル認証方式のHTTPページURL                                        |
+| domain.validationHttpContent        | String  | HTTPファイル認証方式のページコンテンツ値                                          |
+| domain.validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domain.validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domain.validationExpireDatetime       | DateTime | 検証トークンの有効期限切れ日時                                                        |
+| domain.validationCompleteDatetime   | DateTime | 検証完了日時                                                           |
+| domain.distributionSeq                | Integer | 連携されたCDNサービスID                                                      |
+| domain.distribution                   | Object  | 連携されたCDNサービス情報                                                      |
+| domain.distribution.domain            | String  | CDNサービスドメイン                                                          |
+| domain.distribution.status            | String  | CDNサービスステータスコード([表] CDNステータスコードを参照)                                     |
+| domain.createdAt                    | DateTime | 作成日時                                                             |
+| domain.updatedAt                    | DateTime | 変更日時                                                             |
 
 
 <a id="alias_domain_api-6"></a>
 
-### 검증 토큰 재발급
+### 検証トークンの再発行
 
 <a id="alias_domain_api-6-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                                                                    |
+| メソッド | URI                                                                    |
 | ---- |------------------------------------------------------------------------|
 | POST | /v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/reissue |
 
 
-[예]
+[例]
 ```
 curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-domains/{aliasDomainDomSeq}/token/reissue" \
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
@@ -1373,9 +1373,9 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 
 <a id="alias_domain_api-6-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -1404,69 +1404,69 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 }
 ```
 
-[필드]
+[フィールド]
 
-| 필드                                  | 타입      | 설명                                                                 |
+| フィールド                                 | タイプ     | 説明                                                                |
 | ----------------------------------- | ------- | ------------------------------------------------------------------ |
-| header                              | Object  | 헤더 영역                                                              |
-| header.isSuccessful                 | Boolean | 성공 여부                                                              |
-| header.resultCode                   | Integer | 결과 코드                                                              |
-| header.resultMessage                | String  | 결과 메시지                                                             |
-| domain                              | Object  | 도메인 별칭 오브젝트                                                        |
-| domain.aliasDomainDomSeq            | Integer | 도메인 별칭 ID                                                          |
-| domain.domain                       | String  | 등록된 도메인                                                            |
-| domain.validationStatus             | String  | 검증 상태 코드([표] 도메인 별칭 검증 상태 코드 참고)                                   |
-| domain.validationScope              | String  | 검증 범위                                  |
-| domain.validationTxtName            | String  | DNS TXT 레코드 추가 방식의 레코드 이름                                          |
-| domain.validationTxtValue           | String  | DNS TXT 레코드 추가 방식의 레코드값                                            |
-| domain.validationHttpPath           | String  | HTTP 파일 인증 방식의 HTTP 페이지 URL                                        |
-| domain.validationHttpContent        | String  | HTTP 파일 인증 방식의 페이지 콘텐츠 값                                           |
-| domain.validationHttpRedirectFrom   | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 원본 URL                                     |
-| domain.validationHttpRedirectTo     | String  | HTTP 리다이렉트 인증 방식의 리다이렉트 대상 URL                                     |
-| domain.validationExpireDatetime     | DateTime | 검증 토큰 만료 일시                                                        |
-| domain.validationCompleteDatetime   | DateTime | 검증 완료 일시                                                            |
-| domain.distributionSeq              | Integer | 연동된 CDN 서비스 ID                                                      |
-| domain.distribution                 | Object  | 연동된 CDN 서비스 정보                                                      |
-| domain.distribution.domain          | String  | CDN 서비스 도메인                                                         |
-| domain.distribution.status          | String  | CDN 서비스 상태 코드([표] CDN 상태 코드 참고)                                     |
-| domain.createdAt                    | DateTime | 생성 일시                                                              |
-| domain.updatedAt                    | DateTime | 변경 일시                                                              |
+| header                              | Object  | ヘッダ領域                                                              |
+| header.isSuccessful                 | Boolean | 成否                                                             |
+| header.resultCode                   | Integer | 結果コード                                                             |
+| header.resultMessage                | String  | 結果メッセージ                                                            |
+| domain                              | Object  | ドメインエイリアスのオブジェクト                                                        |
+| domain.aliasDomainDomSeq            | Integer | ドメインエイリアスID                                                          |
+| domain.domain                       | String  | 登録されたドメイン                                                           |
+| domain.validationStatus               | String  | 検証ステータスコード([表] ドメインエイリアスの検証ステータスコードを参照)                                   |
+| domain.validationScope              | String  | 検証範囲                                 |
+| domain.validationTxtName            | String  | DNS TXTレコード追加方式のレコード名                                         |
+| domain.validationTxtValue           | String  | DNS TXTレコード追加方式のレコード値                                           |
+| domain.validationHttpPath           | String  | HTTPファイル認証方式のHTTPページURL                                        |
+| domain.validationHttpContent        | String  | HTTPファイル認証方式のページコンテンツ値                                          |
+| domain.validationHttpRedirectFrom | String | HTTPリダイレクト認証方式のリダイレクト元URL |
+| domain.validationHttpRedirectTo | String | HTTPリダイレクト認証方式のリダイレクト先URL |
+| domain.validationExpireDatetime       | DateTime | 検証トークンの有効期限切れ日時                                                        |
+| domain.validationCompleteDatetime   | DateTime | 検証完了日時                                                           |
+| domain.distributionSeq                | Integer | 連携されたCDNサービスID                                                      |
+| domain.distribution                   | Object  | 連携されたCDNサービス情報                                                      |
+| domain.distribution.domain            | String  | CDNサービスドメイン                                                          |
+| domain.distribution.status            | String  | CDNサービスステータスコード([表] CDNステータスコードを参照)                                     |
+| domain.createdAt                    | DateTime | 作成日時                                                             |
+| domain.updatedAt                    | DateTime | 変更日時                                                             |
 
-- 토큰이 재발급되면 이전 검증 정보는 초기화되며, 새 토큰 정보로 다시 검증을 진행해야 합니다.
-- 검증 토큰이 만료(`TOKEN_EXPIRED`)된 경우 이 API를 호출하여 새 토큰을 발급받을 수 있습니다.
+- トークンが再発行されると、以前の検証情報は初期化され、新しいトークン情報で再度検証を進める必要があります。
+- 検証トークンの有効期限が切れた(`TOKEN_EXPIRED`)場合、このAPIを呼び出して新しいトークンを発行できます。
 
 <a id="alias_domain_api-6-3"></a>
 
-#### 도메인 별칭 검증 상태 코드
+#### ドメインエイリアスの検証ステータスコード
 
-다음은 도메인 별칭의 검증 상태를 나타내는 상태 코드로, 도메인 별칭 조회 시 검증 상태를 확인할 수 있습니다.
+以下はドメインエイリアスの検証ステータスを示すステータスコードであり、ドメインエイリアスの照会時に検証ステータスを確認できます。
 
-| 값                      | 설명                               |
+| 値 | 説明 |
 | ---------------------- | -------------------------------- |
-| REQUEST_ACCEPTED       | 도메인이 등록되어 검증 대기 중                |
-| VALIDATION_IN_PROGRESS | 도메인 소유권 검증이 진행 중                 |
-| VALIDATED              | 도메인 소유권 검증 완료, CDN 서비스 연동 가능     |
-| TOKEN_EXPIRED          | 검증 토큰 만료, 토큰 재발급 후 다시 검증 필요     |
+| REQUEST_ACCEPTED       | ドメインが登録され、検証待機中                |
+| VALIDATION_IN_PROGRESS | ドメイン所有権の検証が進行中 |
+| VALIDATED              | ドメイン所有権の検証完了、CDNサービスの連携可能     |
+| TOKEN_EXPIRED          | 検証トークンの有効期限切れ、トークンの再発行後に再度検証が必要     |
 
 
 <a id="api-6"></a>
 
-## 인증서 API
+## 証明書API
 <a id="api-6-1"></a>
 
-### 신규 인증서 발급
+### 新規証明書の発行
 <a id="api-6-1-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                           |
+| メソッド | URI                           |
 | ---- | ----------------------------- |
 | POST | /v3.0/appKeys/{appKey}/certificates|
 
 
-[요청 본문]
+[リクエスト本文]
 
 ```json
 {
@@ -1477,21 +1477,21 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 ```
 
 
-[필드]
+[フィールド]
 
-| 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
+| 名前   | タイプ | 必須かどうか | デフォルト値 | 有効範囲          | 説明                                                      |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
-| certificateDomain    | String | 필수      |        | 최대 255자            | 신규 인증서를 발급할 도메인(전체 도메인 주소 형식으로 입력)|
-| callbackHttpMethod  | String | 선택      |        | GET/POST/PUT        | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
-| callbackUrl         | String | 선택      |        | 최대 1024자           | 인증서 생성 처리 결과를 통보받을 콜백 URL       |
+| certificateDomain    | String | 必須      |        | 最大255文字            | 新規証明書を発行するドメイン(フルドメインアドレス形式で入力)|
+| callbackHttpMethod  | String | 任意      |        | GET/POST/PUT        | 証明書作成の処理結果の通知を受け取るコールバックのHTTPメソッド |
+| callbackUrl         | String | 任意      |        | 最大1024文字           | 証明書作成の処理結果の通知を受け取るコールバックURL       |
 
-* 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide/#_7)을 참고하세요.
+* 証明書の発行に関する詳細な内容は、[コンソール使用ガイド > 証明書管理 > 新規証明書の発行](./console-guide/#_7)をご参照ください。
 
 <a id="api-6-1-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -1519,46 +1519,46 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                   | 타입      | 설명        |
+| フィールド                | タイプ   | 説明     |
 | -------------------- | ------- | --------- |
-| header               | Object  | 헤더 영역     |
-| header.isSuccessful  | Boolean | 성공 여부     |
-| header.resultCode    | Integer | 결과 코드     |
-| header.resultMessage | String  | 결과 메시지    |
-| certificates         | List    | 발급된 인증서 목록 |
-| certificates[0].sanDnsId | String | 인증서 ID    |
-| certificates[0].dnsName  | String | 인증서 도메인  |
-| certificates[0].dnsStatus | String | 인증서 발급 상태 코드([표] 인증서 발급 상태 코드 참고) |
-| certificates[0].callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
-| certificates[0].callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
-| certificates[0].createDatetime | DateTime | 인증서 생성 일시 |
-| certificates[0].updateDatetime | DateTime | 인증서 변경 일시 |
-| certificates[0].hasCname | Boolean | CNAME 레코드 설정 여부 |
-| certificates[0].hasDistributionDomain | Boolean | CDN 서비스 연동 여부 |
-| certificates[0].renewalStartDate | DateTime | 인증서 갱신 시작 일시 |
-| certificates[0].renewalEndDate | DateTime | 인증서 갱신 종료 일시 |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否  |
+| header.resultCode    | Integer | 結果コード  |
+| header.resultMessage | String  | 結果メッセージ |
+| certificates         | List    | 発行された証明書一覧 |
+| certificates[0].sanDnsId | String | 証明書ID    |
+| certificates[0].dnsName  | String | 証明書ドメイン |
+| certificates[0].dnsStatus | String | 証明書発行ステータスコード([表] 証明書発行ステータスコードを参照) |
+| certificates[0].callbackHttpMethod | String | 証明書作成の処理結果の通知を受け取るコールバックのHTTPメソッド |
+| certificates[0].callbackUrl | String | 証明書作成の処理結果の通知を受け取るコールバックURL |
+| certificates[0].createDatetime | DateTime | 証明書作成日時 |
+| certificates[0].updateDatetime | DateTime | 証明書変更日時 |
+| certificates[0].hasCname | Boolean | CNAMEレコード設定の有無 |
+| certificates[0].hasDistributionDomain | Boolean | CDNサービス連携の有無 |
+| certificates[0].renewalStartDate | DateTime | 証明書の更新開始日時 |
+| certificates[0].renewalEndDate | DateTime | 証明書の更新終了日時 |
 
 <a id="api-6-2"></a>
 
-### 인증서 목록 조회
+### 証明書一覧の照会
 <a id="api-6-2-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                           |
+| メソッド | URI                           |
 | ---- | ----------------------------- |
 | GET | /v3.0/appKeys/{appKey}/certificates|
 
 
 <a id="api-6-2-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -1586,48 +1586,48 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                   | 타입      | 설명        |
+| フィールド                | タイプ   | 説明     |
 | -------------------- | ------- | --------- |
-| header               | Object  | 헤더 영역     |
-| header.isSuccessful  | Boolean | 성공 여부     |
-| header.resultCode    | Integer | 결과 코드     |
-| header.resultMessage | String  | 결과 메시지    |
-| certificates         | List    | 발급된 인증서 목록 |
-| certificates[0].sanDnsId | String | 인증서 ID    |
-| certificates[0].dnsName  | String | 인증서 도메인  |
-| certificates[0].dnsStatus | String | 인증서 발급 상태 코드([표] 인증서 발급 상태 코드 참고) |
-| certificates[0].callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
-| certificates[0].callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
-| certificates[0].createDatetime | DateTime | 인증서 생성 일시 |
-| certificates[0].updateDatetime | DateTime | 인증서 변경 일시 |
-| certificates[0].hasCname | Boolean | CNAME 레코드 설정 여부 |
-| certificates[0].hasDistributionDomain | Boolean | CDN 서비스 연동 여부 |
-| certificates[0].renewalStartDate | DateTime | 인증서 갱신 시작 일시 |
-| certificates[0].renewalEndDate | DateTime | 인증서 갱신 종료 일시 |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否  |
+| header.resultCode    | Integer | 結果コード  |
+| header.resultMessage | String  | 結果メッセージ |
+| certificates         | List    | 発行された証明書一覧 |
+| certificates[0].sanDnsId | String | 証明書ID    |
+| certificates[0].dnsName  | String | 証明書ドメイン |
+| certificates[0].dnsStatus | String | 証明書発行ステータスコード([表] 証明書発行ステータスコードを参照) |
+| certificates[0].callbackHttpMethod | String | 証明書作成の処理結果の通知を受け取るコールバックのHTTPメソッド |
+| certificates[0].callbackUrl | String | 証明書作成の処理結果の通知を受け取るコールバックURL |
+| certificates[0].createDatetime | DateTime | 証明書作成日時 |
+| certificates[0].updateDatetime | DateTime | 証明書変更日時 |
+| certificates[0].hasCname | Boolean | CNAMEレコード設定の有無 |
+| certificates[0].hasDistributionDomain | Boolean | CDNサービス連携の有無 |
+| certificates[0].renewalStartDate | DateTime | 証明書の更新開始日時 |
+| certificates[0].renewalEndDate | DateTime | 証明書の更新終了日時 |
 
 <a id="api-6-3"></a>
 
-### 인증서 삭제
+### 証明書の削除
 <a id="api-6-3-1"></a>
 
-#### 요청
+#### リクエスト
 
 [URI]
 
-| 메서드  | URI                           |
+| メソッド | URI                           |
 | ---- | ----------------------------- |
 | DELETE | /v3.0/appKeys/{appKey}/certificates|
 
 
-[파라미터]
+[パラメータ]
 
-| 이름   | 타입   | 필수 여부 | 유효 범위     | 설명                         |
+| 名前   | タイプ   | 必須かどうか | 有効範囲      | 説明                         |
 | ------ | ------ | --------- | ------------- | ---------------------------- |
-| dnsIdList | String | 필수      |     | 삭제할 인증서 ID(sanDnsId) 목록(,로 연결된 인증서 ID 목록)   |
+| dnsIdList | String | 必須      |     | 削除する証明書ID(sanDnsId)の一覧(カンマ(,)で区切られた証明書ID一覧)   |
 
-[예]
+[例]
 ```
 curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/certificates?dnsIdList={dnsIdList}" \
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
@@ -1636,9 +1636,9 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/certif
 
 <a id="api-6-3-2"></a>
 
-#### 응답
+#### レスポンス
 
-[응답 본문]
+[レスポンス本文]
 
 ```json
 {
@@ -1651,26 +1651,26 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/certif
 ```
 
 
-[필드]
+[フィールド]
 
-| 필드                   | 타입      | 설명        |
+| フィールド                | タイプ   | 説明     |
 | -------------------- | ------- | --------- |
-| header               | Object  | 헤더 영역     |
-| header.isSuccessful  | Boolean | 성공 여부     |
-| header.resultCode    | Integer | 결과 코드     |
-| header.resultMessage | String  | 결과 메시지    |
+| header               | Object  | ヘッダ領域  |
+| header.isSuccessful  | Boolean | 成否  |
+| header.resultCode    | Integer | 結果コード  |
+| header.resultMessage | String  | 結果メッセージ |
 
 
 <a id="section-1"></a>
 
-## 콜백 응답
+## コールバックレスポンス
 <a id="cdn-2"></a>
 
-### CDN 서비스
-CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정지, 재개, 삭제 변경이 완료되면 설정된 콜백 URL을 호출합니다.
-콜백 호출 시 요청 본문에는 다음과 같은 CDN 서비스 설정 정보가 포함됩니다.
+### CDNサービス
+CDNサービスにコールバック機能が設定されている場合、作成、修正、一時停止、再開、削除の変更が完了すると、設定されたコールバックURLを呼び出します。
+コールバック呼び出し時、リクエスト本文には次のようなCDNサービスの設定情報が含まれます。
 
-[응답 본문]
+[レスポンス本文]
 ```json
 {
   "header" : {
@@ -1730,57 +1730,57 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 }
 ```
 
-[필드]
+[フィールド]
 
-| 필드                                   | 타입    | 설명                                                         |
+| フィールド                           | タイプ | 説明                                                 |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 헤더 영역                                                    |
-| header.isSuccessful                    | Boolean | 성공 여부                                                    |
-| header.resultCode                      | Integer | 결과 코드                                                    |
-| header.resultMessage                   | String  | 결과 메시지                                                  |
-| distribution                          | Object    | 변경 작업이 완료된 CDN 오브젝트                                   |
-| distribution.appKey                   | String    | 앱키                                  |
-| distribution.domain                | String  | 도메인(서비스 이름)                                     |
-| distribution.domainAlias           | List  | 도메인 별칭 목록(개인 또는 회사가 소유한 도메인 사용)                                 |
-| distribution.region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
-| distribution.status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
-| distribution.defaultMaxAge         | Integer  | 캐시 만료 시간(초)                                           |
-| distribution.cacheKeyQueryParam    | String  | 캐시 키에 요청 쿼리 문자열 포함 여부 설정("INCLUDE_ALL": 전체 포함, "EXCLUDE_ALL": 전체 미포함) |
-| distribution.referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
-| distribution.referrers             | List    | 정규 표현식 형태의 리퍼러 헤더 목록                                 |
-| distribution.useOriginCacheControl | Boolean | 원본 서버 설정 사용 여부(true: 원본 서버 설정 사용, false: 사용자 설정 사용) |
-| distribution.createTime            | DateTime | 생성 일시                                         |
-| distribution.deleteTime            | DateTime | 삭제 일시                                         |
-| distribution.origins               | List    | 원본 서버 오브젝트 목록                                      |
-| distribution.origins[0].origin     | String  | 원본 서버(도메인 또는 IP)                                      |
-| distribution.origins[0].originPath | String  | 원본 서버 하위 경로                                          |
-| distribution.origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                               |
-| distribution.origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                               |
-| distribution.useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
-| distribution.forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정) |
-| distribution.rootPathAccessControl  | Object  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
-| distribution.rootPathAccessControl.enable | Boolean | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부          |
-| distribution.rootPathAccessControl.controlType  | String  | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트) | 
-| distribution.rootPathAccessControl.redirectPath | String | controlType이 "REDIRECT"일 경우 필수 입력. 루트 경로에 대한 요청을 리다이렉트할 경로(/를 포함한 경로로 입력합니다.)        |
-| distribution.rootPathAccessControl.redirectStatusCode | Integer | controlType이 "REDIRECT"일 경우 필수 입력. 리다이렉트 시 전달되는 HTTP 응답 코드         |
-| distribution.modifyOutgoingResponseHeaderControl                      | Object  | CDN에서 응답하는 HTTP 헤더를 추가/변경/삭제하는 설정  |
-| distribution.modifyOutgoingResponseHeaderControl.enable               | Boolean | HTTP 응답 헤더를 추가/변경/삭제하는 설정 사용(true)/미사용(false) 여부  |
-| distribution.modifyOutgoingResponseHeaderControl.headerList           | List    | HTTP 응답 헤더 목록 |
-| distribution.modifyOutgoingResponseHeaderControl.headerList[0].action | String  | HTTP 응답 헤더 변경 방식 |
-| distribution.modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String  | 일반 HTTP 응답 헤더 이름 |
-| distribution.modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName | String  | standardHeaderName이 "OTHER"일 경우 필수 입력. 사용자 정의 HTTP 응답 헤더 이름 |
-| distribution.modifyOutgoingResponseHeaderControl.headerList[0].headerValue | String  | HTTP 응답 헤더 값 |
-| distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
-| distribution.callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
-| distribution.callback.url          | String  | 콜백 URL                                                     |
+| header                                 | Object  | ヘッダ領域                                            |
+| header.isSuccessful                    | Boolean | 成否                                             |
+| header.resultCode                      | Integer | 結果コード                                            |
+| header.resultMessage                   | String  | 結果メッセージ                                          |
+| distribution                          | Object    | 変更作業が完了したCDNオブジェクト                              |
+| distribution.appKey | String | アプリキー |
+| distribution.domain                | String  | ドメイン(サービス名)                                     |
+| distribution.domainAlias | List | ドメインエイリアス一覧(個人または会社が所有するドメインを使用) |
+| distribution.region | String | サービス地域("GLOBAL": グローバル) |
+| distribution.status | String | CDNステータスコード([表] CDNステータスコードを参照) |
+| distribution.defaultMaxAge | Integer | キャッシュの有効期限(秒) |
+| distribution.cacheKeyQueryParam | String | キャッシュキーにリクエストクエリ文字列を含めるかどうかの設定("INCLUDE_ALL": 全て含む、"EXCLUDE_ALL": 全て含まない) |
+| distribution.referrerType | String | リファラーアクセスの管理("BLACKLIST": ブラックリスト、"WHITELIST": ホワイトリスト) |
+| distribution.referrers | List | 正規表現形式のリファラーヘッダ一覧 |
+| distribution.useOriginCacheControl | Boolean | オリジンサーバーの設定を使用するかどうか (true: オリジンサーバーの設定を使用、false: ユーザー設定を使用) |
+| distribution.createTime            | DateTime | 作成日時                                    |
+| distribution.deleteTime            | DateTime | 削除日時                                    |
+| distribution.origins | List | オリジンサーバーオブジェクト一覧 |
+| distribution.origins[0].origin     | String  | オリジンサーバー(ドメインまたはIP)                                      |
+| distribution.origins[0].originPath | String | オリジンサーバーのサブパス |
+| distribution.origins[0].httpPort | Integer | オリジンサーバーのHTTPプロトコルポート |
+| distribution.origins[0].httpsPort | Integer | オリジンサーバーのHTTPSプロトコルポート |
+| distribution.useOriginHttpProtocolDowngrade | Boolean | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーへのリクエスト時にHTTPSリクエストをHTTPリクエストにダウングレードする設定を使用するかどうか |
+| distribution.forwardHostHeader | String | CDNサーバーがオリジンサーバーにコンテンツをリクエストする際に送信するホストヘッダの設定("ORIGIN_HOSTNAME": オリジンサーバーのホスト名に設定、"REQUEST_HOST_HEADER": クライアントリクエストのホストヘッダに設定) |
+| distribution.rootPathAccessControl | Object | CDNサービスのルートパスに対するアクセス制御の設定 |
+| distribution.rootPathAccessControl.enable | Boolean | ルートパスに対するアクセス制御を使用するかどうか (true: 使用、false: 未使用) |
+| distribution.rootPathAccessControl.controlType | String | enableがtrueの場合に必須入力。ルートパスに対するアクセス制御方式("DENY": アクセス拒否、"REDIRECT": 指定したパスへリダイレクト) |
+| distribution.rootPathAccessControl.redirectPath | String | controlTypeが"REDIRECT"の場合に必須入力。ルートパスへのリクエストをリダイレクトするパス(/を含むパスで入力します。) |
+| distribution.rootPathAccessControl.redirectStatusCode | Integer | controlTypeが"REDIRECT"の場合に必須入力。リダイレクト時に送信されるHTTPレスポンスコード |
+| distribution.modifyOutgoingResponseHeaderControl | Object | CDNから返されるHTTPレスポンスヘッダを追加/変更/削除する設定 |
+| distribution.modifyOutgoingResponseHeaderControl.enable | Boolean | HTTPレスポンスヘッダを追加/変更/削除する設定を使用するかどうか (true: 使用、false: 未使用) |
+| distribution.modifyOutgoingResponseHeaderControl.headerList | List | HTTPレスポンスヘッダ一覧 |
+| distribution.modifyOutgoingResponseHeaderControl.headerList[0].action | String | HTTPレスポンスヘッダの変更方式 |
+| distribution.modifyOutgoingResponseHeaderControl.headerList[0].standardHeaderName | String | 一般的なHTTPレスポンスヘッダ名 |
+| distribution.modifyOutgoingResponseHeaderControl.headerList[0].customHeaderName | String | standardHeaderNameが"OTHER"の場合に必須入力。ユーザー定義のHTTPレスポンスヘッダ名 |
+| distribution.modifyOutgoingResponseHeaderControl.headerList[0].headerValue | String  | HTTPレスポンスヘッダ値 |
+| distribution.callback | Object | サービスのデプロイ処理結果の通知を受け取るコールバック |
+| distribution.callback.httpMethod   | String  | コールバックのHTTPメソッド                                          |
+| distribution.callback.url          | String  | コールバックURL                                                     |
 
 <a id="section-1-1"></a>
 
-### 인증서
-인증서 발급 요청 시 콜백 정보가 설정된 경우, 도메인 검증/도메인 검증 완료/인증서 발급 완료로 상태 변경이 완료되면 설정된 콜백 URL을 호출합니다.
-콜백 호출 시 요청 본문에는 다음과 같은 인증서 설정 정보가 포함됩니다.
+### 証明書
+証明書の発行リクエスト時にコールバック情報が設定されている場合、ドメイン検証/ドメイン検証完了/証明書発行完了にステータス変更が完了すると、設定されたコールバックURLを呼び出します。
+コールバック呼び出し時、リクエスト本文には次のような証明書の設定情報が含まれます。
 
-[응답 본문]
+[レスポンス本文]
 ```json
 {
   "header" : {
@@ -1807,26 +1807,26 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 }
 ```
 
-[필드]
+[フィールド]
 
-| 필드                                   | 타입    | 설명                                                         |
+| フィールド                           | タイプ | 説明                                                 |
 | -------------------------------------- | ------- | ------------------------------------------------------------ |
-| header                                 | Object  | 헤더 영역                                                    |
-| header.isSuccessful                    | Boolean | 성공 여부                                                    |
-| header.resultCode                      | Integer | 결과 코드                                                    |
-| header.resultMessage                   | String  | 결과 메시지                                                  |
-| certificate                          | Object    | 변경 작업이 완료된 인증서 오브젝트                                  |
-| certificate.sanDnsId                   | String    | 인증서 ID                                  |
-| certificate.distributionSeq                   | String    | 연동된 CDN 서비스 ID                                  |
-| certificate.dnsName  | String | 인증서 도메인  |
-| certificate.dnsStatus | String | 인증서 발급 상태 코드([표] 인증서 발급 상태 코드 참고) |
-| certificate.validationDnsRecordName | String | 도메인 검증 정보(DNS TXT 레코드 추가 방식의 레코드 이름)  |
-| certificate.validationDnsToken | String | 도메인 검증 정보(DNS TXT 레코드 추가 방식의 레코드 값)  |
-| certificate.validationHtmlUrl | String | 도메인 검증 정보(HTTP 페이지 추가 방식의 HTTP 페이지 URL)  |
-| certificate.validationHtmlToken | String | 도메인 검증 정보(HTTP 페이지 추가 방식의 HTTP 페이지 본문 콘텐츠 값)  |
-| certificate.validationExpireDatetime | DateTime | 도메인 검증 만료 일시  |
-| certificate.createDatetime | DateTime | 인증서 생성 일시 |
-| certificate.updateDatetime | DateTime | 인증서 변경 일시 |
-| certificate.deleteDatetime | DateTime | 인증서 삭제 일시 |
-| certificate.callbackHttpMethod | String | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
-| certificate.callbackUrl | String | 인증서 생성 처리 결과를 통보받을 콜백 URL |
+| header                                 | Object  | ヘッダ領域                                            |
+| header.isSuccessful                    | Boolean | 成否                                             |
+| header.resultCode                      | Integer | 結果コード                                            |
+| header.resultMessage                   | String  | 結果メッセージ                                          |
+| certificate | Object | 変更作業が完了した証明書のオブジェクト |
+| certificate.sanDnsId                   | String    | 証明書ID                                  |
+| certificate.distributionSeq | String | 連携されたCDNサービスID |
+| certificate.dnsName  | String | 証明書ドメイン |
+| certificate.dnsStatus | String | 証明書発行ステータスコード([表] 証明書発行ステータスコードを参照) |
+| certificate.validationDnsRecordName | String | ドメイン検証情報(DNS TXTレコード追加方式のレコード名)  |
+| certificate.validationDnsToken | String | ドメイン検証情報(DNS TXTレコード追加方式のレコード値)  |
+| certificate.validationHtmlUrl | String | ドメイン検証情報(HTTPページ追加方式のHTTPページURL)  |
+| certificate.validationHtmlToken | String | ドメイン検証情報(HTTPページ追加方式のHTTPページ本文のコンテンツ値) |
+| certificate.validationExpireDatetime | DateTime | ドメイン検証の有効期限切れ日時 |
+| certificate.createDatetime | DateTime | 証明書の作成日時 |
+| certificate.updateDatetime | DateTime | 証明書の変更日時 |
+| certificate.deleteDatetime | DateTime | 証明書の削除日時 |
+| certificate.callbackHttpMethod | String | 証明書作成の処理結果の通知を受け取るコールバックのHTTPメソッド |
+| certificate.callbackUrl | String | 証明書作成の処理結果の通知を受け取るコールバックURL |

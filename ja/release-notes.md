@@ -6,15 +6,9 @@
 
 ### 2026. 06. 23
 
-<!-- TODO: translate body -->
-
-<a id="section-1-1"></a>
-
-#### 機能の改善/変更
-
-<!-- TODO: translate body -->
-
-<a id="april-28-2026"></a>
+#### 機能改善・変更
+* CDN Public API v3.0の追加
+* 詳細は[API v2.0 ガイド](./api-guide-v3.0)をご参照ください。
 
 ### 2026. 04. 28.
 
