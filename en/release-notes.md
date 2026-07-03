@@ -11,7 +11,7 @@
 #### Feature Updates
 
 * Added CDN Public API v3.0
-  * For more information, see [API v2.0 Guide](./api-guide-v3.0).
+  * For more information, see [API v3.0 Guide](./api-guide-v3.0).
 
 <a id="april-28-2026"></a>
 
