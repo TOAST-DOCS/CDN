@@ -171,8 +171,8 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 | distributions[0].origins                                                              | List    | 필수    |             |                                                                       | 원본 서버 오브젝트 목록                                                                                                             |
 | distributions[0].origins[0].origin                                                    | String  | 필수    |             | 최대 255자                                                               | 원본 서버(도메인 또는 IP)                                                                                                          |
 | distributions[0].origins[0].originPath                                                | String  | 선택    |             | 최대 8192자                                                              | 원본 서버 하위 경로(/를 포함한 경로로 입력합니다.)                                                                                          |
-| distributions[0].origins[0].httpPort                                                  | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                         |
-| distributions[0].origins[0].httpsPort                                                 | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                        |
+| distributions[0].origins[0].httpPort                                                  | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide-gov/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                         |
+| distributions[0].origins[0].httpsPort                                                 | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide-gov/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                        |
 | distributions[0].rootPathAccessControl                                                | Object  | 선택    |             |                                                                       | CDN 서비스의 루트 경로에 대한 접근 제어 설정                                                                                               | 
 | distributions[0].rootPathAccessControl.enable                                         | Boolean | 필수    | true        | true/false                                                            | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부                                                                                    |
 | distributions[0].rootPathAccessControl.controlType                                    | String  | 선택    |             | DENY, REDIRECT                                                        | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트)                                      | 
@@ -559,8 +559,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
 | origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(도메인 또는 IP)                                      |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.) |
+| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide-gov/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)  |
+| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide-gov/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.) |
 | useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
 | rootPathAccessControl  | Object  | 선택 |  |  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
@@ -702,7 +702,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | sessionId |           String | 선택 |    |  문자열 길이 최대 36바이트           | 단일 접근 요청에 대해 sessionId를 포함하여 토큰을 생성 |
 
 * `singlePath`, `singleWildcardPath`, `multipleWildcardPath` 중 하나 이상의 값이 필수로 존재해야 합니다.
-* 토큰 생성 및 사용에 대한 상세한 내용은 [콘솔 사용 가이드 > Auth Token 인증 접근 관리 > 2. 토큰 생성](./console-guide-gov/#auth-token)을 참고하세요.
+* 토큰 생성 및 사용에 대한 상세한 내용은 [콘솔 사용 가이드 > Auth Token 인증 접근 관리 > 2. 토큰 생성](./console-guide-gov/#create-a-token)을 참고하세요.
 
 
 #### 응답
@@ -846,7 +846,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | 결과 메시지    |
 
 - CDN 서비스를 신규로 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 계속되면 고객 센터로 문의하세요.
-- Purge API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide-gov/#cdn-purge)의 '캐시 재배포 사용량 제한' 내용을 확인하세요.
+- Purge API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide-gov/#purge)의 '캐시 재배포 사용량 제한' 내용을 확인하세요.
 
 ### 캐시 재배포(Purge) 조회
 - API v3.0을 통한 캐시 재배포 시, 고속 캐시 재배포가 수행되어 요청 후 수 초 이내에 완료되므로 캐시 재배포 상태를 조회하는 API가 별도로 제공되지 않습니다.
@@ -1377,7 +1377,7 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | callbackHttpMethod  | String | 선택      |        | GET/POST/PUT        | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
 | callbackUrl         | String | 선택      |        | 최대 1024자           | 인증서 생성 처리 결과를 통보받을 콜백 URL       |
 
-* 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide-gov/#_9)을 참고하세요.
+* 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide-gov/#issue-new-certificates)을 참고하세요.
 
 #### 응답
 

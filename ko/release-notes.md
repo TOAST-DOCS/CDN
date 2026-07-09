@@ -95,7 +95,7 @@
 
 #### 기능 개선/변경
 * HTTP 응답 헤더 설정 기능 추가
-	* CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제할 수 있습니다. 자세한 내용은 [콘솔 가이드 > HTTP 응답 헤더](./console-guide/#http)를 참고하세요.
+	* CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제할 수 있습니다. 자세한 내용은 [콘솔 가이드 > HTTP 응답 헤더](./console-guide/#http-response-header)를 참고하세요.
 
 <a id="august-23-2022"></a>
 
@@ -127,9 +127,9 @@
 
 #### 기능 개선/변경
 * 인증서 API 추가
-	* 인증서 발급/조회/삭제 API가 추가되었습니다. 자세한 내용은 [API v2.0 가이드 > 인증서 API](./api-guide-v2.0/#api_3)를 참고하세요.
+	* 인증서 발급/조회/삭제 API가 추가되었습니다. 자세한 내용은 [API v2.0 가이드 > 인증서 API](./api-guide-v2.0/#certificate-api)를 참고하세요.
 * 통계 API 추가
-	* 네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 조회할 수 있는 API가 추가되었습니다. 자세한 내용은 [API v2.0 가이드 > 통계 API](./api-guide-v2.0/#api_4)를 참고하세요.
+	* 네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 조회할 수 있는 API가 추가되었습니다. 자세한 내용은 API v2.0 가이드 > 통계 API를 참고하세요.
 
 
 <a id="may-24-2022"></a>
@@ -140,7 +140,7 @@
 
 #### 기능 개선/변경
 * Auth Token 생성 API 추가
-	* Auth Token 인증 접근 관리 기능이 설정된 콘텐츠에 접근하기 위한 인증 토큰을 생성하는 API가 추가되었습니다. 자세한 내용은 [API v2.0 가이드 > Auth Token 생성](./api-guide-v2.0/#auth-token)을 참고하세요.
+	* Auth Token 인증 접근 관리 기능이 설정된 콘텐츠에 접근하기 위한 인증 토큰을 생성하는 API가 추가되었습니다. 자세한 내용은 [API v2.0 가이드 > Auth Token 생성](./api-guide-v2.0/#auth-token-api)을 참고하세요.
 
 <a id="december-28-2021"></a>
 
@@ -189,7 +189,7 @@
 <a id="feature-updates-16"></a>
 
 #### 기능 개선/변경
-* 토큰 인증 방식의 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > Auth Token 접근 관리](./console-guide/#auth-token)를 참고하세요.
+* 토큰 인증 방식의 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > Auth Token 접근 관리](./console-guide/#access-control-for-auth-token-authentication)를 참고하세요.
 * 리퍼러(referer) 헤더 접근 관리: 리퍼러(referer) 요청 헤더가 없는 경우 콘텐츠 접근 허용 여부를 선택할 수 있는 설정이 추가되었습니다.
 
 <a id="june-23-2020"></a>
@@ -235,7 +235,7 @@
 		* 예: 기존 /images/img.png → 변경 http://[서비스ID].toastcdn.net/images/img.png
 	* 와일드카드 타입 캐시 재배포 기능 종료
 	* 사용량 제한 정책 변경
-		* 상세한 내용은 [사용자 콘솔 가이드 > CDN 캐시 재배포](./console-guide/#cdn-purge)를 참고합니다.
+		* 상세한 내용은 [사용자 콘솔 가이드 > CDN 캐시 재배포](./console-guide/#purge)를 참고합니다.
 * 감시 설정 기능이 종료됩니다.
 
 

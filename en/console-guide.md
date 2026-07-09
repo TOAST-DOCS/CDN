@@ -46,7 +46,7 @@ After domain alias is set, register CNAME record at DNS provider of domain, like
 
 #### Callback
  It takes hours to create and change CDN service. (e.g. Modify, Suspend/Resume, and Delete).
- After a task is completed, enable the callback setting to receive change status via callback URL and CDN setting information. See [API Guide](./api-guide-v2.0/#_23) to find information sent to callback.
+ After a task is completed, enable the callback setting to receive change status via callback URL and CDN setting information. See [API Guide](./api-guide-v2.0/#cdn-service) to find information sent to callback.
 - Enter **HTTP Method** and **Callback URL**.
 - To receive results on the change of CDN via query parameter, include the following path variable to **Callback URL**.
          e.g.: `http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})`

@@ -42,7 +42,7 @@ TOAST CDN은 기본으로 [서비스ID].toastcdn.net 형식의 서비스 도메�
 
 #### 콜백
 CDN 서비스 생성과 변경 작업(수정, 일시 정지/재시작, 삭제)은 몇 시간이 걸립니다.
-작업이 완료된 후 설정한 콜백 URL로 변경 상태와 CDN 설정 정보를 전달받으려면 콜백을 설정하세요. 콜백으로 전달되는 정보는 [API 가이드 문서](./api-guide-v2.0/#_23)를 참고하세요.
+작업이 완료된 후 설정한 콜백 URL로 변경 상태와 CDN 설정 정보를 전달받으려면 콜백을 설정하세요. 콜백으로 전달되는 정보는 [API 가이드 문서](./api-guide-v2.0/#cdn-service)를 참고하세요.
 - **HTTP Method**와 **콜백 URL**을 입력합니다.
 - Query Parameter로 CDN 서비스 변경 작업 결과를 전달받으려면 **콜백 URL**에 다음의 경로(path) 변수를 포함해 입력하세요.
   예: `http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})`

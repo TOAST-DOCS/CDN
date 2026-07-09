@@ -167,9 +167,9 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | 任意      | true      | true/false             | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false)             |
 | distributions[0].origins               | List    | 必須     |        |                             | 原本サーバーオブジェクトリスト                                 |
 | distributions[0].origins[0].origin     | String  | 必須     |        | 最大255文字              | 原本サーバー(domainまたはIP)                                     |
-| distributions[0].origins[0].port       | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
-| distributions[0].origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
-| distributions[0].origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
+| distributions[0].origins[0].port       | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#origin-server-port)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
+| distributions[0].origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#origin-server-port)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
+| distributions[0].origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#origin-server-port)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
 | distributions[0].origins[0].originPath | String  | 任意     |        | 最大8192文字             | 原本サーバーの下層パス(/を含むパスで入力してください。)        |
 | distributions[0].callback              | Object  | 任意     |        |                             | CDN作成処理結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |
 | distributions[0].callback.httpMethod   | String  | 必須     |        | GET/POST/PUT                | コールバックのHTTP Method                                           |
@@ -400,9 +400,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | isAllowWhenEmptyReferrer | Boolean | 任意      | true      | true/false             | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false)             |
 | origins               | List    | 必須     |        |                                                              | 原本サーバー                                               |
 | origins[0].origin     | String  | 必須     |        | 最大255文字                                               | 原本サーバー(domainまたはIP)                                      |
-| origins[0].port       | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
-| origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
-| origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
+| origins[0].port       | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#origin-server-port)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
+| origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#origin-server-port)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
+| origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#origin-server-port)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
 | origins[0].originPath | String  | 任意     |        | 最大8192文字                                              | 原本サーバーの下層パス                                     |
 | callback              | Object  | 任意     |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
 | callback.httpMethod   | String  | 必須     |        | GET/POST/PUT                                                 | コールバックのHTTP Method                                           |
@@ -497,9 +497,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | isAllowWhenEmptyReferrer | Boolean | 任意      | true      | true/false             | リファラー ヘッダがない場合、コンテンツアクセス許可(true)/拒否(false)             |
 | origins               | List    | 任意     |        |                                                              | 原本サーバー                                               |
 | origins[0].origin     | String  | 任意     |        | 最大255文字                                               | 原本サーバー(domainまたはIP)                                     |
-| origins[0].port       | Integer | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
-| origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
-| origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#_2)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
+| origins[0].port       | Integer | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#origin-server-port)の[表2]使用可能なオリジンサーバーポート番号]参照| オリジンサーバーHTTPプロトコルポート<br>(origins[0].port設定時、origins[0].httpPortとorigins[0].httpsPortは入力しません。)|
+| origins[0].httpPort   | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#origin-server-port)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
+| origins[0].httpsPort  | Integer  | 任意  |        |[コンソール使用ガイド] > [[オリジンサーバー](./console-guide/#origin-server-port)の[表2]使用可能なオリジンサーバーポート番号]参照 | オリジンサーバーHTTPSプロトコルポート<br>(origins[0].port未設定時、origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
 | origins[0].originPath | String  | 任意     |        | 最大8192文字                                              | 原本サーバー下層パス                                     |
 | callback              | Object  | 任意     |        | CDNサービス配布結果の通知を受けるコールバックURL(コールバック設定は任意入力です。) |                                                              |
 | callback.httpMethod   | String  | 任意     |        | GET/POST/PUT                                                 | コールバックのHTTP Method                                           |
@@ -665,7 +665,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | purgeSeq             | Integer | 再配布要請番号 |
 
 - CDNサービスを新規で作成した後、約1時間はキャッシュ再配布リクエストは失敗する場合があります。その後も失敗が続く場合はサポートへお問い合わせください。
-- パージAPIは使用量制限ポリシーがあります。詳細な内容は[コンソール使用ガイド > CDNキャッシュ再配布](./console-guide/#cdnpurge)の「キャッシュ再配布使用量制限」を確認してください。
+- パージAPIは使用量制限ポリシーがあります。詳細な内容は[コンソール使用ガイド > CDNキャッシュ再配布](./console-guide/#purge)の「キャッシュ再配布使用量制限」を確認してください。
 - ITEM、WILDCARDタイプは1リクエスト当たりのパージパス数が制限されています。超過してリクエストした場合、リクエストが複数に分かれてパージリクエストが進行されます。この場合、パージリクエストの再配布リクエスト番号のみレスポンスで伝達されます。   
 
 <a id="get-cache-purges"></a>

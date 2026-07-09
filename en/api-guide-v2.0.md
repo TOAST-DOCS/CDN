@@ -780,7 +780,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | sessionId |           String | Optional |    |  String length is up to 36 bytes           | Generates token including sessionId for a single access request |
 
 * At least one of `singlePath`, `singleWildcardPath`, or `multipleWildcardPath` must exist.
-* For details on creating and using tokens, refer to [Console User Guide > Access Control for Auth Token Authentication > 2. Create a Token](./console-guide/#access-control-for-auth-token-authentication).
+* For details on creating and using tokens, refer to [Console User Guide > Access Control for Auth Token Authentication > 2. Create a Token](./console-guide/#create-a-token).
 
 
 <a id="response-5"></a>
@@ -940,7 +940,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | Result message    |
 
 - Cache purge requests may fail within an hour after the CDN service is newly created. If the failure continues, contact Customer Support.
-- A usage limit policy exists for Purge APIs. For more details, see the 'Cache Purge Usage Limit' of [Console User Guide > Purging CDN Cache](./console-guide/#cdn-purge).
+- A usage limit policy exists for Purge APIs. For more details, see the 'Cache Purge Usage Limit' of [Console User Guide > Purging CDN Cache](./console-guide/#purge).
 
 <a id="query-cache-purge"></a>
 
@@ -1517,7 +1517,7 @@ The following are status codes indicating the validation status of an alias doma
 | callbackHttpMethod  | String | Optional      |        | GET/POST/PUT        | HTTP method of callback to be notified of certificate generation processing result |
 | callbackUrl         | String | Optional      |        | Up to 1024 characters           | Callback URL to be notified of certificate generation processing result       |
 
-* For details on issuing a certificate, refer to [Console User Guide > Certificate Management > Issue New Certificates](./console-guide/#_7).
+* For details on issuing a certificate, refer to [Console User Guide > Certificate Management > Issue New Certificates](./console-guide/#issue-new-certificates).
 
 <a id="response-14"></a>
 
