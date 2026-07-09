@@ -96,7 +96,7 @@
 
 #### Feature Updates
 * Added a featrue to set HTTP response headers
-  * You can add, change, and delete headers that are passed when the CDN responds to the user. For more information, see [Console User Guide > HTTP Response Header](./console-guide/#http).
+  * You can add, change, and delete headers that are passed when the CDN responds to the user. For more information, see [Console User Guide > HTTP Response Header](./console-guide/#http-response-header).
 
 <a id="august-23-2022"></a>
 
@@ -130,7 +130,7 @@
 * Added Certificate API
 	* Added certificate issue/query/delete API. For more information, refer to [API v2.0 Guide > Certificate API](./api-guide-v2.0/#certificate-api).
 * Added Statistics API
-	* Added API to query network traffic volume, statistics by HTTP status code, and ranking statistics for content with the most downloads. For more information, refer to [API v2.0 Guide > Statistics API](./api-guide-v2.0/#statistics-api).
+	* Added API to query network traffic volume, statistics by HTTP status code, and ranking statistics for content with the most downloads. For more information, refer to API v2.0 Guide > Statistics API.
 
 
 <a id="may-24-2022"></a>
@@ -190,7 +190,7 @@
 <a id="feature-updates-16"></a>
 
 #### Feature Updates
-* Access management by token authentication has been added. For more details, visit [Console Guide > Auth Token Access Management](./console-guide/#access-management-for-auth-token-authentication).
+* Access management by token authentication has been added. For more details, visit [Console Guide > Auth Token Access Management](./console-guide/#access-control-for-auth-token-authentication).
 * Access Management for Referrer Header: Added the setting to enable or disable content access, when there is no referrer request header.
 
 <a id="june-23-2020"></a>
@@ -226,7 +226,7 @@
 	* For more details, see [Console User Guide](./console-guide/).
 * Added Certificate Management Features
 	* To use CDN service with your own domain, HTTPS protocol service is provided as part of certificate management features. With certificate management, certificates can be easily issued and automatically renewed before expired.
-	* For more details, see [Console User Guide > Certificate Management](./console-guide/#managing-certificate).
+	* For more details, see [Console User Guide > Certificate Management](./console-guide/#certificate).
 * API Support for (Old) Service Domain (*.cdn.toastcloud.com) and (New) Service Domain (*.toastcdn.net)
 	* (Old) [ServiceID].cdn.toastcloud.com is available without changing the old API (lower than v1.5). However, newly added features are not available.
 	* (New) [ServiceID].toastcdn.net is available even without changing previous API (lower than v1.5). New features are added to API specifications that are higher than v1.5.
@@ -236,7 +236,7 @@
 		* e.g., Previously: /images/img.png → Now: http://[ServiceID].toastcdn.net/images/img.png
 	* Closed the wildcard-type cache purging service
 	* Changed usage restriction policy
-		* For more details, see [Console User Guide > Purging CDN Cache](./console-guide/#cdn-purge).
+		* For more details, see [Console User Guide > Purging CDN Cache](./console-guide/#purge).
 * Surveillance setting is to be closed.
 
 

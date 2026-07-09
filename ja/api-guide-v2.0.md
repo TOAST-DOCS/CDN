@@ -222,8 +222,8 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | distributions[0].origins                                                              | List    | 必須   |             |                                                                       | オリジンサーバーオブジェクトリスト                                                                                                            |
 | distributions[0].origins[0].origin                                                    | String  | 必須   |             | 最大255文字                                                              | オリジンサーバー(ドメインまたはIP)                                                                                                          |
 | distributions[0].origins[0].originPath                                                | String  | 任意   |             | 最大8192文字                                                             | オリジンサーバーの下層パス(/を含むパスで入力してください。)                                                                                         |
-| distributions[0].origins[0].httpPort                                                  | Integer | 任意   |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)                                         |
-| distributions[0].origins[0].httpsPort                                                 | Integer | 任意   |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)                                        |
+| distributions[0].origins[0].httpPort                                                  | Integer | 任意   |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)                                         |
+| distributions[0].origins[0].httpsPort                                                 | Integer | 任意   |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)                                        |
 | distributions[0].rootPathAccessControl                                                | Object  | 任意   |             |                                                                       | CDNサービスのルートパスに対するアクセス制御設定                                                                                              | 
 | distributions[0].rootPathAccessControl.enable                                         | Boolean | 必須   | true        | true/false                                                            | ルートパスのアクセス制御使用(true)/未使用(false)                                                                                    |
 | distributions[0].rootPathAccessControl.controlType                                    | String  | 任意   |             | DENY, REDIRECT                                                        | enableがtrueの場合は必須入力。ルートパスへのアクセス制御方式("DENY"：アクセス拒否、"REDIRECT"：指定したパスへリダイレクトリダイレクト)                                      | 
@@ -622,8 +622,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | origins               | List    | 必須  |        |                                                              | オリジンサーバー                                            |
 | origins[0].origin     | String  | 必須  |        | 最大255文字                                            | オリジンサーバー(ドメインまたはIP)                                      |
 | origins[0].originPath | String  | 任意  |        | 最大8192文字                                           | オリジンサーバーの下層パス                                  |
-| origins[0].httpPort   | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
-| origins[0].httpsPort  | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
+| origins[0].httpPort   | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
+| origins[0].httpsPort  | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
 | useOriginHttpProtocolDowngrade | Boolean  | 必須 | true/false       |          | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するか |
 | forwardHostHeader     | String  | 必須 |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時、伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名で設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定 |
 | rootPathAccessControl  | Object  | 任意 |  |  | CDNサービスのルートパスに対するアクセス制御設定 | 
@@ -779,7 +779,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | sessionId |           String | 任意 |    | 文字列の長さ最大36バイト        | 単一アクセスリクエストに対してsessionIdを含めてトークンを作成 |
 
 * `singlePath`, `singleWildcardPath`, `multipleWildcardPath`のうち1つ以上の値が必ず存在する必要があります。
-* トークン作成および使用についての詳細は[コンソール使用ガイド > Auth Token認証アクセス管理 > 2. トークン作成](./console-guide/#auth-token)を参照してください。
+* トークン作成および使用についての詳細は[コンソール使用ガイド > Auth Token認証アクセス管理 > 2. トークン作成](./console-guide/#create-a-token)を参照してください。
 
 
 <a id="response-5"></a>
@@ -937,7 +937,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | 結果メッセージ |
 
 - CDNサービスを新規作成した後、約1時間はキャッシュ再配布リクエストが失敗する場合があります。その後も失敗が続く場合は、サポートへお問い合わせください。
-- パージAPI使用量制限ポリシーがあります。詳細な内容は[コンソール使用ガイド > CDNキャッシュ再配布](./console-guide/#cdnpurge)の'キャッシュ再配布使用量制限']を確認してください。
+- パージAPI使用量制限ポリシーがあります。詳細な内容は[コンソール使用ガイド > CDNキャッシュ再配布](./console-guide/#purge)の'キャッシュ再配布使用量制限']を確認してください。
 
 <a id="query-cache-purge"></a>
 
@@ -1513,7 +1513,7 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | callbackHttpMethod  | String | 任意 |        | GET/POST/PUT        | 証明書作成処理結果の通知を受けるコールバックのHTTPメソッド |
 | callbackUrl         | String | 任意 |        | 最大1024文字      | 証明書作成処理結果の通知を受けるコールバックURL       |
 
-* 証明書発行の詳細については、[コンソール使用ガイド > 証明書管理 > 新規証明書の発行](./console-guide/#_7)を参照してください。
+* 証明書発行の詳細については、[コンソール使用ガイド > 証明書管理 > 新規証明書の発行](./console-guide/#issue-new-certificates)を参照してください。
 
 <a id="response-14"></a>
 

@@ -42,7 +42,7 @@ TOAST CDNは、既定で[サービスID].toastcdn.net形式のサービスドメ
 
 #### コールバック
 CDNサービスの作成と変更操作(変更、一時停止/再開、削除)には数時間かかります。
-操作が完了した後、設定したコールバックURLで変更状態とCDN設定情報を受信するには、コールバックを設定してください。コールバックで配信される情報については、[APIガイド](./api-guide-v2.0/#_23)をご参照ください。
+操作が完了した後、設定したコールバックURLで変更状態とCDN設定情報を受信するには、コールバックを設定してください。コールバックで配信される情報については、[APIガイド](./api-guide-v2.0/#cdn-service)をご参照ください。
 - **HTTP Method**と**コールバックURL**を入力します。
 - Query ParameterでCDNサービスの変更操作結果を受信するには、**コールバックURL**に次のパス(path)変数を含めて入力してください。
   例: `http://callback.url?appKey={appKey}&status={status}&isSuccessful={isSuccessful})`

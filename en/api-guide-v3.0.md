@@ -191,8 +191,8 @@ The following are status codes that indicate the certificate issuance status of 
 | distributions[0].origins                                                              | List    | Required    |             |                                                                       | List of origin server objects                                                                                                             |
 | distributions[0].origins[0].origin                                                    | String  | Required    |             | max 255 characters                                                               | Origin server (domain or IP)                                                                                                          |
 | distributions[0].origins[0].originPath                                                | String  | Optional    |             | max 8192 characters                                                              | Origin server subpath (enter a path that includes /)                                                                                          |
-| distributions[0].origins[0].httpPort                                                  | Integer | Optional    |             | See "[Table 2] Available Origin Server Port Numbers" in [Console User Guide > Origin Server](./console-guide/#_2) | Origin server HTTP protocol port (one of origins[0].httpPort or origins[0].httpsPort must be entered)                                         |
-| distributions[0].origins[0].httpsPort                                                 | Integer | Optional    |             | See "[Table 2] Available Origin Server Port Numbers" in [Console User Guide > Origin Server](./console-guide/#_2) | Origin server HTTPS protocol port (one of origins[0].httpPort or origins[0].httpsPort must be entered)                                        |
+| distributions[0].origins[0].httpPort                                                  | Integer | Optional    |             | See "[Table 2] Available Origin Server Port Numbers" in [Console User Guide > Origin Server](./console-guide/#origin-server-port) | Origin server HTTP protocol port (one of origins[0].httpPort or origins[0].httpsPort must be entered)                                         |
+| distributions[0].origins[0].httpsPort                                                 | Integer | Optional    |             | See "[Table 2] Available Origin Server Port Numbers" in [Console User Guide > Origin Server](./console-guide/#origin-server-port) | Origin server HTTPS protocol port (one of origins[0].httpPort or origins[0].httpsPort must be entered)                                        |
 | distributions[0].rootPathAccessControl                                                | Object  | Optional    |             |                                                                       | Access control setting for the root path of the CDN service                                                                                               | 
 | distributions[0].rootPathAccessControl.enable                                         | Boolean | Required    | true        | true/false                                                            | Whether to use (true) or not use (false) access control for the root path                                                                                    |
 | distributions[0].rootPathAccessControl.controlType                                    | String  | Optional    |             | DENY, REDIRECT                                                        | Required if enable is true. Access control method for the root path ("DENY": deny access, "REDIRECT": redirect to the specified path)                                      | 
@@ -591,8 +591,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | origins               | List    | Required      |        |                                                              | Origin server                                                    |
 | origins[0].origin     | String  | Required      |        | max 255 characters                                                   | Origin server (domain or IP)                                      |
 | origins[0].originPath | String  | Optional      |        | max 8192 characters                                                  | Origin server subpath                                          |
-| origins[0].httpPort   | Integer  | Optional      |        |See "[Table 2] Available Origin Server Port Numbers" in [Console User Guide > Origin Server](./console-guide/#_2)| Origin server HTTP protocol port (one of origins[0].httpPort or origins[0].httpsPort must be entered)  |
-| origins[0].httpsPort  | Integer  | Optional      |        |See "[Table 2] Available Origin Server Port Numbers" in [Console User Guide > Origin Server](./console-guide/#_2) | Origin server HTTPS protocol port (one of origins[0].httpPort or origins[0].httpsPort must be entered) |
+| origins[0].httpPort   | Integer  | Optional      |        |See "[Table 2] Available Origin Server Port Numbers" in [Console User Guide > Origin Server](./console-guide/#origin-server-port)| Origin server HTTP protocol port (one of origins[0].httpPort or origins[0].httpsPort must be entered)  |
+| origins[0].httpsPort  | Integer  | Optional      |        |See "[Table 2] Available Origin Server Port Numbers" in [Console User Guide > Origin Server](./console-guide/#origin-server-port) | Origin server HTTPS protocol port (one of origins[0].httpPort or origins[0].httpsPort must be entered) |
 | useOriginHttpProtocolDowngrade | Boolean  | Required     | false       | true/false         | Whether to enable settings to downgrade a request from HTTPS to HTTP when the request is made to the origin server from the CDN server, if the origin server can respond only via HTTP |
 | forwardHostHeader     | String  | Required      |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | Host header setting to forward when the CDN server requests content from the origin server ("ORIGIN_HOSTNAME": set to the host name of the origin server, "REQUEST_HOST_HEADER": set to the host header of the client request)|
 | rootPathAccessControl  | Object  | Optional |  |  | Access control setting for the root path of the CDN service | 
@@ -748,7 +748,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | sessionId |           String | Optional |    |  max string length: 36 bytes           | Generate a token that includes sessionId for a single access request |
 
 * At least one of `singlePath`, `singleWildcardPath`, or `multipleWildcardPath` must be provided.
-* For more information on generating and using tokens, see [Console User Guide > Auth Token Authentication Access Control > 2. Generate Token](./console-guide/#auth-token).
+* For more information on generating and using tokens, see [Console User Guide > Auth Token Authentication Access Control > 2. Generate Token](./console-guide/#create-a-token).
 
 
 <a id="auth-token-2"></a>
@@ -908,7 +908,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | Result message    |
 
 - A cache purge request may fail within approximately one hour after a CDN service is newly created. If the failure continues afterward, contact customer support.
-- There is a usage limit policy for the Purge API. For more information, see "Cache Purge Usage Limit" in [Console User Guide > CDN Cache Purge](./console-guide/#cdn-purge).
+- There is a usage limit policy for the Purge API. For more information, see "Cache Purge Usage Limit" in [Console User Guide > CDN Cache Purge](./console-guide/#purge).
 
 <a id="purge"></a>
 
@@ -1485,7 +1485,7 @@ The following are status codes that indicate the validation status of a domain a
 | callbackHttpMethod  | String | Optional      |        | GET/POST/PUT        | HTTP method of the callback to receive the certificate creation result |
 | callbackUrl         | String | Optional      |        | max 1024 characters           | Callback URL to receive the certificate creation result       |
 
-* For more information on issuing certificates, see [Console User Guide > Certificate Management > Issue New Certificate](./console-guide/#_7).
+* For more information on issuing certificates, see [Console User Guide > Certificate Management > Issue New Certificate](./console-guide/#issue-new-certificates).
 
 <a id="api-6-1-2"></a>
 
