@@ -1,14 +1,22 @@
+<!-- pre-align:aligned sig=73fb7cfa0df0 -->
+
 ## Content Delivery > CDN > API v3.0 가이드
 
 NHN Cloud CDN에서 제공하는 Public API v3.0을 설명합니다.
 
+<a id="api"></a>
+
 ## API 공통 정보
+
+<a id="api-1"></a>
 
 ### 도메인
 
 | 이름              | 도메인                                 |
 | --------------- | ----------------------------------- |
 | CDN Public API 도메인 | https://cdn.api.nhncloudservice.com |
+
+<a id="api-2"></a>
 
 ### 인증 및 권한
 CDN API v3.0은 API 인증 호출 및 인증을 위해 Appkey와 User Access Key 토큰을 지원합니다.
@@ -21,6 +29,8 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | X-NHN-AUTHORIZATION | Header | String | O | Public API로 발급 받은 Bearer 유형 토큰 |
+
+<a id="api-3"></a>
 
 ### 응답 공통 정보
 
@@ -38,6 +48,8 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 }
 ```
 
+<a id="cdn"></a>
+
 #### CDN 상태 코드
 
 다음은 CDN 서비스 상태를 나타내는 상태 코드로, 서비스 조회 시 서비스 상태를 확인할 수 있습니다.
@@ -53,6 +65,8 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 | CLOSING    | 사용 종료 중             |
 | CLOSE      | 사용 종료                |
 | ERROR      | 서비스 생성 중 오류 발생 |
+
+<a id="api-3-1"></a>
 
 #### 인증서 발급 상태 코드
 
@@ -72,9 +86,15 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 | EXPIRED            | 도메인 인증서 만료                   |
 
 
+<a id="api-4"></a>
+
 ## 서비스 API
 
+<a id="api-4-1"></a>
+
 ### 서비스 생성
+
+<a id="api-4-1-1"></a>
 
 #### 요청
 
@@ -171,8 +191,8 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 | distributions[0].origins                                                              | List    | 필수    |             |                                                                       | 원본 서버 오브젝트 목록                                                                                                             |
 | distributions[0].origins[0].origin                                                    | String  | 필수    |             | 최대 255자                                                               | 원본 서버(도메인 또는 IP)                                                                                                          |
 | distributions[0].origins[0].originPath                                                | String  | 선택    |             | 최대 8192자                                                              | 원본 서버 하위 경로(/를 포함한 경로로 입력합니다.)                                                                                          |
-| distributions[0].origins[0].httpPort                                                  | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                         |
-| distributions[0].origins[0].httpsPort                                                 | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                        |
+| distributions[0].origins[0].httpPort                                                  | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                         |
+| distributions[0].origins[0].httpsPort                                                 | Integer | 선택    |             | [콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)                                        |
 | distributions[0].rootPathAccessControl                                                | Object  | 선택    |             |                                                                       | CDN 서비스의 루트 경로에 대한 접근 제어 설정                                                                                               | 
 | distributions[0].rootPathAccessControl.enable                                         | Boolean | 필수    | true        | true/false                                                            | 루트 경로에 대한 접근 제어 사용(true)/미사용(false) 여부                                                                                    |
 | distributions[0].rootPathAccessControl.controlType                                    | String  | 선택    |             | DENY, REDIRECT                                                        | enable이 true일 경우 필수 입력. 루트 경로에 대한 접근 제어 방식("DENY": 접근 거부, "REDIRECT": 지정한 경로로 리다이렉트)                                      | 
@@ -192,6 +212,8 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 - `forwardHostHeader`의 기본값은 `domainAlias`를 설정한 경우 `REQUEST_HOST_HEADER`이고, 설정하지 않으면 `ORIGIN_HOSTNAME`입니다.
 
 
+
+<a id="api-4-1-2"></a>
 
 #### 응답
 
@@ -321,7 +343,11 @@ Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API
 
 
 
+<a id="api-4-2"></a>
+
 ### 서비스 조회
+
+<a id="api-4-2-1"></a>
 
 #### 요청
 
@@ -346,6 +372,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="api-4-2-2"></a>
 
 #### 응답
 
@@ -463,7 +491,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | distributions[0].callback.url          | String  | 콜백 URL                                                     |
 
 
+<a id="api-4-3"></a>
+
 ### 서비스 수정
+
+<a id="api-4-3-1"></a>
 
 #### 요청
 
@@ -559,8 +591,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
 | origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(도메인 또는 IP)                                      |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.) |
+| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.)  |
+| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트(origins[0].httpPort와 origins[0].httpsPort 중 하나는 반드시 입력해야 합니다.) |
 | useOriginHttpProtocolDowngrade | Boolean  | 필수     | false       | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달할 호스트 헤더 설정("ORIGIN_HOSTNAME": 원본 서버의 호스트 이름으로 설정, "REQUEST_HOST_HEADER": 클라이언트 요청의 호스트 헤더로 설정)|
 | rootPathAccessControl  | Object  | 선택 |  |  | CDN 서비스의 루트 경로에 대한 접근 제어 설정 | 
@@ -580,6 +612,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                                                     |
 
 - `forwardHostHeader`의 기본값은 `domainAlias`를 설정한 경우 `REQUEST_HOST_HEADER`이고, 설정하지 않으면 `ORIGIN_HOSTNAME`입니다.
+
+<a id="api-4-3-2"></a>
 
 #### 응답
 
@@ -606,7 +640,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultCode    | Integer | 결과 코드  |
 | header.resultMessage | String  | 결과 메시지 |
 
+<a id="api-4-4"></a>
+
 ### 서비스 삭제
+
+<a id="api-4-4-1"></a>
 
 #### 요청
 
@@ -637,6 +675,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 > [주의] 여러 도메인을 입력하면 해당하는 서비스는 모두 종료됩니다.
 
+<a id="api-4-4-2"></a>
+
 #### 응답
 
 
@@ -663,9 +703,15 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | 결과 메시지 |
 
 
+<a id="auth-token-api"></a>
+
 ## Auth Token API
 
+<a id="auth-token"></a>
+
 ### Auth Token 생성
+
+<a id="auth-token-1"></a>
 
 #### 요청
 
@@ -702,8 +748,10 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | sessionId |           String | 선택 |    |  문자열 길이 최대 36바이트           | 단일 접근 요청에 대해 sessionId를 포함하여 토큰을 생성 |
 
 * `singlePath`, `singleWildcardPath`, `multipleWildcardPath` 중 하나 이상의 값이 필수로 존재해야 합니다.
-* 토큰 생성 및 사용에 대한 상세한 내용은 [콘솔 사용 가이드 > Auth Token 인증 접근 관리 > 2. 토큰 생성](./console-guide/#auth-token)을 참고하세요.
+* 토큰 생성 및 사용에 대한 상세한 내용은 [콘솔 사용 가이드 > Auth Token 인증 접근 관리 > 2. 토큰 생성](./console-guide/#create-a-token)을 참고하세요.
 
+
+<a id="auth-token-2"></a>
 
 #### 응답
 
@@ -740,9 +788,15 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 
 
+<a id="api-5"></a>
+
 ## 캐시 재배포 API
 
+<a id="purge---item"></a>
+
 ### 캐시 재배포(Purge) - ITEM(특정 파일 타입)
+
+<a id="purge---item-1"></a>
 
 #### 요청
 
@@ -771,6 +825,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스 이름)                                 |
 | purgeList | List | 필수      |        |                       | 재배포 대상 URL 목록 |
 
+<a id="purge---item-2"></a>
+
 #### 응답
 
 [응답 본문]
@@ -795,7 +851,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultCode    | Integer | 결과 코드     |
 | header.resultMessage | String  | 결과 메시지    |
 
+<a id="purge---all"></a>
+
 ### 캐시 재배포(Purge) - ALL(전체 파일 타입)
+
+<a id="purge---all-1"></a>
 
 #### 요청
 
@@ -820,6 +880,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | 이름      | 타입   | 필수 여부 | 기본값 | 유효 범위             | 설명                                                         |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
 | domain    | String | 필수      |        | 최대 255자            | 재배포할 도메인(서비스 이름)                                 |
+
+<a id="purge---all-2"></a>
 
 #### 응답
 
@@ -846,7 +908,9 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | 결과 메시지    |
 
 - CDN 서비스를 신규로 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 계속되면 고객지원으로 문의하세요.
-- Purge API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide/#cdn-purge)의 '캐시 재배포 사용량 제한' 내용을 확인하세요.
+- Purge API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide/#purge)의 '캐시 재배포 사용량 제한' 내용을 확인하세요.
+
+<a id="purge"></a>
 
 ### 캐시 재배포(Purge) 조회
 - API v3.0을 통한 캐시 재배포 시, 고속 캐시 재배포가 수행되어 요청 후 수 초 이내에 완료되므로 캐시 재배포 상태를 조회하는 API가 별도로 제공되지 않습니다.
@@ -854,7 +918,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 <a id="alias_domain_api"></a>
 ## 도메인 별칭 API
 
+<a id="alias_domain_api-1"></a>
+
 ### 도메인 별칭 등록
+
+<a id="alias_domain_api-1-1"></a>
 
 #### 요청
 
@@ -878,6 +946,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | 이름              | 타입     | 필수 여부 | 기본값  | 유효 범위                   | 설명                                                                                     |
 | --------------- | ------ | ----- | ---- | ----------------------- | -------------------------------------------------------------------------------------- |
 | domain          | String | 필수    |      | FQDN 형식, 최소 4자~최대 253자 | 등록할 도메인(전체 도메인 주소 형식으로 입력, toastcdn.net 도메인은 사용 불가)                                    |
+
+<a id="alias_domain_api-1-2"></a>
 
 #### 응답
 
@@ -938,7 +1008,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | domain.updatedAt                    | DateTime | 변경 일시                                                              |
 
 
+<a id="alias_domain_api-2"></a>
+
 ### 도메인 별칭 목록 조회
+
+<a id="alias_domain_api-2-1"></a>
 
 #### 요청
 
@@ -964,6 +1038,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-dom
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="alias_domain_api-2-2"></a>
 
 #### 응답
 
@@ -1036,7 +1112,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-dom
 | domains[0].updatedAt                  | DateTime | 변경 일시                                                              |
 
 
+<a id="alias_domain_api-3"></a>
+
 ### 도메인 별칭 삭제
+
+<a id="alias_domain_api-3-1"></a>
 
 #### 요청
 
@@ -1060,6 +1140,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="alias_domain_api-3-2"></a>
 
 #### 응답
 
@@ -1088,7 +1170,11 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 - CDN 서비스에 연동된 도메인은 삭제할 수 없습니다. CDN 서비스에서 도메인 별칭 연동을 해제한 후 삭제하세요.
 
 
+<a id="alias_domain_api-4"></a>
+
 ### 도메인 검증 실행
+
+<a id="alias_domain_api-4-1"></a>
 
 #### 요청
 
@@ -1113,6 +1199,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 | ---------------- | ------ | ----- | --- | -------------- | ------------------------------------------------------------- |
 | validationMethod | String | 필수    |     | DNS_TXT, HTTP  | 검증 방식("DNS_TXT": DNS TXT 레코드 추가 방식, "HTTP": HTTP 파일 또는 리다이렉트 인증 방식) |
 
+
+<a id="alias_domain_api-4-2"></a>
 
 #### 응답
 
@@ -1177,7 +1265,11 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 - 검증 토큰이 만료된 경우 검증 실행이 불가합니다. 토큰 재발급 API로 새 토큰을 발급받은 후 다시 검증을 진행하세요.
 
 
+<a id="alias_domain_api-5"></a>
+
 ### 도메인 검증 상태 새로고침
+
+<a id="alias_domain_api-5-1"></a>
 
 #### 요청
 
@@ -1194,6 +1286,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="alias_domain_api-5-2"></a>
 
 #### 응답
 
@@ -1255,7 +1349,11 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | domain.updatedAt                    | DateTime | 변경 일시                                                              |
 
 
+<a id="alias_domain_api-6"></a>
+
 ### 검증 토큰 재발급
+
+<a id="alias_domain_api-6-1"></a>
 
 #### 요청
 
@@ -1272,6 +1370,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="alias_domain_api-6-2"></a>
 
 #### 응답
 
@@ -1335,6 +1435,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 - 토큰이 재발급되면 이전 검증 정보는 초기화되며, 새 토큰 정보로 다시 검증을 진행해야 합니다.
 - 검증 토큰이 만료(`TOKEN_EXPIRED`)된 경우 이 API를 호출하여 새 토큰을 발급받을 수 있습니다.
 
+<a id="alias_domain_api-6-3"></a>
+
 #### 도메인 별칭 검증 상태 코드
 
 다음은 도메인 별칭의 검증 상태를 나타내는 상태 코드로, 도메인 별칭 조회 시 검증 상태를 확인할 수 있습니다.
@@ -1347,8 +1449,14 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | TOKEN_EXPIRED          | 검증 토큰 만료, 토큰 재발급 후 다시 검증 필요     |
 
 
+<a id="api-6"></a>
+
 ## 인증서 API
+<a id="api-6-1"></a>
+
 ### 신규 인증서 발급
+<a id="api-6-1-1"></a>
+
 #### 요청
 
 [URI]
@@ -1377,7 +1485,9 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | callbackHttpMethod  | String | 선택      |        | GET/POST/PUT        | 인증서 생성 처리 결과를 통보받을 콜백의 HTTP 메서드 |
 | callbackUrl         | String | 선택      |        | 최대 1024자           | 인증서 생성 처리 결과를 통보받을 콜백 URL       |
 
-* 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide/#_7)을 참고하세요.
+* 인증서 발급에 대한 상세한 내용은 [콘솔 사용 가이드 > 인증서 관리 > 신규 인증서 발급](./console-guide/#issue-new-certificates)을 참고하세요.
+
+<a id="api-6-1-2"></a>
 
 #### 응답
 
@@ -1430,7 +1540,11 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | certificates[0].renewalStartDate | DateTime | 인증서 갱신 시작 일시 |
 | certificates[0].renewalEndDate | DateTime | 인증서 갱신 종료 일시 |
 
+<a id="api-6-2"></a>
+
 ### 인증서 목록 조회
+<a id="api-6-2-1"></a>
+
 #### 요청
 
 [URI]
@@ -1440,6 +1554,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | GET | /v3.0/appKeys/{appKey}/certificates|
 
 
+<a id="api-6-2-2"></a>
+
 #### 응답
 
 [응답 본문]
@@ -1491,7 +1607,11 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | certificates[0].renewalStartDate | DateTime | 인증서 갱신 시작 일시 |
 | certificates[0].renewalEndDate | DateTime | 인증서 갱신 종료 일시 |
 
+<a id="api-6-3"></a>
+
 ### 인증서 삭제
+<a id="api-6-3-1"></a>
+
 #### 요청
 
 [URI]
@@ -1513,6 +1633,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/certif
  -H "X-NHN-AUTHORIZATION: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="api-6-3-2"></a>
 
 #### 응답
 
@@ -1539,7 +1661,11 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/certif
 | header.resultMessage | String  | 결과 메시지    |
 
 
+<a id="section-1"></a>
+
 ## 콜백 응답
+<a id="cdn-2"></a>
+
 ### CDN 서비스
 CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정지, 재개, 삭제 변경이 완료되면 설정된 콜백 URL을 호출합니다.
 콜백 호출 시 요청 본문에는 다음과 같은 CDN 서비스 설정 정보가 포함됩니다.
@@ -1647,6 +1773,8 @@ CDN 서비스에 콜백 기능이 설정된 경우, 생성, 수정, 일시 정�
 | distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distribution.callback.httpMethod   | String  | 콜백의 HTTP 메서드                                           |
 | distribution.callback.url          | String  | 콜백 URL                                                     |
+
+<a id="section-1-1"></a>
 
 ### 인증서
 인증서 발급 요청 시 콜백 정보가 설정된 경우, 도메인 검증/도메인 검증 완료/인증서 발급 완료로 상태 변경이 완료되면 설정된 콜백 URL을 호출합니다.

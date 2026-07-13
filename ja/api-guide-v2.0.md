@@ -1,14 +1,22 @@
+<!-- pre-align:aligned sig=d955c506b577 -->
+
 ## Content Delivery > CDN > API v2.0ガイド
 
 NHN Cloud CDNで提供するPublic API v2.0について説明します。
 
+<a id="common-api-information"></a>
+
 ## API共通情報
+
+<a id="domain"></a>
 
 ### ドメイン
 
 | 名前             | ドメイン                                |
 | --------------- | ----------------------------------- |
 | CDN Public APIドメイン | https://cdn.api.nhncloudservice.com |
+
+<a id="prerequisites"></a>
 
 ### 事前準備
 
@@ -19,13 +27,19 @@ Appkey及びSecretKeyの確認及び使用に関する詳細は、[Appkey](https
 Appkeyの代わりに、プロジェクト統合Appkeyを使用することも可能です。プロジェクト統合Appkeyは、NHN Cloudの1つのプロジェクト内の複数のサービスに対して共通で使用できる認証キーです。
 プロジェクト統合Appkeyの作成及び使用に関する詳細は、[プロジェクト統合Appkey](https://docs.nhncloud.com/ja/nhncloud/ja/public-api/project-integrated-appkey)を参照してください。
 
+<a id="common-request-information"></a>
+
 ### リクエスト共通情報
+
+<a id="request-header"></a>
 
 #### リクエストヘッダ
 
 | 名前     | 説明                 |
 | ------------- | ------------------------- |
 | Authorization | コンソールで発行されたセキュリティキー(SecretKey) |
+
+<a id="path-parameter"></a>
 
 #### Pathパラメータ
 
@@ -36,7 +50,11 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | ------ | --------------------- |
 | appKey | コンソールで発行されたアプリキー(Appkey) | 
 
+<a id="common-response-information"></a>
+
 ### レスポンス共通情報
+
+<a id="header"></a>
 
 #### ヘッダ
 
@@ -62,6 +80,8 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | header.resultCode | Integer | 結果コード |
 | header.resultMessage | String | 結果メッセージ |
 
+<a id="cdn-status-codes"></a>
+
 #### CDN状態コード
 
 次はCDNサービスの状態を表す状態コードです。サービスの照会時にサービスの状態を確認できます。
@@ -77,6 +97,8 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | CLOSING    | 使用終了中      |
 | CLOSE      | 使用終了         |
 | ERROR      | サービス作成中にエラーが発生 |
+
+<a id="certificate-issuance-status-codes"></a>
 
 #### 証明書発行ステータスコード
 
@@ -95,9 +117,15 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | DELETED            | ドメイン証明書の削除完了         |
 | EXPIRED            | ドメイン証明書の期限切れ              |
 
+<a id="service-api"></a>
+
 ## サービスAPI
 
+<a id="create-a-service"></a>
+
 ### サービス作成
+
+<a id="request"></a>
 
 #### リクエスト
 
@@ -194,8 +222,8 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | distributions[0].origins                                                              | List    | 必須   |             |                                                                       | オリジンサーバーオブジェクトリスト                                                                                                            |
 | distributions[0].origins[0].origin                                                    | String  | 必須   |             | 最大255文字                                                              | オリジンサーバー(ドメインまたはIP)                                                                                                          |
 | distributions[0].origins[0].originPath                                                | String  | 任意   |             | 最大8192文字                                                             | オリジンサーバーの下層パス(/を含むパスで入力してください。)                                                                                         |
-| distributions[0].origins[0].httpPort                                                  | Integer | 任意   |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)                                         |
-| distributions[0].origins[0].httpsPort                                                 | Integer | 任意   |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)                                        |
+| distributions[0].origins[0].httpPort                                                  | Integer | 任意   |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)                                         |
+| distributions[0].origins[0].httpsPort                                                 | Integer | 任意   |             | [コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)                                        |
 | distributions[0].rootPathAccessControl                                                | Object  | 任意   |             |                                                                       | CDNサービスのルートパスに対するアクセス制御設定                                                                                              | 
 | distributions[0].rootPathAccessControl.enable                                         | Boolean | 必須   | true        | true/false                                                            | ルートパスのアクセス制御使用(true)/未使用(false)                                                                                    |
 | distributions[0].rootPathAccessControl.controlType                                    | String  | 任意   |             | DENY, REDIRECT                                                        | enableがtrueの場合は必須入力。ルートパスへのアクセス制御方式("DENY"：アクセス拒否、"REDIRECT"：指定したパスへリダイレクトリダイレクト)                                      | 
@@ -214,6 +242,8 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 
 - `forwardHostHeader`のデフォルト値は、`domainAlias`を設定した場合は`REQUEST_HOST_HEADER`で、未設定の場合は`ORIGIN_HOSTNAME`です。
 
+
+<a id="response"></a>
 
 #### レスポンス
 
@@ -343,7 +373,11 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 
 
 
+<a id="query-a-service"></a>
+
 ### サービス照会
+
+<a id="request-2"></a>
 
 #### リクエスト
 
@@ -368,6 +402,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-2"></a>
 
 #### レスポンス
 
@@ -486,7 +522,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | distributions[0].callback.url          | String  | コールバックURL                                                     |
 
 
+<a id="modify-a-service"></a>
+
 ### サービス修正
+
+<a id="request-3"></a>
 
 #### リクエスト
 
@@ -582,8 +622,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | origins               | List    | 必須  |        |                                                              | オリジンサーバー                                            |
 | origins[0].origin     | String  | 必須  |        | 最大255文字                                            | オリジンサーバー(ドメインまたはIP)                                      |
 | origins[0].originPath | String  | 任意  |        | 最大8192文字                                           | オリジンサーバーの下層パス                                  |
-| origins[0].httpPort   | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
-| origins[0].httpsPort  | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#_2)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
+| origins[0].httpPort   | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
+| origins[0].httpsPort  | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
 | useOriginHttpProtocolDowngrade | Boolean  | 必須 | true/false       |          | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するか |
 | forwardHostHeader     | String  | 必須 |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時、伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名で設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定 |
 | rootPathAccessControl  | Object  | 任意 |  |  | CDNサービスのルートパスに対するアクセス制御設定 | 
@@ -603,6 +643,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | callback.url          | String  | 必須 |        | 最大1024文字                                             | コールバックURL                                                     |
 
 - `forwardHostHeader`の既定値は、`domainAlias`を設定した場合は`REQUEST_HOST_HEADER`であり、設定しない場合は`ORIGIN_HOSTNAME`です。 
+
+<a id="response-3"></a>
 
 #### レスポンス
 
@@ -629,7 +671,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultCode | Integer | 結果コード |
 | header.resultMessage | String | 結果メッセージ |
 
+<a id="delete-a-service"></a>
+
 ### サービス削除
+
+<a id="request-4"></a>
 
 #### リクエスト
 
@@ -660,6 +706,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 
 > [注意] 複数のドメインを入力すると、該当するサービスはすべて終了します。
 
+<a id="response-4"></a>
+
 #### レスポンス
 
 
@@ -686,9 +734,15 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultMessage | String | 結果メッセージ |
 
 
+<a id="auth-token-api"></a>
+
 ## Auth Token API
 
+<a id="create-an-auth-token"></a>
+
 ### Auth Token作成
+
+<a id="request-5"></a>
 
 #### リクエスト
 
@@ -725,8 +779,10 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | sessionId |           String | 任意 |    | 文字列の長さ最大36バイト        | 単一アクセスリクエストに対してsessionIdを含めてトークンを作成 |
 
 * `singlePath`, `singleWildcardPath`, `multipleWildcardPath`のうち1つ以上の値が必ず存在する必要があります。
-* トークン作成および使用についての詳細は[コンソール使用ガイド > Auth Token認証アクセス管理 > 2. トークン作成](./console-guide/#auth-token)を参照してください。
+* トークン作成および使用についての詳細は[コンソール使用ガイド > Auth Token認証アクセス管理 > 2. トークン作成](./console-guide/#create-a-token)を参照してください。
 
+
+<a id="response-5"></a>
 
 #### レスポンス
 
@@ -761,9 +817,15 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | authToken.singleWildcardPathToken | String    | 単一ワイルドカードパスにアクセスできるように作成された認証トークン              |
 | authToken.multipleWildcardPathToken | String  | 複数のワイルドカードパスにアクセスできるように作成された認証トークン          |
 
+<a id="purge-cache-api"></a>
+
 ## キャッシュ再配布API
 
+<a id="purge-cache---item-particular-file-type"></a>
+
 ### キャッシュ再配布(Purge) -  ITEM(特定ファイルタイプ)
+
+<a id="request-6"></a>
 
 #### リクエスト
 
@@ -792,6 +854,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | domain    | String | 必須  |        | 最大255文字     | 再配布するドメイン(サービス)名                         |
 | purgeList | List | 必須 |        |                       | 再配布対象URLリスト |
 
+<a id="response-6"></a>
+
 #### レスポンス
 
 [レスポンス本文]
@@ -816,7 +880,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultCode    | Integer | 結果コード |
 | header.resultMessage | String  | 結果メッセージ |
 
+<a id="purge-cache---all-all-file-types"></a>
+
 ### キャッシュ再配布(Purge) -  ALL(全体ファイルタイプ)
+
+<a id="request-7"></a>
 
 #### リクエスト
 
@@ -841,6 +909,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | 名前 | タイプ | 必須か | デフォルト値 | 有効範囲     | 説明                                                 |
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
 | domain    | String | 必須  |        | 最大255文字     | 再配布するドメイン(サービス)名                         |
+
+<a id="response-7"></a>
 
 #### レスポンス
 
@@ -867,7 +937,9 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | 結果メッセージ |
 
 - CDNサービスを新規作成した後、約1時間はキャッシュ再配布リクエストが失敗する場合があります。その後も失敗が続く場合は、サポートへお問い合わせください。
-- パージAPI使用量制限ポリシーがあります。詳細な内容は[コンソール使用ガイド > CDNキャッシュ再配布](./console-guide/#cdnpurge)の'キャッシュ再配布使用量制限']を確認してください。
+- パージAPI使用量制限ポリシーがあります。詳細な内容は[コンソール使用ガイド > CDNキャッシュ再配布](./console-guide/#purge)の'キャッシュ再配布使用量制限']を確認してください。
+
+<a id="query-cache-purge"></a>
 
 ### キャッシュ再配布(Purge)照会
 - API v2.0を通してキャッシュを再配布する時、高速キャッシュ再配布が実行され、リクエスト後、数秒以内に完了するため、キャッシュ再配布状態を照会するAPIが別途提供されません。
@@ -875,7 +947,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 <a id="alias_domain_api"></a>
 ## ドメインエイリアスAPI
 
+<a id="register-alias-domain"></a>
+
 ### ドメインエイリアス登録
+
+<a id="request-8"></a>
 
 #### リクエスト
 
@@ -899,6 +975,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | 名前 | タイプ | 必須 | 既定値 | 有効範囲 | 説明 |
 | --------------- | ------ | ----- | ---- | ----------------------- | -------------------------------------------------------------------------------------- |
 | domain | String | 必須 | | FQDN形式、最小4文字～最大253文字 | 登録するドメイン(全体ドメインアドレス形式で入力、toastcdn.netドメインは使用不可) |
+
+<a id="response-8"></a>
 
 #### レスポンス
 
@@ -959,7 +1037,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | domain.updatedAt                    | DateTime | 変更日時                                                             |
 
 
+<a id="list-alias-domains"></a>
+
 ### ドメインエイリアス一覧照会
+
+<a id="request-9"></a>
 
 #### リクエスト
 
@@ -985,6 +1067,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-dom
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-9"></a>
 
 #### レスポンス
 
@@ -1057,7 +1141,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-dom
 | domains[0].updatedAt                    | DateTime | 変更日時                                                             |
 
 
+<a id="delete-alias-domain"></a>
+
 ### ドメインエイリアス削除
+
+<a id="request-10"></a>
 
 #### リクエスト
 
@@ -1081,6 +1169,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-10"></a>
 
 #### レスポンス
 
@@ -1109,7 +1199,11 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-
 - CDNサービスに連携されたドメインは削除できません。CDNサービスでドメインエイリアスの連携を解除してから削除してください。
 
 
+<a id="run-domain-validation"></a>
+
 ### ドメイン検証の実行
+
+<a id="request-11"></a>
 
 #### リクエスト
 
@@ -1134,6 +1228,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-
 | ---------------- | ------ | ----- | --- | -------------- | ------------------------------------------------------------- |
 | validationMethod | String | 必須   |     | DNS_TXT, HTTP  | 検証方式("DNS_TXT": DNS TXTレコード追加方式、 "HTTP": HTTPファイルまたはリダイレクト認証方式) |
 
+
+<a id="response-11"></a>
 
 #### レスポンス
 
@@ -1198,7 +1294,11 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-
 - 検証トークンが期限切れになった場合は検証を実行できません。トークン再発行APIで新しいトークンを発行してから再度検証を進めてください。
 
 
+<a id="refresh-domain-validation-status"></a>
+
 ### ドメイン検証状態の更新
+
+<a id="request-12"></a>
 
 #### リクエスト
 
@@ -1215,6 +1315,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-12"></a>
 
 #### レスポンス
 
@@ -1276,7 +1378,11 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | domain.updatedAt                    | DateTime | 変更日時                                                             |
 
 
+<a id="reissue-validation-token"></a>
+
 ### 検証トークン再発行
+
+<a id="request-13"></a>
 
 #### リクエスト
 
@@ -1293,6 +1399,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-13"></a>
 
 #### レスポンス
 
@@ -1356,6 +1464,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 - トークンが再発行されると以前の検証情報はリセットされ、新しいトークン情報で再度検証を進める必要があります。
 - 検証トークンが期限切れ(`TOKEN_EXPIRED`)になった場合、このAPIを呼び出して新しいトークンを発行できます。
 
+<a id="alias-domain-validation-status-codes"></a>
+
 #### ドメインエイリアス検証状態コード
 
 以下はドメインエイリアスの検証状態を示す状態コードであり、ドメインエイリアス照会時に検証状態を確認できます。
@@ -1367,8 +1477,14 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | VALIDATED | ドメイン所有権の検証が完了し、CDNサービスに連携可能 |
 | TOKEN_EXPIRED | 検証トークン期限切れ、トークン再発行後に再検証が必要 |
 
+<a id="certificate-api"></a>
+
 ## 証明書API
+<a id="issue-new-certificates"></a>
+
 ### 新規証明書の発行
+<a id="request-14"></a>
+
 #### リクエスト
 
 [URI]
@@ -1397,7 +1513,9 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | callbackHttpMethod  | String | 任意 |        | GET/POST/PUT        | 証明書作成処理結果の通知を受けるコールバックのHTTPメソッド |
 | callbackUrl         | String | 任意 |        | 最大1024文字      | 証明書作成処理結果の通知を受けるコールバックURL       |
 
-* 証明書発行の詳細については、[コンソール使用ガイド > 証明書管理 > 新規証明書の発行](./console-guide/#_7)を参照してください。
+* 証明書発行の詳細については、[コンソール使用ガイド > 証明書管理 > 新規証明書の発行](./console-guide/#issue-new-certificates)を参照してください。
+
+<a id="response-14"></a>
 
 #### レスポンス
 
@@ -1450,7 +1568,11 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | certificates[0].renewalStartDate | DateTime | 証明書更新開始日時 |
 | certificates[0].renewalEndDate | DateTime | 証明書更新終了日時 |
 
+<a id="list-certificates"></a>
+
 ### 証明書リスト照会
+<a id="request-15"></a>
+
 #### リクエスト
 
 [URI]
@@ -1459,6 +1581,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | ---- | ----------------------------- |
 | GET | /v2.0/appKeys/{appKey}/certificates|
 
+
+<a id="response-15"></a>
 
 #### レスポンス
 
@@ -1511,7 +1635,11 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | certificates[0].renewalStartDate | DateTime | 証明書更新開始日時 |
 | certificates[0].renewalEndDate | DateTime | 証明書更新終了日時 |
 
+<a id="delete-certificates"></a>
+
 ### 証明書の削除
+<a id="request-16"></a>
+
 #### 要請
 
 [URI]
@@ -1533,6 +1661,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certifica
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-16"></a>
 
 #### レスポンス
 
@@ -1559,7 +1689,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/certifica
 | header.resultMessage | String  | 結果メッセージ |
 
 
+<a id="callback-response"></a>
+
 ## コールバックレスポンス
+<a id="cdn-service"></a>
+
 ### CDNサービス
 CDNサービスにコールバック機能が設定されている場合、作成、修正、一時停止、再開、削除変更の完了時に設定されたコールバックURLを呼び出します。
 コールバック呼び出し時、リクエスト本文には次のようなCDNサービス設定情報が含まれます。
@@ -1669,6 +1803,8 @@ CDNサービスにコールバック機能が設定されている場合、作�
 | distribution.callback              | Object  | サービス配布処理結果を受け取るコールバック                   |
 | distribution.callback.httpMethod   | String  | コールバックのHTTPメソッド                                          |
 | distribution.callback.url          | String  | コールバックURL                                                     |
+
+<a id="certificate"></a>
 
 ### 証明書
 証明書発行リクエスト時、コールバック情報が設定されている場合、ドメイン検証/ドメイン検証完了/証明書発行完了にステータス変更が完了すると、設定されたコールバックURLを呼び出します。

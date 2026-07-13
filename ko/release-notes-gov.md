@@ -4,7 +4,7 @@
 
 #### 기능 개선/변경
 * CDN Public API v3.0 추가
-	* 자세한 내용은 [API v2.0 가이드](./api-guide-v3.0)를 참고하세요.
+	* 자세한 내용은 [API v3.0 가이드](./api-guide-v3.0)를 참고하세요.
 
 ### 2026. 04. 28.
 
@@ -56,7 +56,7 @@
 
 #### 기능 개선/변경
 * HTTP 응답 헤더 설정 기능 추가
-	* CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제할 수 있습니다. 자세한 내용은 [콘솔 가이드 > HTTP 응답 헤더](./console-guide-gov/#http)를 참고하세요.
+	* CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제할 수 있습니다. 자세한 내용은 [콘솔 가이드 > HTTP 응답 헤더](./console-guide-gov/#http-response-header)를 참고하세요.
 
 ### 2022. 08. 23.
 
@@ -92,7 +92,7 @@
 ### 2020. 10. 06.
 
 #### 기능 개선/변경
-* 토큰 인증 방식의 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > Auth Token 접근 관리](./console-guide-gov/#auth-token)를 참고하세요.
+* 토큰 인증 방식의 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > Auth Token 접근 관리](./console-guide-gov/#access-control-for-auth-token-authentication)를 참고하세요.
 
 ### 2020. 09. 03.
 
@@ -133,7 +133,7 @@
 		* 예: 기존 /images/toast.png → 변경 http://[서비스ID].toastcdn.net/images/toast.png
 	* 와일드카드 타입 캐시 재배포 기능 종료
 	* 사용량 제한 정책 변경
-		* 상세한 내용은 [사용자 콘솔 가이드 > CDN 캐시 재배포](./console-guide-gov/#cdn-purge)를 참고합니다.
+		* 상세한 내용은 [사용자 콘솔 가이드 > CDN 캐시 재배포](./console-guide-gov/#purge)를 참고합니다.
 * 감시 설정 기능이 종료됩니다.
 
 

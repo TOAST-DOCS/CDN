@@ -1,14 +1,22 @@
+<!-- pre-align:aligned sig=3df7fa164214 -->
+
 ## Content Delivery > CDN > API v1.5 Guide
 
 This document describes Public API v1.5 provided by NHN Cloud CDN.
 
+<a id="common-api-information"></a>
+
 ## Common API Information
+
+<a id="domain"></a>
 
 ### Domain
 
 | Name         | Domain                             |
 | --------------- | ------------------------------------- |
 | Public API CDN Domain | https://cdn.api.nhncloudservice.com |
+
+<a id="prerequisites"></a>
 
 ### Prerequisites
 
@@ -18,13 +26,19 @@ An Appkey is a unique authentication key issued for each NHN Cloud service, used
 Project Integrated Appkey can be used in place of the Appkey. Project Integrated Appkey is a common authentication key that can be shared across multiple services within a single NHN Cloud project.
 For more information on creating and using Project Integrated Appkeys, please refer to the [Project Integrated Appkey](https://docs.nhncloud.com/en/nhncloud/en/public-api/project-integrated-appkey).
 
+<a id="common-request-information"></a>
+
 ### Common Request Information
+
+<a id="request-header"></a>
 
 #### Request Header
 
 | Name          | Description                   |
 | ------------- | ----------------------------- |
 | Authorization | SecretKey issued on a console |
+
+<a id="path-parameter"></a>
 
 #### Path Parameter
 
@@ -35,7 +49,11 @@ In all APIs, the appKey must be specified in the path parameter.
 | ------ | -------------------------- |
 | appKey | Appkey issued on a console |
 
+<a id="common-response-information"></a>
+
 ### Common Response Information
+
+<a id="header"></a>
 
 #### Header
 
@@ -61,6 +79,8 @@ Respond with **200 OK** to all API requests. For more details, see the header at
 | header.resultCode    | Integer | Result code       |
 | header.resultMessage | String  | Result message    |
 
+<a id="cdn-status-codes"></a>
+
 #### CDN Status Codes
 
 Below shows the status codes of CDN service, which are available at the query of service.
@@ -78,9 +98,15 @@ Below shows the status codes of CDN service, which are available at the query of
 | ERROR      | Error occurred while creating service |
 
 
+<a id="service-api"></a>
+
 ## Service API
 
+<a id="create"></a>
+
 ### Create
+
+<a id="request"></a>
 
 #### Request
 
@@ -140,9 +166,9 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
 | distributions[0].origins               | List    | Required |         |                                              | List of origin server objects                                |
 | distributions[0].origins[0].origin     | String  | Required |         | Up to 255 characters                         | Origin server (domain or IP)                                 |
-| distributions[0].origins[0].port       | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
-| distributions[0].origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)  |
-| distributions[0].origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.) |
+| distributions[0].origins[0].port       | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#origin-server-port)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
+| distributions[0].origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#origin-server-port)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)  |
+| distributions[0].origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#origin-server-port)] | HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.) |
 | distributions[0].origins[0].originPath | String  | Optional |         | Up to 8192 characters                        | Lower paths of origin server (path must include /.)          |
 | distributions[0].callback              | Object  | Optional |         |                                              | Callback URL to receive processing result of CDN creation (callback setting is optional.) |
 | distributions[0].callback.httpMethod   | String  | Required |         | GET/POST/PUT                                 | HTTP method of callback                                      |
@@ -150,6 +176,8 @@ Below shows the status codes of CDN service, which are available at the query of
 
 - The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
+
+<a id="response"></a>
 
 #### Response
 
@@ -218,7 +246,11 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions[0].callback.url          | String  | Callback URL                                                 |
 
 
+<a id="get"></a>
+
 ### Get
+
+<a id="request-2"></a>
 
 #### Request
 
@@ -243,6 +275,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-2"></a>
 
 #### Response
 
@@ -307,7 +341,11 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | distributions[0].callback.url          | String  | Callback URL                                                 |
 
 
+<a id="modify"></a>
+
 ### Modify
+
+<a id="request-3"></a>
 
 #### Request
 
@@ -361,9 +399,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
 | origins               | List    | Required |         |                                                              | Origin server                                                |
 | origins[0].origin     | String  | Required |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
-| origins[0].port       | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
-| origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)  |
-| origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set. |
+| origins[0].port       | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#origin-server-port)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
+| origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#origin-server-port)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)  |
+| origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#origin-server-port)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set. |
 | origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
 | callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                    |
 | callback.httpMethod   | String  | Required |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
@@ -371,6 +409,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 - The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
+
+<a id="response-3"></a>
 
 #### Response
 
@@ -398,9 +438,13 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | header.resultMessage | String  | Result message    |
 
 
+<a id="patch"></a>
+
 ### Patch
 
 Apply partial modification API to change a part of the service setting.
+
+<a id="request-4"></a>
 
 #### Request
 
@@ -453,9 +497,9 @@ Apply partial modification API to change a part of the service setting.
 | isAllowWhenEmptyReferrer | Boolean | Optional      | true      | true/false             | True/False for Content Access if Referer Header is Unavailable             |
 | origins               | List    | Optional |         |                                                              | Origin server                                                |
 | origins[0].origin     | String  | Optional |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
-| origins[0].port       | Integer | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
-| origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)   |
-| origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#_2)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)  |
+| origins[0].port       | Integer | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#origin-server-port)] | HTTP Protocol Port for Origin Server <br>(Do not enter origins[0].httpPort and origins[0].httpsPort when origins[0].port is set.)|
+| origins[0].httpPort   | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#origin-server-port)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)   |
+| origins[0].httpsPort  | Integer  | Optional      |        |See [Console User Guide] > [[Table 2] Port number of available origin server of [Origin Server](./console-guide/#origin-server-port)]| HTTP Protocol Port for Origin Server <br>(Must enter either origins[0].httpPort or origins[0].httpsPort when origins[0].port is not set.)  |
 | origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
 | callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                    |
 | callback.httpMethod   | String  | Optional |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
@@ -463,6 +507,8 @@ Apply partial modification API to change a part of the service setting.
 
 - To set the origins field, origin and originPath fields are required, and either port, httpPort, or httpsPort field must be included.
 - To set the callback field, httpMethod and url fields are required.
+
+<a id="response-4"></a>
 
 #### Response
 
@@ -490,7 +536,11 @@ Apply partial modification API to change a part of the service setting.
 | header.resultMessage | String  | Result message    |
 
 
+<a id="delete"></a>
+
 ### Delete
+
+<a id="request-5"></a>
 
 #### Request
 
@@ -521,6 +571,8 @@ Apply partial modification API to change a part of the service setting.
 
 **\* With the input of many domains, all corresponding services are closed.**
 
+<a id="response-5"></a>
+
 #### Response
 
 
@@ -546,9 +598,15 @@ Apply partial modification API to change a part of the service setting.
 | header.resultCode    | Integer | Result code       |
 | header.resultMessage | String  | Result message    |
 
+<a id="cache-purge-api"></a>
+
 ## Cache Purge API
 
+<a id="purge"></a>
+
 ### Purge
+
+<a id="request-6"></a>
 
 #### Request
 
@@ -578,6 +636,8 @@ Apply partial modification API to change a part of the service setting.
 | purgeType | List   | Required |         | ITEM / ALL | Purge type ("ITEM", or "ALL")                    |
 | purgeList | String | Optional |         |                       | List of items to purge (delimit by \n tokens; not required, if the purge type is ALL.) |
 
+<a id="response-6"></a>
+
 #### Response
 
 [Response Body]
@@ -605,10 +665,14 @@ Apply partial modification API to change a part of the service setting.
 | purgeSeq             | Integer | Purge requesting number |
 
 - Cache redeployment may fail within about an hour after CDN service is newly created. If it still fails afterwards, contact Customer Center.
-- Purge API has usage restriction policy. For more details, go to [Console User Guide > CDN Cache Redeployment](./console-guide/#purging-cdn-cache) and check 'Cache Redeployment Usage Restriction'.
+- Purge API has usage restriction policy. For more details, go to [Console User Guide > CDN Cache Redeployment](./console-guide/#purge) and check 'Cache Redeployment Usage Restriction'.
 - ITEM type is restricted in the number of purge paths per request. When it is requested in excess of the number, purge is divided and requested as much as the number of purge paths per request. In such case, only the redeployment request number of the initial purge request is delivered as response.
 
+<a id="get-cache-purges"></a>
+
 ### Get Cache Purges
+
+<a id="request-7"></a>
 
 #### Request
 
@@ -636,6 +700,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-7"></a>
 
 #### Response
 
@@ -692,6 +758,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
 | purges[0].lastCheckTime | Long    | Last confirmed purge time |
 | purges[0].type          | String  | Purge type ("ITEM" or "ALL") |
 | purges[0].path          | String  | Requested purge items |
+
+<a id="callback-response"></a>
 
 ## Callback Response
 With callback enabled for CDN service, when tasks are completed, such as Create/Modify/Suspend/Resume/Delete, response values are delivered to callback URL as below.

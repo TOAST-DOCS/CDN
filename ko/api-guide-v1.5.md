@@ -1,14 +1,22 @@
+<!-- pre-align:aligned sig=3df7fa164214 -->
+
 ## Content Delivery > CDN > API v1.5 가이드
 
 NHN Cloud CDN에서 제공하는 Public API v1.5를 설명합니다.
 
+<a id="common-api-information"></a>
+
 ## API 공통 정보
+
+<a id="domain"></a>
 
 ### 도메인
 
 | 이름              | 도메인                                 |
 | --------------- | ----------------------------------- |
 | CDN Public API 도메인 | https://cdn.api.nhncloudservice.com |
+
+<a id="prerequisites"></a>
 
 ### 사전 준비
 
@@ -19,13 +27,19 @@ Appkey 및 SecretKey 확인 및 사용에 대한 자세한 내용은 [Appkey](ht
 Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프로젝트 통합 Appkey는 NHN Cloud에서 하나의 프로젝트 내 여러 서비스에 대해 공통으로 사용할 수 있는 인증 키입니다.
 프로젝트 통합 Appkey 생성 및 사용에 대한 자세한 내용은 [프로젝트 통합 Appkey](https://docs.nhncloud.com/ko/nhncloud/ko/public-api/project-integrated-appkey)를 참고하세요.
 
+<a id="common-request-information"></a>
+
 ### 요청 공통 정보
+
+<a id="request-header"></a>
 
 #### 요청 헤더
 
 | 이름            | 설명                        |
 | ------------- | ------------------------- |
 | Authorization | 콘솔에서 발급받은 보안 키(SecretKey) |
+
+<a id="path-parameter"></a>
 
 #### Path 파라미터
 
@@ -36,7 +50,11 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | ------ | --------------------- |
 | appKey | 콘솔에서 발급받은 앱 키(Appkey) |
 
+<a id="common-response-information"></a>
+
 ### 응답 공통 정보
+
+<a id="header"></a>
 
 #### 헤더
 
@@ -62,6 +80,8 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | header.resultCode    | Integer | 결과 코드  |
 | header.resultMessage | String  | 결과 메시지 |
 
+<a id="cdn-status-codes"></a>
+
 #### CDN 상태 코드
 
 다음은 CDN 서비스 상태를 나타내는 상태 코드로, 서비스 조회 시 서비스 상태를 확인할 수 있습니다.
@@ -79,9 +99,15 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | ERROR      | 서비스 생성 중 오류 발생 |
 
 
+<a id="service-api"></a>
+
 ## 서비스 API
 
+<a id="create"></a>
+
 ### 서비스 생성
+
+<a id="request"></a>
 
 #### 요청
 
@@ -141,9 +167,9 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | distributions[0].isAllowWhenEmptyReferrer | Boolean | 선택      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
 | distributions[0].origins               | List    | 필수      |        |                             | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 필수      |        | 최대 255자                  | 원본 서버(도메인 또는 IP)                                     |
-| distributions[0].origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
-| distributions[0].origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
-| distributions[0].origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
+| distributions[0].origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
+| distributions[0].origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
+| distributions[0].origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
 | distributions[0].origins[0].originPath | String  | 선택      |        | 최대 8192자                 | 원본 서버 하위 경로(/를 포함한 경로로 입력해 주세요.)        |
 | distributions[0].callback              | Object  | 선택      |        |                             | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |
 | distributions[0].callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                | 콜백의 HTTP 메서드                                           |
@@ -151,6 +177,8 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 
 - forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다.
 
+
+<a id="response"></a>
 
 #### 응답
 
@@ -218,7 +246,11 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | distributions[0].callback.url          | String  | 콜백 URL                                                     |
 
 
+<a id="get"></a>
+
 ### 서비스 조회
+
+<a id="request-2"></a>
 
 #### 요청
 
@@ -243,6 +275,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-2"></a>
 
 #### 응답
 
@@ -306,7 +340,11 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | distributions[0].callback.url          | String  | 콜백 URL                                                     |
 
 
+<a id="modify"></a>
+
 ### 서비스 수정
+
+<a id="request-3"></a>
 
 #### 요청
 
@@ -361,15 +399,17 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | isAllowWhenEmptyReferrer | Boolean | 선택      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
 | origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
 | origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(도메인 또는 IP)                                      |
-| origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
+| origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
+| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
+| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
 | callback              | Object  | 선택      |        | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
 | callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                                                 | 콜백의 HTTP Method                                           |
 | callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                   |
 
 - forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다.
+
+<a id="response-3"></a>
 
 #### 응답
 
@@ -397,9 +437,13 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | header.resultMessage | String  | 결과 메시지 |
 
 
+<a id="patch"></a>
+
 ### 서비스 부분 수정
 
 서비스 일부 설정을 변경할 경우 부분 수정 API를 이용할 수 있습니다.
+
+<a id="request-4"></a>
 
 #### 요청
 
@@ -452,9 +496,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | isAllowWhenEmptyReferrer | Boolean | 선택      | true      | true/false             | 리퍼러 헤더가 없는 경우 콘텐츠 접근 허용(true)/거부(false) 여부             |
 | origins               | List    | 선택      |        |                                                              | 원본 서버                                                    |
 | origins[0].origin     | String  | 선택      |        | 최대 255자                                                   | 원본 서버(도메인 또는 IP)                                     |
-| origins[0].port       | Integer | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
-| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
-| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#_2)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
+| origins[0].port       | Integer | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
+| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
+| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드 > 원본 서버](./console-guide/#origin-server-port)의 '[표 2] 사용 가능한 원본 서버 포트 번호' 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
 | callback              | Object  | 선택      |        | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
 | callback.httpMethod   | String  | 선택      |        | GET/POST/PUT                                                 | 콜백의 HTTP Method                                           |
@@ -462,6 +506,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 - origins 필드를 설정할 때 origin, originPath 필드는 필수 입력값이며, port 필드나 httpPort, httpsPort 필드 중 하나는 필수로 입력해야 합니다.
 - callback 필드를 설정할 때 httpMethod, url 필드는 필수 입력값입니다.
+
+<a id="response-4"></a>
 
 #### 응답
 
@@ -489,7 +535,11 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | header.resultMessage | String  | 결과 메시지 |
 
 
+<a id="delete"></a>
+
 ### 서비스 삭제
+
+<a id="request-5"></a>
 
 #### 요청
 
@@ -520,6 +570,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 **\* 여러 도메인 입력 시, 해당하는 서비스는 모두 종료됩니다.**
 
+<a id="response-5"></a>
+
 #### 응답
 
 
@@ -545,9 +597,15 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | header.resultCode    | Integer | 결과 코드  |
 | header.resultMessage | String  | 결과 메시지 |
 
+<a id="cache-purge-api"></a>
+
 ## 캐시 재배포 API
 
+<a id="purge"></a>
+
 ### 캐시 재배포(Purge)
+
+<a id="request-6"></a>
 
 #### 요청
 
@@ -578,6 +636,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | purgeList | String | 선택      |        |                       | 재배포 대상 항목 목록(여러 개를 입력할 때는 \\n 토큰으로 구분해 입력해 주세요, purgeType이 ALL이면 입력하지 않아도 됩니다.) |
 
 
+<a id="response-6"></a>
+
 #### 응답
 
 [응답 본문]
@@ -605,10 +665,14 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | purgeSeq             | Integer | 재배포 요청 번호 |
 
 - CDN 서비스를 신규로 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 지속되는 경우 고객센터로 문의해주시기 바랍니다.
-- 퍼지 API은 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide/#cdn-purge)의 '캐시 재배포 사용량 제한' 내용을 확인해주세요.
+- 퍼지 API은 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide/#purge)의 '캐시 재배포 사용량 제한' 내용을 확인해주세요.
 - ITEM, WILDCARD 타입은 요청 당 퍼지 경로 수가 제한 되어 있습니다. 초과하여 요청한 경우 요청 당 퍼지 경로 개수 만큼씩 나누어 퍼지 요청이 진행됩니다. 이 경우 처음 퍼지 요청의 재배포 요청 번호만 응답으로 전달됩니다.   
 
+<a id="get-cache-purges"></a>
+
 ### 캐시 재배포(Purge) 조회
+
+<a id="request-7"></a>
 
 #### 요청
 
@@ -636,6 +700,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
+
+<a id="response-7"></a>
 
 #### 응답
 
@@ -692,6 +758,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
 | purges[0].lastCheckTime | Long    | 재배포 수행 마지막 확인 시간                  |
 | purges[0].type          | String  | 재배포 타입("ITEM", "WILDCARD", "ALL") |
 | purges[0].path          | String  | 재배포 요청 항목                         |
+
+<a id="callback-response"></a>
 
 ## 콜백 응답
 CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일시정지/재개/삭제 의 변경 작업 완료 시 콜백 URL에 아래와 같은 응답값을 전달합니다.
