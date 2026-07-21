@@ -22,7 +22,7 @@ NHN Cloud CDNで提供するPublic API v3.0について説明します。
 CDN API v3.0は、API認証の呼び出し及び認証のためにAppkeyとUser Access Keyトークンをサポートします。
 
 Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証キーであり、APIリクエスト時にサービスの識別と有効性の検証に使用されます。<br>User Access Keyトークンは、User Access Keyを基に発行されるBearerタイプの一時的なアクセストークンです。
-各認証方法の確認及び使用に関する詳細は、それぞれ[Appkey](/nhncloud/ko/public-api/appkey/)と[User Access Keyトークン](/nhncloud/ko/public-api/user-access-key-token)をご参照ください。
+各認証方法の確認及び使用に関する詳細は、それぞれ[Appkey](/ja/nhncloud/ja/public-api/appkey/)と[User Access Keyトークン](/ja/nhncloud/ja/public-api/user-access-key-token/)をご参照ください。
 
 発行されたトークンはリクエストHeaderに含める必要があります。
 

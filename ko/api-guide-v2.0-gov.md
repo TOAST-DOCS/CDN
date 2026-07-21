@@ -15,10 +15,10 @@ NHN Cloud CDN에서 제공하는 Public API를 설명합니다.
 
 CDN API를 사용하려면 Appkey와 SecretKey가 필요합니다.
 Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API 요청 시 서비스 식별과 유효성 검증에 사용됩니다. SecretKey는 API에 대한 접근을 제어하는 비밀 키입니다.
-Appkey 및 SecretKey 확인 및 사용에 대한 자세한 내용은 [Appkey](https://docs.gov-nhncloud.com/ko/nhncloud/ko/public-api/appkey)를 참고하세요.
+Appkey 및 SecretKey 확인 및 사용에 대한 자세한 내용은 [Appkey](https://docs.gov-nhncloud.com/ko/nhncloud/ko/public-api/appkey-gov/)를 참고하세요.
 
 Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프로젝트 통합 Appkey는 NHN Cloud에서 하나의 프로젝트 내 여러 서비스에 대해 공통으로 사용할 수 있는 인증 키입니다.
-프로젝트 통합 Appkey 생성 및 사용에 대한 자세한 내용은 [프로젝트 통합 Appkey](https://docs.gov-nhncloud.com/ko/nhncloud/ko/public-api/project-integrated-appkey)를 참고하세요.
+프로젝트 통합 Appkey 생성 및 사용에 대한 자세한 내용은 [프로젝트 통합 Appkey](https://docs.gov-nhncloud.com/ko/nhncloud/ko/public-api/project-integrated-appkey-gov/)를 참고하세요.
 
 ### 요청 공통 정보
 
@@ -872,7 +872,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | header.resultMessage | String  | 결과 메시지    |
 
 - CDN 서비스를 신규로 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 계속되면 고객 센터로 문의하세요.
-- Purge API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide-gov/#cdn-purge)의 '캐시 재배포 사용량 제한' 내용을 확인하세요.
+- Purge API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드 > CDN 캐시 재배포](./console-guide-gov/#purge)의 '캐시 재배포 사용량 제한' 내용을 확인하세요.
 
 ### 캐시 재배포(Purge) 조회
 - API v2.0을 통한 캐시 재배포 시, 고속 캐시 재배포가 수행되어 요청 후 수 초 이내에 완료되므로 캐시 재배포 상태를 조회하는 API가 별도로 제공되지 않습니다.
