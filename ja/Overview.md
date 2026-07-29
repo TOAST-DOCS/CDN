@@ -1,4 +1,6 @@
-<!-- pre-align:aligned sig=453f96eb6b05 -->
+<!-- pre-align:aligned sig=94b082ffc877 -->
+
+<a id="content-delivery-cdn-overview"></a>
 
 ## Content Delivery > CDN > 概要
 

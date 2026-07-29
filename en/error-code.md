@@ -1,4 +1,6 @@
-<!-- pre-align:aligned sig=ec416b7f4d48 -->
+<!-- pre-align:aligned sig=33736e0e3daa -->
+
+<a id="content-delivery-cdn-error-codes"></a>
 
 ## Content Delivery > CDN > Error Codes
 

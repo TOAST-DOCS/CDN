@@ -1,4 +1,6 @@
-<!-- pre-align:aligned sig=d955c506b577 -->
+<!-- pre-align:aligned sig=b50e36c2e34a -->
+
+<a id="content-delivery-cdn-api-v20-guide"></a>
 
 ## Content Delivery > CDN > API v2.0ガイド
 
