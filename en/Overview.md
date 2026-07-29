@@ -1,6 +1,7 @@
 <!-- pre-align:aligned sig=453f96eb6b05 -->
 
-## Content Delivery > CDN > Overview
+<a id="content-delivery-cdn-overview"></a>
+## Content Delivery > CDN > Overview { #content-delivery-cdn-overview }
 
 The CDN service allows you to store the original content to be distributed on the origin server, so that the content can be distributed to cache servers around the world. End users can get files from the nearest cache server at high speed.
 
@@ -9,8 +10,7 @@ In addition, if the service provider uses the CDN service, since most of the tra
 When delivering content to end users, it is possible to provide much higher quality service by using a dedicated line rather than a general Internet network, thereby increasing service reliability.
 
 <a id="main-features"></a>
-
-## Main Features
+## Main Features { #main-features }
 
 - Control user access with cache settings.<br/>
   You can use referrer information to control access to user content. You can also enter the information in the form of a regular expression and control multiple referrers at the same time.

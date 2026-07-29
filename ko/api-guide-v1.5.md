@@ -1,24 +1,22 @@
 <!-- pre-align:aligned sig=3df7fa164214 -->
 
-## Content Delivery > CDN > API v1.5 가이드
+<a id="content-delivery-cdn-api-v15-guide"></a>
+## Content Delivery > CDN > API v1.5 가이드 { #content-delivery-cdn-api-v15-guide }
 
 NHN Cloud CDN에서 제공하는 Public API v1.5를 설명합니다.
 
 <a id="common-api-information"></a>
-
-## API 공통 정보
+## API 공통 정보 { #common-api-information }
 
 <a id="domain"></a>
-
-### 도메인
+### 도메인 { #domain }
 
 | 이름              | 도메인                                 |
 | --------------- | ----------------------------------- |
 | CDN Public API 도메인 | https://cdn.api.nhncloudservice.com |
 
 <a id="prerequisites"></a>
-
-### 사전 준비
+### 사전 준비 { #prerequisites }
 
 CDN API를 사용하려면 Appkey와 SecretKey가 필요합니다.
 Appkey는 NHN Cloud의 각 서비스별로 발급되는 고유 인증 키로 API 요청 시 서비스 식별과 유효성 검증에 사용됩니다. SecretKey는 API에 대한 접근을 제어하는 비밀 키입니다.
@@ -28,20 +26,17 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 프로젝트 통합 Appkey 생성 및 사용에 대한 자세한 내용은 [프로젝트 통합 Appkey](https://docs.nhncloud.com/ko/nhncloud/ko/public-api/project-integrated-appkey)를 참고하세요.
 
 <a id="common-request-information"></a>
+### 요청 공통 정보 { #common-request-information }
 
-### 요청 공통 정보
-
-<a id="request-header"></a>
-
-#### 요청 헤더
+<a id="common-request-information-request-header"></a>
+#### 요청 헤더 { #common-request-information-request-header }
 
 | 이름            | 설명                        |
 | ------------- | ------------------------- |
 | Authorization | 콘솔에서 발급받은 보안 키(SecretKey) |
 
-<a id="path-parameter"></a>
-
-#### Path 파라미터
+<a id="common-request-information-path-parameter"></a>
+#### Path 파라미터 { #common-request-information-path-parameter }
 
 모든 API는 appKey를 path 파라미터로 지정해야 합니다.
 * 예) /v1.5/appKeys/**{appKey}**/distributions
@@ -51,12 +46,10 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | appKey | 콘솔에서 발급받은 앱 키(Appkey) |
 
 <a id="common-response-information"></a>
+### 응답 공통 정보 { #common-response-information }
 
-### 응답 공통 정보
-
-<a id="header"></a>
-
-#### 헤더
+<a id="common-response-information-header"></a>
+#### 헤더 { #common-response-information-header }
 
 모든 API 요청에 대해서 **200 OK**로 응답합니다. 자세한 응답 결과는 다음의 예와 같이 응답 본문의 헤더를 참고합니다.
 
@@ -80,9 +73,8 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 | header.resultCode    | Integer | 결과 코드  |
 | header.resultMessage | String  | 결과 메시지 |
 
-<a id="cdn-status-codes"></a>
-
-#### CDN 상태 코드
+<a id="common-response-information-cdn-status-codes"></a>
+#### CDN 상태 코드 { #common-response-information-cdn-status-codes }
 
 다음은 CDN 서비스 상태를 나타내는 상태 코드로, 서비스 조회 시 서비스 상태를 확인할 수 있습니다.
 
@@ -100,16 +92,13 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 
 
 <a id="service-api"></a>
-
-## 서비스 API
+## 서비스 API { #service-api }
 
 <a id="create"></a>
+### 서비스 생성 { #create }
 
-### 서비스 생성
-
-<a id="request"></a>
-
-#### 요청
+<a id="create-request"></a>
+#### 요청 { #create-request }
 
 
 [URI]
@@ -178,9 +167,8 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 - forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다.
 
 
-<a id="response"></a>
-
-#### 응답
+<a id="create-response"></a>
+#### 응답 { #create-response }
 
 
 [응답 본문]
@@ -247,12 +235,10 @@ Appkey 대신 프로젝트 통합 Appkey를 사용할 수도 있습니다. 프�
 
 
 <a id="get"></a>
+### 서비스 조회 { #get }
 
-### 서비스 조회
-
-<a id="request-2"></a>
-
-#### 요청
+<a id="get-request"></a>
+#### 요청 { #get-request }
 
 
 [URI]
@@ -276,9 +262,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
  -H "Content-Type: application/json"
 ```
 
-<a id="response-2"></a>
-
-#### 응답
+<a id="get-response"></a>
+#### 응답 { #get-response }
 
 
 [응답 본문]
@@ -341,12 +326,10 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 
 <a id="modify"></a>
+### 서비스 수정 { #modify }
 
-### 서비스 수정
-
-<a id="request-3"></a>
-
-#### 요청
+<a id="modify-request"></a>
+#### 요청 { #modify-request }
 
 
 [URI]
@@ -409,9 +392,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 - forwardHostHeader의 기본값은 domainAlias를 설정한 경우 REQUEST_HOST_HEADER이고, 미설정하면 ORIGIN_HOSTNAME입니다.
 
-<a id="response-3"></a>
-
-#### 응답
+<a id="modify-response"></a>
+#### 응답 { #modify-response }
 
 
 [응답 본문]
@@ -438,14 +420,12 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 
 <a id="patch"></a>
-
-### 서비스 부분 수정
+### 서비스 부분 수정 { #patch }
 
 서비스 일부 설정을 변경할 경우 부분 수정 API를 이용할 수 있습니다.
 
-<a id="request-4"></a>
-
-#### 요청
+<a id="patch-request"></a>
+#### 요청 { #patch-request }
 
 
 [URI]
@@ -507,9 +487,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 - origins 필드를 설정할 때 origin, originPath 필드는 필수 입력값이며, port 필드나 httpPort, httpsPort 필드 중 하나는 필수로 입력해야 합니다.
 - callback 필드를 설정할 때 httpMethod, url 필드는 필수 입력값입니다.
 
-<a id="response-4"></a>
-
-#### 응답
+<a id="patch-response"></a>
+#### 응답 { #patch-response }
 
 
 [응답 본문]
@@ -536,12 +515,10 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 
 <a id="delete"></a>
+### 서비스 삭제 { #delete }
 
-### 서비스 삭제
-
-<a id="request-5"></a>
-
-#### 요청
+<a id="delete-request"></a>
+#### 요청 { #delete-request }
 
 
 [URI]
@@ -570,9 +547,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 **\* 여러 도메인 입력 시, 해당하는 서비스는 모두 종료됩니다.**
 
-<a id="response-5"></a>
-
-#### 응답
+<a id="delete-response"></a>
+#### 응답 { #delete-response }
 
 
 [응답 본문]
@@ -598,16 +574,13 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | header.resultMessage | String  | 결과 메시지 |
 
 <a id="cache-purge-api"></a>
-
-## 캐시 재배포 API
+## 캐시 재배포 API { #cache-purge-api }
 
 <a id="purge"></a>
+### 캐시 재배포(Purge) { #purge }
 
-### 캐시 재배포(Purge)
-
-<a id="request-6"></a>
-
-#### 요청
+<a id="purge-request"></a>
+#### 요청 { #purge-request }
 
 [URI]
 
@@ -636,9 +609,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | purgeList | String | 선택      |        |                       | 재배포 대상 항목 목록(여러 개를 입력할 때는 \\n 토큰으로 구분해 입력해 주세요, purgeType이 ALL이면 입력하지 않아도 됩니다.) |
 
 
-<a id="response-6"></a>
-
-#### 응답
+<a id="purge-response"></a>
+#### 응답 { #purge-response }
 
 [응답 본문]
 
@@ -669,12 +641,10 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 - ITEM, WILDCARD 타입은 요청 당 퍼지 경로 수가 제한 되어 있습니다. 초과하여 요청한 경우 요청 당 퍼지 경로 개수 만큼씩 나누어 퍼지 요청이 진행됩니다. 이 경우 처음 퍼지 요청의 재배포 요청 번호만 응답으로 전달됩니다.   
 
 <a id="get-cache-purges"></a>
+### 캐시 재배포(Purge) 조회 { #get-cache-purges }
 
-### 캐시 재배포(Purge) 조회
-
-<a id="request-7"></a>
-
-#### 요청
+<a id="get-cache-purges-request"></a>
+#### 요청 { #get-cache-purges-request }
 
 
 [URI]
@@ -701,9 +671,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
  -H "Content-Type: application/json"
 ```
 
-<a id="response-7"></a>
-
-#### 응답
+<a id="get-cache-purges-response"></a>
+#### 응답 { #get-cache-purges-response }
 
 
 [응답 본문]
@@ -760,8 +729,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
 | purges[0].path          | String  | 재배포 요청 항목                         |
 
 <a id="callback-response"></a>
-
-## 콜백 응답
+## 콜백 응답 { #callback-response }
 CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일시정지/재개/삭제 의 변경 작업 완료 시 콜백 URL에 아래와 같은 응답값을 전달합니다.
 
 [응답 본문]

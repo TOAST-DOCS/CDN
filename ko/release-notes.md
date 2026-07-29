@@ -1,24 +1,21 @@
 <!-- pre-align:aligned sig=dead32bfc6a5 -->
 
-## Content Delivery > CDN > 릴리스 노트
+<a id="content-delivery-cdn-release-notes"></a>
+## Content Delivery > CDN > 릴리스 노트 { #content-delivery-cdn-release-notes }
 
-<a id="section-1"></a>
+<a id="june-23-2026"></a>
+### 2026. 06. 23 { #june-23-2026 }
 
-### 2026. 06. 23
-
-<a id="section-1-1"></a>
-
-#### 기능 개선/변경
+<a id="june-23-2026-feature-updates"></a>
+#### 기능 개선/변경 { #june-23-2026-feature-updates }
 * CDN Public API v3.0 추가
   * 자세한 내용은 [API v3.0 가이드](./api-guide-v3.0)를 참고하세요.
 
 <a id="april-28-2026"></a>
+### 2026. 04. 28. { #april-28-2026 }
 
-### 2026. 04. 28.
-
-<a id="added-features"></a>
-
-#### 기능 추가
+<a id="april-28-2026-added-features"></a>
+#### 기능 추가 { #april-28-2026-added-features }
 * 도메인 별칭 기능 추가
 	* 소유한 도메인을 CDN 서비스 도메인의 별칭으로 등록하여 사용할 수 있는 도메인 별칭 기능이 추가되었습니다.
 	* 도메인 소유권 검증 방식으로 DNS TXT 레코드 추가, HTTP 파일 인증, HTTP 리다이렉트 인증을 지원합니다.
@@ -27,20 +24,17 @@
 	* 도메인 별칭 등록/조회/삭제, 도메인 검증, 검증 상태 새로고침, 검증 토큰 재발급 API가 추가되었습니다.
 	* 자세한 내용은 [API v2.0 가이드 > 도메인 별칭 API](./api-guide-v2.0/#alias_domain_api)를 참고하세요.
 
-<a id="feature-updates"></a>
-
-#### 기능 개선/변경
+<a id="april-28-2026-feature-updates"></a>
+#### 기능 개선/변경 { #april-28-2026-feature-updates }
 * 콘솔 Top Contents by Hits 통계 지원 종료
 	* 콘솔의 통계 탭에서 제공하던 Top Contents by Hits(다운로드가 가장 많은 콘텐츠의 순위) 통계 기능의 지원이 종료되었습니다.
 
 
 <a id="april-29-2025"></a>
+### 2025. 04. 29. { #april-29-2025 }
 
-### 2025. 04. 29.
-
-<a id="feature-updates-2"></a>
-
-#### 기능 개선/변경
+<a id="april-29-2025-feature-updates"></a>
+#### 기능 개선/변경 { #april-29-2025-feature-updates }
 * 통계 Public API 지원 종료
 	* 지원 종료 API
 		* 트래픽 통계 조회
@@ -48,84 +42,68 @@
 		* 다운로드가 가장 많은 콘텐츠의 순위 통계
 
 <a id="june-25-2024"></a>
+### 2024. 06. 25. { #june-25-2024 }
 
-### 2024. 06. 25.
-
-<a id="feature-updates-3"></a>
-
-#### 기능 개선/변경
+<a id="june-25-2024-feature-updates"></a>
+#### 기능 개선/변경 { #june-25-2024-feature-updates }
 * CDN Public API 도메인 변경
 	* 기존: https://kr1-cdn.api.nhncloudservice.com
 	* 변경 후: https://cdn.api.nhncloudservice.com
 
 <a id="march-12-2024"></a>
+### 2024. 03. 12. { #march-12-2024 }
 
-### 2024. 03. 12.
-
-<a id="feature-updates-4"></a>
-
-#### 기능 개선/변경
+<a id="march-12-2024-feature-updates"></a>
+#### 기능 개선/변경 { #march-12-2024-feature-updates }
 * 콘솔 화면 UI 디자인 변경
 
 <a id="november-28-2023"></a>
+### 2023. 11. 28. { #november-28-2023 }
 
-### 2023. 11. 28.
-
-<a id="feature-updates-5"></a>
-
-#### 기능 개선/변경
+<a id="november-28-2023-feature-updates"></a>
+#### 기능 개선/변경 { #november-28-2023-feature-updates }
 * Top Content By Hits 그래프 개선
 	* 콘텐츠 순위 데이터 수가 10개 이상일 경우 원형 그래프가 깨지는 현상을 수정했습니다. 그래프에 콘텐츠 순위는 10개까지만 표시됩니다.
 
 <a id="september-26-2023"></a>
+### 2023. 09. 26. { #september-26-2023 }
 
-### 2023. 09. 26.
-
-<a id="feature-updates-6"></a>
-
-#### 기능 개선/변경
+<a id="september-26-2023-feature-updates"></a>
+#### 기능 개선/변경 { #september-26-2023-feature-updates }
 * 통계 조회 날짜 제한
 	* 통계를 90일 이내로만 조회할 수 있도록 날짜 범위를 제한했습니다.
 
 <a id="june-27-2023"></a>
+### 2023. 06. 27. { #june-27-2023 }
 
-### 2023. 06. 27.
-
-<a id="feature-updates-7"></a>
-
-#### 기능 개선/변경
+<a id="june-27-2023-feature-updates"></a>
+#### 기능 개선/변경 { #june-27-2023-feature-updates }
 * HTTP 응답 헤더 설정 기능 추가
 	* CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제할 수 있습니다. 자세한 내용은 [콘솔 가이드 > HTTP 응답 헤더](./console-guide/#http-response-header)를 참고하세요.
 
 <a id="august-23-2022"></a>
+### 2022. 08. 23. { #august-23-2022 }
 
-### 2022. 08. 23.
-
-<a id="feature-updates-8"></a>
-
-#### 기능 개선/변경
+<a id="august-23-2022-feature-updates"></a>
+#### 기능 개선/변경 { #august-23-2022-feature-updates }
 * Large File Optimization 기능 추가
 	* 대용량 파일 서비스를 위한 기능을 설정할 수 있습니다. 자세한 내용은 [콘솔 가이드 > 캐시](./console-guide/#cache)를 참고하세요.
 
 <a id="july-26-2022"></a>
+### 2022. 07. 26. { #july-26-2022 }
 
-### 2022. 07. 26.
-
-<a id="feature-updates-9"></a>
-
-#### 기능 개선/변경
+<a id="july-26-2022-feature-updates"></a>
+#### 기능 개선/변경 { #july-26-2022-feature-updates }
 * 메서드 허용 설정 기능 추가
 	* POST, DELETE, PUT, PATCH 요청을 허용하도록 설정할 수 있습니다. 자세한 내용은 [콘솔 가이드 > 메서드 허용 설정](./console-guide/#method)을 참고하세요.
 * 캐시 설정 옵션 추가
 	* 캐시 설정에 Bypass Cache, No Store 옵션이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > 캐시](./console-guide/#cache)를 참고하세요.
 
 <a id="june-30-2022"></a>
+### 2022. 06. 30. { #june-30-2022 }
 
-### 2022. 06. 30.
-
-<a id="feature-updates-10"></a>
-
-#### 기능 개선/변경
+<a id="june-30-2022-feature-updates"></a>
+#### 기능 개선/변경 { #june-30-2022-feature-updates }
 * 인증서 API 추가
 	* 인증서 발급/조회/삭제 API가 추가되었습니다. 자세한 내용은 [API v2.0 가이드 > 인증서 API](./api-guide-v2.0/#certificate-api)를 참고하세요.
 * 통계 API 추가
@@ -133,82 +111,66 @@
 
 
 <a id="may-24-2022"></a>
+### 2022. 05. 24. { #may-24-2022 }
 
-### 2022. 05. 24.
-
-<a id="feature-updates-11"></a>
-
-#### 기능 개선/변경
+<a id="may-24-2022-feature-updates"></a>
+#### 기능 개선/변경 { #may-24-2022-feature-updates }
 * Auth Token 생성 API 추가
 	* Auth Token 인증 접근 관리 기능이 설정된 콘텐츠에 접근하기 위한 인증 토큰을 생성하는 API가 추가되었습니다. 자세한 내용은 [API v2.0 가이드 > Auth Token 생성](./api-guide-v2.0/#auth-token-api)을 참고하세요.
 
 <a id="december-28-2021"></a>
+### 2021. 12. 28. { #december-28-2021 }
 
-### 2021. 12. 28.
-
-<a id="feature-updates-12"></a>
-
-#### 기능 개선/변경
+<a id="december-28-2021-feature-updates"></a>
+#### 기능 개선/변경 { #december-28-2021-feature-updates }
 * CDN 서비스에 HTTP/2 프로토콜 지원을 활성화했습니다. 기본 설정으로 HTTP/2가 지원됩니다.
 * 원본 타입 설정 기능 추가
 	* NHN Cloud의 오브젝트 스토리지와 인스턴스 정보를 조회하여 원본 서버로 설정할 수 있습니다. 자세한 내용은 [콘솔 가이드 > 원본 서버](./console-guide/#origin)를 참고하세요.
 
 <a id="november-23-2021"></a>
+### 2021. 11. 23. { #november-23-2021 }
 
-### 2021. 11. 23.
-
-<a id="feature-updates-13"></a>
-
-#### 기능 개선/변경
+<a id="november-23-2021-feature-updates"></a>
+#### 기능 개선/변경 { #november-23-2021-feature-updates }
 * 캐시 키 쿼리 문자열 포함 설정 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > 캐시](./console-guide/#cache)를 참고하세요.
 
 <a id="july-27-2021"></a>
+### 2021. 07. 27. { #july-27-2021 }
 
-### 2021. 07. 27.
-
-<a id="feature-updates-14"></a>
-
-#### 기능 개선/변경
+<a id="july-27-2021-feature-updates"></a>
+#### 기능 개선/변경 { #july-27-2021-feature-updates }
 * CDN Public API 도메인이 변경되었습니다.
 	* 기존: https://api-gw.cloud.toast.com/tc-cdn
 	* 변경 후: https://kr1-cdn.api.nhncloudservice.com
 
 <a id="may-25-2021"></a>
+### 2021. 05. 25. { #may-25-2021 }
 
-### 2021. 05. 25.
-
-<a id="feature-updates-15"></a>
-
-#### 기능 개선/변경
+<a id="may-25-2021-feature-updates"></a>
+#### 기능 개선/변경 { #may-25-2021-feature-updates }
 * 루트 경로 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > 루트 경로 접근 관리](./console-guide/#root_path_access_control)를 참고하세요.
 
 <a id="october-6-2020"></a>
+### 2020. 10. 06. { #october-6-2020 }
 
-### 2020. 10. 06.
-
-<a id="feature-updates-16"></a>
-
-#### 기능 개선/변경
+<a id="october-6-2020-feature-updates"></a>
+#### 기능 개선/변경 { #october-6-2020-feature-updates }
 * 토큰 인증 방식의 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > Auth Token 접근 관리](./console-guide/#access-control-for-auth-token-authentication)를 참고하세요.
 * 리퍼러(referer) 헤더 접근 관리: 리퍼러(referer) 요청 헤더가 없는 경우 콘텐츠 접근 허용 여부를 선택할 수 있는 설정이 추가되었습니다.
 
 <a id="june-23-2020"></a>
+### 2020. 06. 23. { #june-23-2020 }
 
-### 2020. 06. 23.
-
-<a id="feature-updates-17"></a>
-
-#### 기능 개선/변경
+<a id="june-23-2020-feature-updates"></a>
+#### 기능 개선/변경 { #june-23-2020-feature-updates }
 * [서비스ID].cdn.toastcloud.com 서비스 도메인의 지원이 종료되었습니다.
 
 
 <a id="march-24-2020"></a>
+### 2020. 03. 24. { #march-24-2020 }
 
-### 2020. 03. 24.
-
-<a id="feature-updates-18"></a>
-
-#### 기능 개선/변경
+<a id="march-24-2020-feature-updates"></a>
+#### 기능 개선/변경 { #march-24-2020-feature-updates }
 * CDN 서비스 지역: GLOBAL 서비스 지역만 제공됩니다.
 	* CDN 서비스 지역을 KOREA(한국) 지역만 대상으로 제공하는 기능이 종료됩니다.
 	* 한국 지역을 포함하는 전체 서비스 지역(GLOBAL)을 이용하세요.
@@ -240,12 +202,10 @@
 
 
 <a id="february-26-2019"></a>
+### 2019. 02. 26. { #february-26-2019 }
 
-### 2019. 02. 26.
-
-<a id="feature-updates-19"></a>
-
-#### 기능 개선/변경
+<a id="february-26-2019-feature-updates"></a>
+#### 기능 개선/변경 { #february-26-2019-feature-updates }
 * 특정 CDN 서비스 퍼지 오류 수정
 	* 원본 서버의 원본 경로가 설정된 경우, 원본 경로를 포함한 퍼지 경로를 작성하지 않을 경우 퍼지가 정상적으로 수행되지 않는 오류를 수정했습니다.
 		* 퍼지 경로는 원본 서버의 원본 경로는 제외한 경로를 입력해야 합니다.
@@ -256,32 +216,26 @@
 
 
 <a id="january-15-2019"></a>
+### 2019. 01. 15. { #january-15-2019 }
 
-### 2019. 01. 15.
-
-<a id="feature-updates-20"></a>
-
-#### 기능 개선/변경
+<a id="january-15-2019-feature-updates"></a>
+#### 기능 개선/변경 { #january-15-2019-feature-updates }
 * CDN 서비스 부분 수정 API 추가
 	* 서비스 일부 설정만 변경할 수 있는 부분 수정 API를 추가했습니다.
 
 <a id="august-28-2018"></a>
+### 2018. 08. 28. { #august-28-2018 }
 
-### 2018. 08. 28.
-
-<a id="feature-updates-21"></a>
-
-#### 기능 개선/변경
+<a id="august-28-2018-feature-updates"></a>
+#### 기능 개선/변경 { #august-28-2018-feature-updates }
 * CDN 서비스 설정 유효성 체크 추가
 	* 유효하지 않은 CDN 설정 정보를 미리 체크할 수 있도록 설정 정보에 대한 유효성 검사를 추가했습니다.
 
 <a id="may-29-2018"></a>
+### 2018. 05. 29. { #may-29-2018 }
 
-### 2018. 05. 29.
-
-<a id="feature-updates-22"></a>
-
-#### 기능 개선/변경
+<a id="may-29-2018-feature-updates"></a>
+#### 기능 개선/변경 { #may-29-2018-feature-updates }
 * CDN API v1.5 업데이트
 	* API 안정성을 강화하여 품질을 향상했습니다.
 	* 서비스 배포(변경) 작업이 완료되면 콜백으로 작업의 성공 여부와 서비스 상태를 전달합니다.
@@ -290,24 +244,20 @@
 
 
 <a id="january-25-2018"></a>
+### 2018. 01. 25. { #january-25-2018 }
 
-### 2018. 01. 25.
-
-<a id="feature-updates-23"></a>
-
-#### 기능 개선/변경
+<a id="january-25-2018-feature-updates"></a>
+#### 기능 개선/변경 { #january-25-2018-feature-updates }
 * CDN 서비스 삭제 API 추가
 * CDN 생성 및 수정에 대한 콜백 서비스 추가
 	* 콘솔 또는 API를 통해 CDN 서비스를 생성 또는 수정에 대한 콜백을 등록할 수 있습니다.
 		* 서비스 생성 또는 수정이 완료된 후 등록된 콜백을 통해 생성 또는 수정된 CDN서비스의 정보를 전달합니다.
 
 <a id="july-20-2017"></a>
+### 2017. 07. 20. { #july-20-2017 }
 
-### 2017. 07. 20.
-
-<a id="feature-updates-24"></a>
-
-#### 기능 개선/변경
+<a id="july-20-2017-feature-updates"></a>
+#### 기능 개선/변경 { #july-20-2017-feature-updates }
 * CDN API를 배포했습니다. 자세한 내용은 API 가이드를 참고하세요.
 	* CDN 생성, 수정, 조회 API가 추가되었습니다.
 	* 재배포, 재배포 조회 API가 추가되었습니다.
@@ -326,23 +276,19 @@
 		* HTTP 응답별 통계: HTTP 상태 코드별로 CDN 캐시 적중률(Cache hit ratio)을 확인할 수 있습니다.
 		* Top contents : 가장 많이 조회된 콘텐츠를 확인할 수 있습니다.
 
-<a id="bug-fixes"></a>
-
-#### 버그 수정
+<a id="july-20-2017-bug-fixes"></a>
+#### 버그 수정 { #july-20-2017-bug-fixes }
 * 통계 > 서비스 이름 선택 UI 버그 수정
 	* 서비스 설명에 대한 문구가 길어지면 서비스 이름 선택 UI가 일부만 노출되는 현상을 수정했습니다.
 
 <a id="december-22-2016"></a>
+### 2016. 12. 22. { #december-22-2016 }
 
-### 2016. 12. 22.
-
-<a id="feature-updates-25"></a>
-
-#### 기능 개선/변경
+<a id="december-22-2016-feature-updates"></a>
+#### 기능 개선/변경 { #december-22-2016-feature-updates }
 * 서비스 생성 시 실제 접속 가능한 시점에 OPEN으로 상태 변경하도록 수정
 * CORS(Cross-Origin Resource Sharing) 지원
 
-<a id="bug-fixes-2"></a>
-
-#### 버그 수정
+<a id="december-22-2016-bug-fixes"></a>
+#### 버그 수정 { #december-22-2016-bug-fixes }
 * Global Purge 기능이 동작하지 않던 문제 수정

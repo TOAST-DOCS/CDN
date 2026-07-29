@@ -1,6 +1,7 @@
 <!-- pre-align:aligned sig=ec416b7f4d48 -->
 
-## Content Delivery > CDN > Error Codes
+<a id="content-delivery-cdn-error-codes"></a>
+## Content Delivery > CDN > Error Codes { #content-delivery-cdn-error-codes }
 
 | errorCode | errorMessage | Description                                                                                                       |
 |-----------| --- |----------------------------------------------------------------------------------------------------------|

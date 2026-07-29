@@ -1,24 +1,22 @@
 <!-- pre-align:aligned sig=73fb7cfa0df0 -->
 
-## Content Delivery > CDN > API v3.0 ガイド
+<a id="content-delivery-cdn-api-v30-guide"></a>
+## Content Delivery > CDN > API v3.0 ガイド { #content-delivery-cdn-api-v30-guide }
 
 NHN Cloud CDNで提供するPublic API v3.0について説明します。
 
 <a id="api"></a>
+## API共通情報 { #api }
 
-## API共通情報
-
-<a id="api-1"></a>
-
-### ドメイン
+<a id="domain"></a>
+### ドメイン { #domain }
 
 | 名前             | ドメイン                                |
 | --------------- | ----------------------------------- |
 | CDN Public APIドメイン | https://cdn.api.nhncloudservice.com |
 
-<a id="api-2"></a>
-
-### 認証及び権限
+<a id="authentication-and-authorization"></a>
+### 認証及び権限 { #authentication-and-authorization }
 CDN API v3.0は、API認証の呼び出し及び認証のためにAppkeyとUser Access Keyトークンをサポートします。
 
 Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証キーであり、APIリクエスト時にサービスの識別と有効性の検証に使用されます。<br>User Access Keyトークンは、User Access Keyを基に発行されるBearerタイプの一時的なアクセストークンです。
@@ -30,9 +28,8 @@ Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証�
 |---|---|---|---|---|
 | X-NHN-AUTHORIZATION | Header | String | O | Public APIで発行されたBearerタイプのトークン |
 
-<a id="api-3"></a>
-
-### 共通レスポンス情報
+<a id="response-common-information"></a>
+### 共通レスポンス情報 { #response-common-information }
 
 - すべてのAPIリクエストに対して'200 OK'のレスポンスを返します。詳細なレスポンス結果は、レスポンスボディのヘッダーをご参照ください。
 
@@ -48,9 +45,8 @@ Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証�
 }
 ```
 
-<a id="cdn"></a>
-
-#### CDNステータスコード
+<a id="response-common-information-cdn-status-code"></a>
+#### CDNステータスコード { #response-common-information-cdn-status-code }
 
 以下はCDNサービスのステータスを示すステータスコードであり、サービスの照会時にサービスのステータスを確認できます。
 
@@ -66,9 +62,8 @@ Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証�
 | CLOSE      | 使用終了         |
 | ERROR      | サービス作成中にエラーが発生 |
 
-<a id="api-3-1"></a>
-
-#### 証明書発行ステータスコード
+<a id="response-common-information-certificate-issuance-status-codes"></a>
+#### 証明書発行ステータスコード { #response-common-information-certificate-issuance-status-codes }
 
 以下はドメインの証明書の発行ステータスを示すステータスコードであり、証明書の照会時に発行ステータスを確認できます。
 
@@ -86,17 +81,14 @@ Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証�
 | EXPIRED            | ドメイン証明書の有効期限切れ                   |
 
 
-<a id="api-4"></a>
+<a id="service-api"></a>
+## サービスAPI { #service-api }
 
-## サービスAPI
+<a id="create-service"></a>
+### サービスの作成 { #create-service }
 
-<a id="api-4-1"></a>
-
-### サービスの作成
-
-<a id="api-4-1-1"></a>
-
-#### リクエスト
+<a id="create-service-request"></a>
+#### リクエスト { #create-service-request }
 
 
 [URI]
@@ -213,9 +205,8 @@ Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証�
 
 
 
-<a id="api-4-1-2"></a>
-
-#### レスポンス
+<a id="create-service-response"></a>
+#### レスポンス { #create-service-response }
 
 
 [レスポンス本文]
@@ -343,13 +334,11 @@ Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証�
 
 
 
-<a id="api-4-2"></a>
+<a id="retrieve-service"></a>
+### サービスの照会 { #retrieve-service }
 
-### サービスの照会
-
-<a id="api-4-2-1"></a>
-
-#### リクエスト
+<a id="retrieve-service-request"></a>
+#### リクエスト { #retrieve-service-request }
 
 
 [URI]
@@ -373,9 +362,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
  -H "Content-Type: application/json"
 ```
 
-<a id="api-4-2-2"></a>
-
-#### レスポンス
+<a id="retrieve-service-response"></a>
+#### レスポンス { #retrieve-service-response }
 
 
 [レスポンス本文]
@@ -491,13 +479,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | distributions[0].callback.url          | String  | コールバックURL                                                     |
 
 
-<a id="api-4-3"></a>
+<a id="modify-service"></a>
+### サービスの修正 { #modify-service }
 
-### サービスの修正
-
-<a id="api-4-3-1"></a>
-
-#### リクエスト
+<a id="modify-service-request"></a>
+#### リクエスト { #modify-service-request }
 
 
 [URI]
@@ -613,9 +599,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 - `forwardHostHeader`のデフォルト値は、`domainAlias`を設定した場合は`REQUEST_HOST_HEADER`であり、設定していない場合は`ORIGIN_HOSTNAME`です。
 
-<a id="api-4-3-2"></a>
-
-#### レスポンス
+<a id="modify-service-response"></a>
+#### レスポンス { #modify-service-response }
 
 
 [レスポンス本文]
@@ -640,13 +625,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultCode | Integer | 結果コード |
 | header.resultMessage | String | 結果メッセージ |
 
-<a id="api-4-4"></a>
+<a id="delete-service"></a>
+### サービスの削除 { #delete-service }
 
-### サービスの削除
-
-<a id="api-4-4-1"></a>
-
-#### リクエスト
+<a id="delete-service-request"></a>
+#### リクエスト { #delete-service-request }
 
 
 [URI]
@@ -675,9 +658,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 > [注意] 複数のドメインを入力すると、該当するサービスはすべて終了します。
 
-<a id="api-4-4-2"></a>
-
-#### レスポンス
+<a id="delete-service-response"></a>
+#### レスポンス { #delete-service-response }
 
 
 [レスポンス本文]
@@ -704,16 +686,13 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 
 <a id="auth-token-api"></a>
-
-## Auth Token API
+## Auth Token API { #auth-token-api }
 
 <a id="auth-token"></a>
+### Auth Token の作成 { #auth-token }
 
-### Auth Token の作成
-
-<a id="auth-token-1"></a>
-
-#### リクエスト
+<a id="create-auth-token-request"></a>
+#### リクエスト { #create-auth-token-request }
 
 [URI]
 
@@ -751,9 +730,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 * トークンの生成及び使用に関する詳細な内容は、[コンソール使用ガイド > Auth Token 認証アクセス管理 > 2. トークン生成](./console-guide/#create-a-token)をご参照ください。
 
 
-<a id="auth-token-2"></a>
-
-#### レスポンス
+<a id="create-auth-token-response"></a>
+#### レスポンス { #create-auth-token-response }
 
 [レスポンス本文]
 
@@ -788,17 +766,14 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 
 
 
-<a id="api-5"></a>
+<a id="purge-cache-api"></a>
+## キャッシュ再配布API { #purge-cache-api }
 
-## キャッシュ再配布API
+<a id="purge-cache---item-particular-file-type"></a>
+### キャッシュ再配布(Purge) - ITEM(特定のファイルタイプ) { #purge-cache---item-particular-file-type }
 
-<a id="purge---item"></a>
-
-### キャッシュ再配布(Purge) - ITEM(特定のファイルタイプ)
-
-<a id="purge---item-1"></a>
-
-#### リクエスト
+<a id="purge-cache---item-particular-file-type-request"></a>
+#### リクエスト { #purge-cache---item-particular-file-type-request }
 
 [URI]
 
@@ -825,9 +800,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | domain    | String | 必須      |        | 最大255文字            | 再配布するドメイン(サービス名)                                 |
 | purgeList | List | 必須      |        |                       | 再配布対象のURL一覧 |
 
-<a id="purge---item-2"></a>
-
-#### レスポンス
+<a id="purge-cache---item-particular-file-type-response"></a>
+#### レスポンス { #purge-cache---item-particular-file-type-response }
 
 [レスポンス本文]
 
@@ -851,13 +825,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | header.resultCode    | Integer | 結果コード  |
 | header.resultMessage | String  | 結果メッセージ |
 
-<a id="purge---all"></a>
+<a id="purge-cache---all-all-file-types"></a>
+### キャッシュの再配布(Purge) - ALL(全てのファイルタイプ) { #purge-cache---all-all-file-types }
 
-### キャッシュの再配布(Purge) - ALL(全てのファイルタイプ)
-
-<a id="purge---all-1"></a>
-
-#### リクエスト
+<a id="purge-cache---all-all-file-types-request"></a>
+#### リクエスト { #purge-cache---all-all-file-types-request }
 
 [URI]
 
@@ -881,9 +853,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
 | domain    | String | 必須      |        | 最大255文字            | 再配布するドメイン(サービス名)                                 |
 
-<a id="purge---all-2"></a>
-
-#### レスポンス
+<a id="purge-cache---all-all-file-types-response"></a>
+#### レスポンス { #purge-cache---all-all-file-types-response }
 
 [レスポンス本文]
 
@@ -911,20 +882,17 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 - Purge APIの使用量制限ポリシーがあります。詳細は[コンソール使用ガイド > CDN キャッシュの再配布](./console-guide/#purge)の「キャッシュ再配布の使用量制限」の内容をご確認ください。
 
 <a id="purge"></a>
-
-### キャッシュの再配布(Purge)の照会
+### キャッシュの再配布(Purge)の照会 { #purge }
 - API v3.0によるキャッシュの再配布時は、高速キャッシュ再配布が実行されリクエスト後数秒以内に完了するため、キャッシュ再配布の状態を照会するAPIは別途提供されません。
 
-<a id="alias_domain_api"></a>
-## ドメインエイリアスAPI
+<a id="domain-alias-api"></a>
+## ドメインエイリアスAPI { #domain-alias-api }
 
-<a id="alias_domain_api-1"></a>
+<a id="register-domain-alias"></a>
+### ドメインエイリアスの登録 { #register-domain-alias }
 
-### ドメインエイリアスの登録
-
-<a id="alias_domain_api-1-1"></a>
-
-#### リクエスト
+<a id="register-domain-alias-request"></a>
+#### リクエスト { #register-domain-alias-request }
 
 [URI]
 
@@ -947,9 +915,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | --------------- | ------ | ----- | ---- | ----------------------- | -------------------------------------------------------------------------------------- |
 | domain          | String | 必須    |      | FQDN形式、最小4文字～最大253文字 | 登録するドメイン(フルドメインアドレス形式で入力、toastcdn.netドメインは使用不可)                                    |
 
-<a id="alias_domain_api-1-2"></a>
-
-#### レスポンス
+<a id="register-domain-alias-response"></a>
+#### レスポンス { #register-domain-alias-response }
 
 [レスポンス本文]
 
@@ -1008,13 +975,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | domain.updatedAt                    | DateTime | 変更日時                                                             |
 
 
-<a id="alias_domain_api-2"></a>
+<a id="list-domain-aliases"></a>
+### ドメインエイリアス一覧の照会 { #list-domain-aliases }
 
-### ドメインエイリアス一覧の照会
-
-<a id="alias_domain_api-2-1"></a>
-
-#### リクエスト
+<a id="list-domain-aliases-request"></a>
+#### リクエスト { #list-domain-aliases-request }
 
 [URI]
 
@@ -1039,9 +1004,8 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-dom
  -H "Content-Type: application/json"
 ```
 
-<a id="alias_domain_api-2-2"></a>
-
-#### レスポンス
+<a id="list-domain-aliases-response"></a>
+#### レスポンス { #list-domain-aliases-response }
 
 [レスポンス本文]
 
@@ -1112,13 +1076,11 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-dom
 | domains[0].updatedAt                    | DateTime | 変更日時                                                             |
 
 
-<a id="alias_domain_api-3"></a>
+<a id="delete-domain-alias"></a>
+### ドメインエイリアスの削除 { #delete-domain-alias }
 
-### ドメインエイリアスの削除
-
-<a id="alias_domain_api-3-1"></a>
-
-#### リクエスト
+<a id="delete-domain-alias-request"></a>
+#### リクエスト { #delete-domain-alias-request }
 
 [URI]
 
@@ -1141,9 +1103,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
  -H "Content-Type: application/json"
 ```
 
-<a id="alias_domain_api-3-2"></a>
-
-#### レスポンス
+<a id="delete-domain-alias-response"></a>
+#### レスポンス { #delete-domain-alias-response }
 
 [レスポンス本文]
 
@@ -1170,13 +1131,11 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 - CDNサービスに連携されたドメインは削除できません。CDNサービスでドメインエイリアスの連携を解除してから削除してください。
 
 
-<a id="alias_domain_api-4"></a>
+<a id="run-domain-validation"></a>
+### ドメイン検証の実行 { #run-domain-validation }
 
-### ドメイン検証の実行
-
-<a id="alias_domain_api-4-1"></a>
-
-#### リクエスト
+<a id="run-domain-validation-request"></a>
+#### リクエスト { #run-domain-validation-request }
 
 [URI]
 
@@ -1200,9 +1159,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 | validationMethod | String | 必須   |     | DNS_TXT, HTTP  | 検証方式("DNS_TXT": DNS TXTレコード追加方式、 "HTTP": HTTPファイルまたはリダイレクト認証方式) |
 
 
-<a id="alias_domain_api-4-2"></a>
-
-#### レスポンス
+<a id="run-domain-validation-response"></a>
+#### レスポンス { #run-domain-validation-response }
 
 [レスポンス本文]
 
@@ -1265,13 +1223,11 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-
 - 検証トークンの有効期限が切れた場合、検証を実行できません。トークン再発行APIで新しいトークンを発行した後、再度検証を進めてください。
 
 
-<a id="alias_domain_api-5"></a>
+<a id="refresh-domain-validation-status"></a>
+### ドメイン検証ステータスの更新 { #refresh-domain-validation-status }
 
-### ドメイン検証ステータスの更新
-
-<a id="alias_domain_api-5-1"></a>
-
-#### リクエスト
+<a id="refresh-domain-validation-status-request"></a>
+#### リクエスト { #refresh-domain-validation-status-request }
 
 [URI]
 
@@ -1287,9 +1243,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
  -H "Content-Type: application/json"
 ```
 
-<a id="alias_domain_api-5-2"></a>
-
-#### レスポンス
+<a id="refresh-domain-validation-status-response"></a>
+#### レスポンス { #refresh-domain-validation-status-response }
 
 [レスポンス本文]
 
@@ -1349,13 +1304,11 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | domain.updatedAt                    | DateTime | 変更日時                                                             |
 
 
-<a id="alias_domain_api-6"></a>
+<a id="reissue-validation-token"></a>
+### 検証トークンの再発行 { #reissue-validation-token }
 
-### 検証トークンの再発行
-
-<a id="alias_domain_api-6-1"></a>
-
-#### リクエスト
+<a id="reissue-validation-token-request"></a>
+#### リクエスト { #reissue-validation-token-request }
 
 [URI]
 
@@ -1371,9 +1324,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
  -H "Content-Type: application/json"
 ```
 
-<a id="alias_domain_api-6-2"></a>
-
-#### レスポンス
+<a id="reissue-validation-token-response"></a>
+#### レスポンス { #reissue-validation-token-response }
 
 [レスポンス本文]
 
@@ -1435,9 +1387,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 - トークンが再発行されると、以前の検証情報は初期化され、新しいトークン情報で再度検証を進める必要があります。
 - 検証トークンの有効期限が切れた(`TOKEN_EXPIRED`)場合、このAPIを呼び出して新しいトークンを発行できます。
 
-<a id="alias_domain_api-6-3"></a>
-
-#### ドメインエイリアスの検証ステータスコード
+<a id="reissue-validation-token-domain-alias-validation-status-codes"></a>
+#### ドメインエイリアスの検証ステータスコード { #reissue-validation-token-domain-alias-validation-status-codes }
 
 以下はドメインエイリアスの検証ステータスを示すステータスコードであり、ドメインエイリアスの照会時に検証ステータスを確認できます。
 
@@ -1449,15 +1400,12 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | TOKEN_EXPIRED          | 検証トークンの有効期限切れ、トークンの再発行後に再度検証が必要     |
 
 
-<a id="api-6"></a>
-
-## 証明書API
-<a id="api-6-1"></a>
-
-### 新規証明書の発行
-<a id="api-6-1-1"></a>
-
-#### リクエスト
+<a id="certificate-api"></a>
+## 証明書API { #certificate-api }
+<a id="issue-new-certificate"></a>
+### 新規証明書の発行 { #issue-new-certificate }
+<a id="issue-new-certificate-request"></a>
+#### リクエスト { #issue-new-certificate-request }
 
 [URI]
 
@@ -1487,9 +1435,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 
 * 証明書の発行に関する詳細な内容は、[コンソール使用ガイド > 証明書管理 > 新規証明書の発行](./console-guide/#issue-new-certificates)をご参照ください。
 
-<a id="api-6-1-2"></a>
-
-#### レスポンス
+<a id="issue-new-certificate-response"></a>
+#### レスポンス { #issue-new-certificate-response }
 
 [レスポンス本文]
 
@@ -1540,12 +1487,10 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | certificates[0].renewalStartDate | DateTime | 証明書の更新開始日時 |
 | certificates[0].renewalEndDate | DateTime | 証明書の更新終了日時 |
 
-<a id="api-6-2"></a>
-
-### 証明書一覧の照会
-<a id="api-6-2-1"></a>
-
-#### リクエスト
+<a id="list-certificates"></a>
+### 証明書一覧の照会 { #list-certificates }
+<a id="list-certificates-request"></a>
+#### リクエスト { #list-certificates-request }
 
 [URI]
 
@@ -1554,9 +1499,8 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | GET | /v3.0/appKeys/{appKey}/certificates|
 
 
-<a id="api-6-2-2"></a>
-
-#### レスポンス
+<a id="list-certificates-response"></a>
+#### レスポンス { #list-certificates-response }
 
 [レスポンス本文]
 
@@ -1607,12 +1551,10 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/alias-do
 | certificates[0].renewalStartDate | DateTime | 証明書の更新開始日時 |
 | certificates[0].renewalEndDate | DateTime | 証明書の更新終了日時 |
 
-<a id="api-6-3"></a>
-
-### 証明書の削除
-<a id="api-6-3-1"></a>
-
-#### リクエスト
+<a id="delete-certificate"></a>
+### 証明書の削除 { #delete-certificate }
+<a id="delete-certificate-request"></a>
+#### リクエスト { #delete-certificate-request }
 
 [URI]
 
@@ -1634,9 +1576,8 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/certif
  -H "Content-Type: application/json"
 ```
 
-<a id="api-6-3-2"></a>
-
-#### レスポンス
+<a id="delete-certificate-response"></a>
+#### レスポンス { #delete-certificate-response }
 
 [レスポンス本文]
 
@@ -1661,12 +1602,10 @@ curl -X DELETE "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/certif
 | header.resultMessage | String  | 結果メッセージ |
 
 
-<a id="section-1"></a>
-
-## コールバックレスポンス
-<a id="cdn-2"></a>
-
-### CDNサービス
+<a id="callback-response"></a>
+## コールバックレスポンス { #callback-response }
+<a id="cdn-service"></a>
+### CDNサービス { #cdn-service }
 CDNサービスにコールバック機能が設定されている場合、作成、修正、一時停止、再開、削除の変更が完了すると、設定されたコールバックURLを呼び出します。
 コールバック呼び出し時、リクエスト本文には次のようなCDNサービスの設定情報が含まれます。
 
@@ -1774,9 +1713,8 @@ CDNサービスにコールバック機能が設定されている場合、作�
 | distribution.callback.httpMethod   | String  | コールバックのHTTPメソッド                                          |
 | distribution.callback.url          | String  | コールバックURL                                                     |
 
-<a id="section-1-1"></a>
-
-### 証明書
+<a id="certificate"></a>
+### 証明書 { #certificate }
 証明書の発行リクエスト時にコールバック情報が設定されている場合、ドメイン検証/ドメイン検証完了/証明書発行完了にステータス変更が完了すると、設定されたコールバックURLを呼び出します。
 コールバック呼び出し時、リクエスト本文には次のような証明書の設定情報が含まれます。
 

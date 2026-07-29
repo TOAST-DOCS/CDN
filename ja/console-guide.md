@@ -1,12 +1,12 @@
 <!-- pre-align:aligned sig=34e9e26965c5 -->
 
-## Content Delivery > CDN > コンソール使用ガイド
+<a id="content-delivery-cdn-console-user-guide"></a>
+## Content Delivery > CDN > コンソール使用ガイド { #content-delivery-cdn-console-user-guide }
 
 このドキュメントでは、NHN Cloud CDNコンソールでCDNサービスを構成し、利用する方法を説明します。
 
 <a id="creating-cdn-service"></a>
-
-## CDNサービスの作成
+## CDNサービスの作成 { #creating-cdn-service }
 
 **Contents Delivery > CDN**の**CDNサービス**タブで**作成**ボタンをクリックすると、**CDNサービスの作成**ダイアログボックスが表示されます。
 CDNサービスドメインは[サービスID].toastcdn.net形式で自動生成されます。所有しているドメインをサービスドメインとして利用する場合は、**ドメインエイリアス**(domain alias)機能を利用できます。
@@ -16,19 +16,16 @@ CDNサービスドメインは[サービスID].toastcdn.net形式で自動生成
 > CDNの初回作成後、最大3日間はダウンロード速度が多少遅くなる場合があります。
 
 <a id="basic-information"></a>
-
-### 基本情報
+### 基本情報 { #basic-information }
 基本情報を設定します。
 ![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202403.png)
 
-<a id="basic-information-1"></a>
-
-#### 説明
+<a id="basic-information-description"></a>
+#### 説明 { #basic-information-description }
 CDNサービスの説明を追加します。
 
-<a id="domain-alias"></a>
-
-#### ドメインエイリアス
+<a id="basic-information-domain-alias"></a>
+#### ドメインエイリアス { #basic-information-domain-alias }
 TOAST CDNは、既定で[サービスID].toastcdn.net形式のサービスドメインアドレスを提供しています。
 既定のサービスドメインアドレスではなく、所有するドメインでCDNサービスを利用するには、**ドメインエイリアス**で設定します。
 所有するドメインでHTTPSプロトコルサービスを利用するには、まず**証明書管理**タブで証明書を発行してからドメインエイリアスを設定する必要があります。
@@ -38,9 +35,8 @@ TOAST CDNは、既定で[サービスID].toastcdn.net形式のサービスドメ
 - レコード値(Rdata): `[サービスID].toastcdn.net`
 - TTL: 任意の値
 
-<a id="callback"></a>
-
-#### コールバック
+<a id="basic-information-callback"></a>
+#### コールバック { #basic-information-callback }
 CDNサービスの作成と変更操作(変更、一時停止/再開、削除)には数時間かかります。
 操作が完了した後、設定したコールバックURLで変更状態とCDN設定情報を受信するには、コールバックを設定してください。コールバックで配信される情報については、[APIガイド](./api-guide-v2.0/#cdn-service)をご参照ください。
 - **HTTP Method**と**コールバックURL**を入力します。
@@ -55,13 +51,12 @@ CDNサービスの作成と変更操作(変更、一時停止/再開、削除)�
 | {isSuccessful} | サービス変更操作の成否(API v1.0はサポートしていません) | "true" または "false" |
 
 <a id="origin"></a>
-### オリジンサーバー
+### オリジンサーバー { #origin }
 CDNサービスで配布するオリジナルファイルを提供するサーバーを設定します。
 ![CDNサービス作成-基本情報](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
 <a id="origin-type"></a>
-
-#### オリジンタイプ
+#### オリジンタイプ { #origin-type }
 - Object Storage: NHN Cloud Object Storageサービスで作成したコンテナをオリジンサーバーとして設定します。
     - リージョン: Object Storageのコンテナ情報を照会するリージョンを選択します。
     - 名前: オリジンサーバーとして設定するコンテナの名前を入力します。コンテナのアクセス制御が`PUBLIC`であるコンテナのみをオリジンサーバーとして使用できます。コンテナがオリジンサーバーとして使用可能な場合、オリジンサーバーとオリジンパスにコンテナ情報が自動的に入力されます。
@@ -71,8 +66,7 @@ CDNサービスで配布するオリジナルファイルを提供するサー�
 - 直接入力: 別途稼働中のオリジンサーバーを設定します。
 
 <a id="origin-server"></a>
-
-#### オリジンサーバー
+#### オリジンサーバー { #origin-server }
 オリジンサーバーは、CDNサービスで配布するオリジナルファイルを提供するサーバーです。オリジンサーバーはIPv4または全体ドメインアドレス(FQDN, fully qualified domain name)形式で入力できます。IPアドレスは変更される可能性が高いため、ドメインで設定することを推奨します。
 稼働中のオリジンサーバーがない場合は、**オリジンタイプ**の**Instance**を選択してNHN Cloud Instanceサービスのインスタンスを使用するか、**Object Storage**を選択してNHN Cloud Object Storageサービスのコンテナを利用できます。
 CDNサービスドメインでセキュア通信(HTTPS)をサポートするには、オリジンサーバーがHTTPS応答をサポートしている必要があります。
@@ -143,8 +137,7 @@ CDNサービスドメインでセキュア通信(HTTPS)をサポートするに�
 |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
 
 <a id="origin-server-port"></a>
-
-#### オリジンサーバーのポート
+#### オリジンサーバーのポート { #origin-server-port }
 オリジンサーバーはWebプロトコルをサポートするサービスとして稼働させる必要があります。稼働中のHTTP/HTTPSプロトコルのサービスポート番号を設定できます。  
 オリジンサーバーのポートはHTTPまたはHTTPSポートのいずれかを必ず入力する必要があり、設定していないポートは既定のポートである`HTTP:80`、`HTTPS:443`として設定されます。  
 オリジンサーバーのポートは、制限されたポートのみ設定できます。設定可能なポート番号については、次の表をご参照ください。
@@ -163,9 +156,8 @@ CDNサービスドメインでセキュア通信(HTTPS)をサポートするに�
 |9901-9908|
 |45002|
 
-<a id="original-path"></a>
-
-#### オリジンパス
+<a id="origin-server-original-path"></a>
+#### オリジンパス { #origin-server-original-path }
 オリジナルファイルのパスのうち、下位パスを設定します。コンテンツをリクエストする際、オリジンパスを省略してリクエストできます。
 
 > [例] オリジンパスを /files/images に設定した場合
@@ -174,9 +166,8 @@ CDNサービスドメインでセキュア通信(HTTPS)をサポートするに�
 > - CDNサービスのURL: http://[サービスID].toastcdn.net/logo.png
 > - CDNサービスのURLからオリジンパス(/files/images)を省略してリクエストできます。
 
-<a id="downgrading-http-protocols-requesting-originals"></a>
-
-#### オリジンリクエストのHTTPプロトコルダウングレード
+<a id="origin-server-downgrading-http-protocols-requesting-originals"></a>
+#### オリジンリクエストのHTTPプロトコルダウングレード { #origin-server-downgrading-http-protocols-requesting-originals }
 CDNエッジ(edge)サーバーは、オリジンサーバーにオリジナルファイルをリクエストする際、クライアントのオリジンへのリクエスト(request)のサービスプロトコル(HTTP/HTTPS)でリクエストします。
 つまり、クライアントがHTTPSでリクエストし、オリジンサーバーがHTTPS応答をサポートしていない場合、CDNエッジサーバーからオリジンサーバーへリクエストする際にHTTPSプロトコルでリクエストするため、オリジナルファイルに対する応答を受信できません。
 オリジンサーバーでHTTPプロトコルのみを稼働させている場合は、**オリジンサーバーHTTPプロトコルダウングレード**設定を使用し、CDNエッジサーバーからオリジンサーバーへリクエストする際にHTTPSプロトコルをHTTPプロトコルにダウングレードしてリクエストできます。
@@ -188,9 +179,8 @@ CDNエッジ(edge)サーバーは、オリジンサーバーにオリジナル�
 > - CDNサーバーからオリジンサーバーへダウングレードをリクエストする際、次のヘッダは除外される場合があります。
     >    `Origin`, `Referer`, `Cookie`, `Cookie2`, `sec-\*`, `proxy-\*`
 
-<a id="forward-host-header"></a>
-
-#### Forward Host Header
+<a id="origin-server-forward-host-header"></a>
+#### Forward Host Header { #origin-server-forward-host-header }
 CDNサーバーがオリジンサーバーにオリジナルファイルをリクエストする際に渡す`Host`ヘッダ値を設定します。
 オリジンサーバーがName-based virtual hostとして稼働している場合、**リクエストホストヘッダ**の設定が必要になる場合があります。オリジンサーバーの運用形態に応じて、適切な設定値を選択してください。
 - オリジンホスト名: オリジンサーバーのホスト名を`Host`ヘッダとして設定します。
@@ -202,51 +192,45 @@ CDNサーバーがオリジンサーバーにオリジナルファイルをリ�
 > `Host`リクエストヘッダと一致する証明書がオリジンサーバーにインストールされていない場合、セキュア通信エラーが発生します。
 > `Host`リクエストヘッダはForward Host Headerの設定に応じてリクエストホストヘッダまたはオリジンホスト名として設定されるため、ご注意ください。
 
-<a id="root_path_access_control"></a>
-### ルートパスのアクセス管理
+<a id="controlling-the-access-of-root-path"></a>
+### ルートパスのアクセス管理 { #controlling-the-access-of-root-path }
 CDNサービスのルートパスに対するアクセス制御を設定できます。
 ![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
-<a id="set-root-path-access"></a>
-
-#### ルートパスのアクセス設定
+<a id="controlling-the-access-of-root-path-set-root-path-access"></a>
+#### ルートパスのアクセス設定 { #controlling-the-access-of-root-path-set-root-path-access }
 - 使用: ルートパスアクセス管理機能を有効にして、ルートパスへのリクエストをブロックするか、他のページにリダイレクトするように設定します。
 - 使用しない: ルートパスアクセス管理機能を無効にします。
-<a id="access-control-method"></a>
-
-#### アクセス制御方式
+<a id="controlling-the-access-of-root-path-access-control-method"></a>
+#### アクセス制御方式 { #controlling-the-access-of-root-path-access-control-method }
 - Deny: ルートパスへのリクエストに対してHTTP Response Code 403を応答します。
 - Redirect: ルートパスへのリクエストをユーザーが指定したパスにリダイレクトします。
-<a id="redirect-path"></a>
-
-#### Redirectパス
+<a id="controlling-the-access-of-root-path-redirect-path"></a>
+#### Redirectパス { #controlling-the-access-of-root-path-redirect-path }
 ルートパスへのリクエストをリダイレクトするパスを入力します。Redirectパスは'/'で始まる必要があり、CDNサービスの下位に存在するパスである必要があります。
-<a id="redirect-http-response-code"></a>
-
-#### Redirect HTTP Response Code
+<a id="controlling-the-access-of-root-path-redirect-http-response-code"></a>
+#### Redirect HTTP Response Code { #controlling-the-access-of-root-path-redirect-http-response-code }
 - ルートパスへのリクエストをリダイレクトして渡すHTTP Response Codeを設定します。
 - Redirect HTTP Response Codeは、301、302、303、307の中から選択できます。
 
 <a id="method"></a>
-### メソッド
+### メソッド { #method }
 CDNで既定で許可するメソッドは`GET`、`HEAD`、`OPTIONS`であり、これ以外のメソッドをリクエストすると拒否されます。
 該当メソッド以外のメソッドを許可するには、任意のメソッドを選択して設定します。
 ![CDNサービス作成-ルートパス](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
-<a id="allow-method-settings"></a>
-
-#### メソッド許可設定
+<a id="method-allow-method-settings"></a>
+#### メソッド許可設定 { #method-allow-method-settings }
 許可設定したメソッドのリクエストはキャッシュされず、オリジンサーバーに転送されます。
 
 <a id="cache"></a>
-### キャッシュ
+### キャッシュ { #cache }
 
 CDNキャッシュの動作設定と有効期限を設定できます。
 ![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
-<a id="configuration-of-cache"></a>
-
-#### キャッシュ設定
+<a id="cache-configuration-of-cache"></a>
+#### キャッシュ設定 { #cache-configuration-of-cache }
 CDNサーバーがオリジナルファイルをキャッシュする際に使用するキャッシュ設定を選択できます。
 - オリジン設定の使用: オリジンサーバーの応答で提供されたキャッシュ制御ヘッダ(`Cache-Control`、`Expires`)を優先的に適用します。もしオリジンサーバーの応答にキャッシュ制御ヘッダ(`Cache-Control`、`Expires`)が有効でないか存在しない場合、キャッシュ有効期限(秒)で指定した期間キャッシュされます。**オリジン設定の使用**オプションが既定値です。
 - ユーザー設定の使用: キャッシュ有効期限(秒)で指定した期間キャッシュされます。
@@ -254,13 +238,11 @@ CDNサーバーがオリジナルファイルをキャッシュする際に使�
 - No Store: 既存のキャッシュをすべて削除し、CDNキャッシュ機能を無効にします。
 
 <a id="cache-expiration-time-seconds"></a>
-
-#### キャッシュ有効期限(秒)
+#### キャッシュ有効期限(秒) { #cache-expiration-time-seconds }
 キャッシュ有効期限を指定するには、**ユーザー設定の使用**ボタンをクリックし、**キャッシュ有効期限(秒)**でキャッシュ有効期限を変更します。
 
-<a id="set-inclusion-of-query-string-in-cache-key"></a>
-
-#### キャッシュキーのクエリ文字列包含設定
+<a id="cache-set-inclusion-of-query-string-in-cache-key"></a>
+#### キャッシュキーのクエリ文字列包含設定 { #cache-set-inclusion-of-query-string-in-cache-key }
 URLベースで生成されるキャッシュキーにリクエストのクエリ文字列を含めるかどうかを設定できます。
 - すべて含める: リクエストに含まれるすべてのクエリ文字列をキャッシュキーに含めます。キャッシュキーにリクエストのクエリ文字列が含まれるため、同じコンテンツリクエストに対してクエリ文字列が変更されるたびに新しいキャッシュキーが生成されます。リクエストのクエリ文字列を変更して新しくコンテンツをキャッシュする場合に選択します。**すべて含める**オプションが既定値です。
 - すべて除外: リクエストに含まれるクエリ文字列をすべて除外し、URLのみを使用してキャッシュキーを生成します。リクエストのクエリ文字列が継続的に変更される場合、該当オプションを設定することでキャッシュが動作します。
@@ -270,9 +252,8 @@ URLベースで生成されるキャッシュキーにリクエストのクエ�
 > キャッシュ有効期限は、既定値の0から2,147,483,647(単位/秒)まで入力できます。
 
 
-<a id="cache-1"></a>
-
-#### Large File Optimization
+<a id="cache-large-file-optimization"></a>
+#### Large File Optimization { #cache-large-file-optimization }
 100MB以上の大容量ファイルをサービスする際、パフォーマンスと安定性を高めるための設定です。設定しない場合、CDNで許可されるファイルの最大容量は1.8GB未満であり、1.8GB以上の大容量ファイルをサービスするには、本設定を必ず使用する必要があります。
 
 > [参考] NHN Cloud Object Storageサービスで作成したコンテナをオリジンサーバーとして使用する場合
@@ -281,17 +262,15 @@ URLベースで生成されるキャッシュキーにリクエストのクエ�
 
 
 <a id="access-management-for-referer-header"></a>
-
-### リファラー(referer)ヘッダのアクセス管理
+### リファラー(referer)ヘッダのアクセス管理 { #access-management-for-referer-header }
 リファラーリクエストヘッダでコンテンツのアクセス管理を設定します。
 ![CDNサービス作成-キャッシュ](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
 リファラーリクエストヘッダには、現在リクエストされているページのリンク元Webページアドレスが含まれます。リファラーリクエストヘッダにより、どの経路からリクエストが流入したかを把握できます。リファラーヘッダのアクセス管理では、特定のリファラーリクエストヘッダのみがユーザーコンテンツにアクセスできるよう設定できます。
 正規表現の形式で入力でき、複数入力する場合は改行して入力します。
 
-<a id="access-control-types"></a>
-
-#### アクセス制御方式
+<a id="access-management-for-referer-header-access-control-types"></a>
+#### アクセス制御方式 { #access-management-for-referer-header-access-control-types }
 - ブラックリスト(blacklist)タイプ
     * 特定のリファラーリクエストヘッダのみアクセスを制限する場合に適しています。
     * リファラーリクエストヘッダ値が設定した正規表現にマッチする文字列であれば、コンテンツへのアクセスが制限されます。マッチしない文字列であれば、コンテンツへのアクセスが許可されます。
@@ -299,9 +278,8 @@ URLベースで生成されるキャッシュキーにリクエストのクエ�
     * 特定のリファラーリクエストヘッダのみアクセスを許可する場合に適しています。
     * リファラーリクエストヘッダ値が正規表現にマッチする文字列であれば、コンテンツへのアクセスが許可されます。マッチしない文字列であれば、コンテンツへのアクセスが制限されます。
 
-<a id="content-access-if-referer-header-is-unavailable"></a>
-
-#### リファラーヘッダがない場合のアクセス許可
+<a id="access-management-for-referer-header-content-access-if-referer-header-is-unavailable"></a>
+#### リファラーヘッダがない場合のアクセス許可 { #access-management-for-referer-header-content-access-if-referer-header-is-unavailable }
 リファラー(referer)リクエストヘッダがない場合のコンテンツアクセス許可の有無を選択します。
 - 許可: リファラーリクエストヘッダがない場合はコンテンツへのアクセスを許可し、リファラーのアクセス制御は動作しません。
 - 拒否: リファラーリクエストヘッダがない場合はコンテンツへのアクセスを拒否し、登録されたリファラーに対してのみアクセスを許可します。
@@ -321,8 +299,7 @@ URLベースで生成されるキャッシュキーにリクエストのクエ�
 
 
 <a id="access-control-for-auth-token-authentication"></a>
-
-### Auth Token認証のアクセス管理
+### Auth Token認証のアクセス管理 { #access-control-for-auth-token-authentication }
 Auth Token認証のアクセス管理は、コンテンツのリクエストに認証トークンを追加し、CDNエッジサーバーで検証されたトークンのみコンテンツへのアクセスを許可するセキュリティ機能です。
 一回限りでコンテンツへのアクセスを許可したり、制限されたユーザーのみがコンテンツにアクセスできるように制御できます。
 トークンがない、または無効なトークンでコンテンツをリクエストした場合、`403 Forbidden`応答が送信され、コンテンツにアクセスできません。
@@ -337,9 +314,8 @@ Auth Token認証アクセスをCDNサービスに適用するには、次のス�
      > この作業を行わずにAuth Token認証のアクセス管理を設定した場合、トークンの検証失敗によってコンテンツのリクエストが失敗する可能性があるため、ご注意ください。
 
 
-<a id="nhn-cloud-cdn-console-access-control-settings-for-auth-token-authentication"></a>
-
-#### 1. NHN Cloud CDNコンソール > Auth Token認証のアクセス管理設定
+<a id="access-control-for-auth-token-authentication-nhn-cloud-cdn-console-access-control-settings-for-auth-token-authentication"></a>
+#### 1. NHN Cloud CDNコンソール > Auth Token認証のアクセス管理設定 { #access-control-for-auth-token-authentication-nhn-cloud-cdn-console-access-control-settings-for-auth-token-authentication }
 
 CDNコンソールで以下の内容を参考にして、Auth Token認証のアクセス管理を設定します。
 
@@ -378,9 +354,8 @@ CDNコンソールで以下の内容を参考にして、Auth Token認証のア�
 > リクエストURLパスとファイル拡張子の両方を設定した場合、2つの条件のうち1つでも一致すればトークンのアクセス制御が動作します。
 > [例] リクエストURLパス `/nhn/\*`、ファイル拡張子 `png`が設定された場合: /nhn配下のすべてのファイル、またはファイル拡張子がpngであるコンテンツに対してトークンを検証します。
 
-<a id="create-a-token"></a>
-
-#### 2. トークンの生成
+<a id="access-control-for-auth-token-authentication-create-a-token"></a>
+#### 2. トークンの生成 { #access-control-for-auth-token-authentication-create-a-token }
 最終コンテンツユーザーがコンテンツにアクセスするには、トークンとともにコンテンツをリクエストする必要があります。したがって、トークンを生成して最終コンテンツユーザーに発行する必要があります。
 トークンの生成は、NHN Cloud CDNを利用してサービス中のアプリケーションで実装される必要があります。
 トークンの生成方法は、次のサンプルコードを参考にしてトークンを生成します。
@@ -631,9 +606,8 @@ public class NhnCloudAuthTokenAccessControlExample {
     - 生成されたトークンは`exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}`形式で生成されます。
         - [例] 生成されたトークン: `exp=1600331503~acl=%2fnhn%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91`
 
-<a id="include-created-token-to-the-request-of-content"></a>
-
-#### 3. 生成されたトークンをコンテンツリクエストに含める
+<a id="access-control-for-auth-token-authentication-include-created-token-to-the-request-of-content"></a>
+#### 3. 生成されたトークンをコンテンツリクエストに含める { #access-control-for-auth-token-authentication-include-created-token-to-the-request-of-content }
 クライアント(最終コンテンツユーザー)がコンテンツリクエスト時、コンソールで設定したトークンの位置に、生成されたトークン値を含めてリクエストするようにします。
 
 - トークンの位置: クッキー
@@ -654,15 +628,13 @@ public class NhnCloudAuthTokenAccessControlExample {
 
 
 <a id="http-response-header"></a>
-
-### HTTPレスポンスヘッダ
+### HTTPレスポンスヘッダ { #http-response-header }
 CDNからユーザーに応答する際に渡されるヘッダを追加/変更/削除する機能です。
 ヘッダは重複しないヘッダ名で最大10個まで設定できます。
 ![CDNサービス作成-レスポンスヘッダ(画像修正必要)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-http-response-header_202403.png)
 
 <a id="http-response-header-settings"></a>
-
-#### HTTPレスポンスヘッダの設定
+#### HTTPレスポンスヘッダの設定 { #http-response-header-settings }
 - 使用: HTTPレスポンスヘッダを追加/変更/削除する設定を使用します。
 - 使用しない: HTTPレスポンスヘッダを設定しません。
 - Action: HTTPレスポンスヘッダを変更する方式を選択します。
@@ -682,12 +654,10 @@ CDNからユーザーに応答する際に渡されるヘッダを追加/変更/
 
 
 <a id="settings"></a>
-
-## 設定
+## 設定 { #settings }
 
 <a id="modify-cdn-service-setting"></a>
-
-### CDNサービスの設定変更
+### CDNサービスの設定変更 { #modify-cdn-service-setting }
 サービスドメイン名を除くCDNサービスの設定を変更できます。
 ![CDNサービス変更の有効化](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_202403.png)
 
@@ -707,8 +677,7 @@ CDNからユーザーに応答する際に渡されるヘッダを追加/変更/
 > もし修正作業に失敗すると既存の設定情報にロールバックされ、CDNサービス一覧のデプロイ状態が赤い円で表示されます。設定情報にエラーがあるか、または内部的にエラーが発生した際に修正作業に失敗します。
 
 <a id="suspend-and-resume-cdn"></a>
-
-### CDNサービスの一時停止と再開
+### CDNサービスの一時停止と再開 { #suspend-and-resume-cdn }
 CDNサービスを一時的に停止したり、再開したりできます。
 
 
@@ -734,8 +703,7 @@ CDNサービスを一時的に停止したり、再開したりできます。
 
 
 <a id="delete-cdn"></a>
-
-### CDNサービスの削除
+### CDNサービスの削除 { #delete-cdn }
 CDNサービスを削除します。削除作業は復元できないためご注意ください。
 
 1. 削除するCDNサービスを選択します。
@@ -754,8 +722,7 @@ CDNサービスを削除します。削除作業は復元できないためご�
 
 
 <a id="purge"></a>
-
-## Purge
+## Purge { #purge }
 CDNキャッシュサーバーは、キャッシュ設定に従って指定された有効期限の間、オリジンサーバーのファイルをキャッシュします。ファイルをキャッシュすると、オリジナルファイルが変更されてもキャッシュの有効期限が切れるまでは変更前のオリジナルファイルを維持します。
 変更されたオリジナルファイルでコンテンツを即時にアップデートするには、**パージ**をリクエストする必要があります。
 パージを実行すると、リクエストしたコンテンツの古いキャッシュデータを削除し、オリジンサーバーから新しいオリジナルファイルを再度キャッシュします。
@@ -786,8 +753,7 @@ CDNキャッシュサーバーは、キャッシュ設定に従って指定さ�
 > CDNサービスを作成してから約1時間以内は、パージリクエストが失敗する場合があります。それ以降も継続して失敗する場合は、[NHN Cloudカスタマーサポート](https://www.nhncloud.com/jp/support/inquiry)にお問い合わせください。
 
 <a id="statistics"></a>
-
-## 統計
+## 統計 { #statistics }
 
 ネットワーク転送量、HTTPステータスコード別の統計、およびダウンロード数が最も多いコンテンツのランキング統計を確認できます。
 7日以内の統計データは正確ではないため、参考用としてのみご利用ください。正確な統計データは7日以降にご確認ください。
@@ -801,8 +767,8 @@ CDNキャッシュサーバーは、キャッシュ設定に従って指定さ�
 >  [参考] 最大検索期間
 > 直近90日間の統計データのみ照会可能です。
 
-<a id="alias_domain"></a>
-## ドメインエイリアス
+<a id="alias-domain"></a>
+## ドメインエイリアス { #alias-domain }
 ドメインエイリアス(Domain Alias)は、NHN Cloud CDNで既定で提供される[サービスID].toastcdn.netドメインの代わりに、お客様が所有するドメインでCDNサービスを利用できる機能です。
 ドメインエイリアスを使用するには、**ドメインエイリアス**タブでドメインを登録した後、所有権の検証を完了し、CDNサービスのドメインエイリアス項目に連携させる必要があります。所有するドメインでHTTPSプロトコルサービスを利用するには、**証明書管理**タブで証明書を発行してください。
 
@@ -820,8 +786,7 @@ CDNキャッシュサーバーは、キャッシュ設定に従って指定さ�
 > ```
 
 <a id="register-a-domain"></a>
-
-### ドメイン登録
+### ドメイン登録 { #register-a-domain }
 **ドメインエイリアス**タブでドメインを登録できます。
 
 1. **ドメインエイリアス**タブの**ドメイン追加**ボタンをクリックします。
@@ -833,15 +798,13 @@ CDNキャッシュサーバーは、キャッシュ設定に従って指定さ�
 > -  すでに登録されているドメインは重複して登録できません。
 
 <a id="verify-a-domain"></a>
-
-### ドメイン検証
+### ドメイン検証 { #verify-a-domain }
 登録したドメインの所有権を確認するため、ドメイン検証を進める必要があります。  
 ドメインの検証方式には、DNS TXTレコードの追加、HTTPファイル認証、HTTPリダイレクト認証の3つの方式があり、いずれか1つの方式のみ進めれば問題ありません。  
 **ドメインエイリアス**タブで登録したドメインを選択すると、検証に必要な情報と検証方法を確認できます。
 
-<a id="dns-txt-record-addition-method"></a>
-
-#### DNS TXTレコード追加方式
+<a id="verify-a-domain-dns-txt-record-addition-method"></a>
+#### DNS TXTレコード追加方式 { #verify-a-domain-dns-txt-record-addition-method }
 ドメインのDNS制御権限を確認し、ドメインを検証します。
 
 1. ドメインのDNSサービスプロバイダーのDNS管理ページでTXTレコードを追加します。
@@ -852,9 +815,8 @@ CDNキャッシュサーバーは、キャッシュ設定に従って指定さ�
     - レコード値: コンソールに表示された`レコード値`を入力します。
 2. TXTレコードの設定後、コンソールで**検証実行**ボタンをクリックします。
 
-<a id="http-file-authentication-method"></a>
-
-#### HTTPファイル認証方式
+<a id="verify-a-domain-http-file-authentication-method"></a>
+#### HTTPファイル認証方式 { #verify-a-domain-http-file-authentication-method }
 ドメインが紐付けられたWebサーバーにHTTPページを追加し、ドメインを検証します。
 
 1. コンソールに表示された`HTTPページURL`パスに、Webサーバーからアクセス可能なページを作成します。
@@ -864,9 +826,8 @@ CDNキャッシュサーバーは、キャッシュ設定に従って指定さ�
 
 > [注意] HTTPファイル認証方式は、HTTPの既定ポート(80)で運用中のWebサーバーでのみ使用できます。
 
-<a id="http-redirect-authentication-method"></a>
-
-#### HTTPリダイレクト認証方式
+<a id="verify-a-domain-http-redirect-authentication-method"></a>
+#### HTTPリダイレクト認証方式 { #verify-a-domain-http-redirect-authentication-method }
 ドメインが紐付けられたWebサーバーにリダイレクトを設定し、ドメインを検証します。
 
 1. コンソールに表示された`リダイレクト元URL`に対して、`リダイレクト先URL`へHTTP 301または302リダイレクトを設定します。
@@ -887,8 +848,7 @@ CDNキャッシュサーバーは、キャッシュ設定に従って指定さ�
 | 検証トークン期限切れ | 検証トークンが期限切れになった状態(トークン再発行後に再検証が必要) |
 
 <a id="integrate-an-alias-domain-with-the-cdn-service"></a>
-
-### CDNサービスにドメインエイリアスを連携
+### CDNサービスにドメインエイリアスを連携 { #integrate-an-alias-domain-with-the-cdn-service }
 ドメインの検証が完了すると、CDNサービスにドメインエイリアスを連携できます。
 
 1. **CDNサービス**タブで連携させるCDNサービスを選択し、**修正**ボタンをクリックします。
@@ -909,8 +869,7 @@ CDNキャッシュサーバーは、キャッシュ設定に従って指定さ�
 > 証明書を継続して維持するには、ドメインエイリアスを再度追加して認証した後、CDNサービスに再びドメインエイリアスとして連携させてください。
 
 <a id="delete-a-domain"></a>
-
-### ドメイン削除
+### ドメイン削除 { #delete-a-domain }
 登録したドメインエイリアスを削除できます。
 
 1. **ドメインエイリアス**タブで、削除するドメインを選択します。
@@ -921,7 +880,7 @@ CDNキャッシュサーバーは、キャッシュ設定に従って指定さ�
 
 
 <a id="certificate"></a>
-## 証明書管理
+## 証明書管理 { #certificate }
 所有するドメインでコンテンツをセキュア通信(HTTPS)で送信するには、CDNサーバーに所有するドメインの証明書をデプロイする必要があります。証明書がない場合、クライアント(ブラウザ)とCDNエッジサーバー間でセキュア通信(HTTPS)を行うことができず、証明書エラーが発生します。
 NHN Cloud CDNの証明書管理では、以下の機能を提供しています。
 
@@ -930,8 +889,7 @@ NHN Cloud CDNの証明書管理では、以下の機能を提供しています�
 - 期限切れになる前に自動更新
 
 <a id="issue-new-certificates"></a>
-
-### 新規証明書の発行
+### 新規証明書の発行 { #issue-new-certificates }
 **証明書管理**タブで証明書を発行できます。
 ![CDN新規証明書の発行](https://static.toastoven.net/prod_cdn/v2/console-certificate-create_202403.png)
 
@@ -948,8 +906,7 @@ NHN Cloud CDNの証明書管理では、以下の機能を提供しています�
 > 5. 新規証明書の発行リクエスト後、ステータスがドメイン検証待ちに変わるまで数十分(最大1〜2時間)かかる場合があります。ステータスが変更されると、NHN Cloudプロジェクトのメンバー宛てに通知メールが送信されます。システムエラー等でメールが届かない場合は、コンソール画面から状態をご確認ください。
 
 <a id="validate-domain"></a>
-
-### ドメイン検証
+### ドメイン検証 { #validate-domain }
 新規証明書の発行リクエスト後、ステータスがドメイン検証状態に変わったら、以下の手順でドメイン検証を行ってください。
 詳細なドメイン検証手順については、コンソール上で対象ドメインを選択して確認するか、プロジェクトメンバー宛てに送信されるガイドメールの内容をご参照ください。
 
@@ -961,9 +918,8 @@ NHN Cloud CDNの証明書管理では、以下の機能を提供しています�
 
 ![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2_202403.png)
 
-<a id="adding-dns-txt-records"></a>
-
-#### DNS TXTレコード追加方式
+<a id="validate-domain-adding-dns-txt-records"></a>
+#### DNS TXTレコード追加方式 { #validate-domain-adding-dns-txt-records }
 ドメインのDNS制御権限を利用して検証を行います。
 
 1. ドメインのDNSサービスプロバイダーのDNS管理ページでTXTレコードを追加します。
@@ -980,9 +936,8 @@ NHN Cloud CDNの証明書管理では、以下の機能を提供しています�
 ![CDNドメイン検証](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns_202105.png)
 
 
-<a id="adding-http-pages"></a>
-
-#### HTTPページ追加方式
+<a id="validate-domain-adding-http-pages"></a>
+#### HTTPページ追加方式 { #validate-domain-adding-http-pages }
 ドメインが紐付けられているWebサーバーに指定のHTTPページを配置して検証を行います。
 
 1. Webサーバー上の `http://[対象ドメイン]/.well-known/acme-challenge/[指定された文字列]` のパスにHTTPページを作成します。
@@ -995,8 +950,7 @@ NHN Cloud CDNの証明書管理では、以下の機能を提供しています�
 > - 「HTTPページ追加方式」は、WebサーバーがHTTPの既定ポート(80番)で稼働している場合のみ利用可能です。80番ポートを使用できない環境の場合は、「DNS TXTレコード追加方式」をご利用ください。
 
 <a id="issue-and-deploy-certificates"></a>
-
-### 証明書の発行およびデプロイ
+### 証明書の発行およびデプロイ { #issue-and-deploy-certificates }
 ドメイン検証を通過すると、数時間以内に証明書の発行およびCDNサーバーへのデプロイ作業が開始されます。
 コンソール上のステータスが**証明書発行およびデプロイ**に変わり、NHN Cloudプロジェクトのメンバー宛てに通知メールが送信されます。
 お客様側で対応が必要な作業はありません。デプロイの完了をお待ちください。
@@ -1005,8 +959,7 @@ NHN Cloud CDNの証明書管理では、以下の機能を提供しています�
 > 証明書の発行およびデプロイ処理が完了するまでに、最大で9時間以上かかる場合があります。
 
 <a id="integrate-with-cdn-service"></a>
-
-### CDNサービスへの連携
+### CDNサービスへの連携 { #integrate-with-cdn-service }
 発行された証明書を利用するには、対象のCDNサービスに連携させる必要があります。
 連携作業を行わない場合や、連携設定を解除してしまった場合、証明書の自動更新が行われず期限切れとなる恐れがあるためご注意ください。
 

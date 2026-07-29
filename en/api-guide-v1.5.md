@@ -1,24 +1,22 @@
 <!-- pre-align:aligned sig=3df7fa164214 -->
 
-## Content Delivery > CDN > API v1.5 Guide
+<a id="content-delivery-cdn-api-v15-guide"></a>
+## Content Delivery > CDN > API v1.5 Guide { #content-delivery-cdn-api-v15-guide }
 
 This document describes Public API v1.5 provided by NHN Cloud CDN.
 
 <a id="common-api-information"></a>
-
-## Common API Information
+## Common API Information { #common-api-information }
 
 <a id="domain"></a>
-
-### Domain
+### Domain { #domain }
 
 | Name         | Domain                             |
 | --------------- | ------------------------------------- |
 | Public API CDN Domain | https://cdn.api.nhncloudservice.com |
 
 <a id="prerequisites"></a>
-
-### Prerequisites
+### Prerequisites { #prerequisites }
 
 AppKey and SecretKey are required to use the CDN API.
 An Appkey is a unique authentication key issued for each NHN Cloud service, used to identify the service and validate API requests. A SecretKey is a private key used to control access to the API. For more information on checking and using Appkeys, please refer to the [Appkey](https://docs.nhncloud.com/en/nhncloud/en/public-api/appkey).
@@ -27,20 +25,17 @@ Project Integrated Appkey can be used in place of the Appkey. Project Integrated
 For more information on creating and using Project Integrated Appkeys, please refer to the [Project Integrated Appkey](https://docs.nhncloud.com/en/nhncloud/en/public-api/project-integrated-appkey).
 
 <a id="common-request-information"></a>
+### Common Request Information { #common-request-information }
 
-### Common Request Information
-
-<a id="request-header"></a>
-
-#### Request Header
+<a id="common-request-information-request-header"></a>
+#### Request Header { #common-request-information-request-header }
 
 | Name          | Description                   |
 | ------------- | ----------------------------- |
 | Authorization | SecretKey issued on a console |
 
-<a id="path-parameter"></a>
-
-#### Path Parameter
+<a id="common-request-information-path-parameter"></a>
+#### Path Parameter { #common-request-information-path-parameter }
 
 In all APIs, the appKey must be specified in the path parameter.
 * e.g.) /v1.5/appKeys/**{appKey}**/distributions
@@ -50,12 +45,10 @@ In all APIs, the appKey must be specified in the path parameter.
 | appKey | Appkey issued on a console |
 
 <a id="common-response-information"></a>
+### Common Response Information { #common-response-information }
 
-### Common Response Information
-
-<a id="header"></a>
-
-#### Header
+<a id="common-response-information-header"></a>
+#### Header { #common-response-information-header }
 
 Respond with **200 OK** to all API requests. For more details, see the header at the response body as below.
 
@@ -79,9 +72,8 @@ Respond with **200 OK** to all API requests. For more details, see the header at
 | header.resultCode    | Integer | Result code       |
 | header.resultMessage | String  | Result message    |
 
-<a id="cdn-status-codes"></a>
-
-#### CDN Status Codes
+<a id="common-response-information-cdn-status-codes"></a>
+#### CDN Status Codes { #common-response-information-cdn-status-codes }
 
 Below shows the status codes of CDN service, which are available at the query of service.
 
@@ -99,16 +91,13 @@ Below shows the status codes of CDN service, which are available at the query of
 
 
 <a id="service-api"></a>
-
-## Service API
+## Service API { #service-api }
 
 <a id="create"></a>
+### Create { #create }
 
-### Create
-
-<a id="request"></a>
-
-#### Request
+<a id="create-request"></a>
+#### Request { #create-request }
 
 
 [URI]
@@ -177,9 +166,8 @@ Below shows the status codes of CDN service, which are available at the query of
 - The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
 
-<a id="response"></a>
-
-#### Response
+<a id="create-response"></a>
+#### Response { #create-response }
 
 
 [Response Body]
@@ -247,12 +235,10 @@ Below shows the status codes of CDN service, which are available at the query of
 
 
 <a id="get"></a>
+### Get { #get }
 
-### Get
-
-<a id="request-2"></a>
-
-#### Request
+<a id="get-request"></a>
+#### Request { #get-request }
 
 
 [URI]
@@ -276,9 +262,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
  -H "Content-Type: application/json"
 ```
 
-<a id="response-2"></a>
-
-#### Response
+<a id="get-response"></a>
+#### Response { #get-response }
 
 
 [Response Body]
@@ -342,12 +327,10 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 
 <a id="modify"></a>
+### Modify { #modify }
 
-### Modify
-
-<a id="request-3"></a>
-
-#### Request
+<a id="modify-request"></a>
+#### Request { #modify-request }
 
 
 [URI]
@@ -410,9 +393,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 - The default value of forwardHostHeader is REQUEST_HOST_HEADER if domainAlias is set, or ORIGIN_HOSTNAME otherwise.
 
 
-<a id="response-3"></a>
-
-#### Response
+<a id="modify-response"></a>
+#### Response { #modify-response }
 
 
 [Response Body]
@@ -439,14 +421,12 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 
 <a id="patch"></a>
-
-### Patch
+### Patch { #patch }
 
 Apply partial modification API to change a part of the service setting.
 
-<a id="request-4"></a>
-
-#### Request
+<a id="patch-request"></a>
+#### Request { #patch-request }
 
 
 [URI]
@@ -508,9 +488,8 @@ Apply partial modification API to change a part of the service setting.
 - To set the origins field, origin and originPath fields are required, and either port, httpPort, or httpsPort field must be included.
 - To set the callback field, httpMethod and url fields are required.
 
-<a id="response-4"></a>
-
-#### Response
+<a id="patch-response"></a>
+#### Response { #patch-response }
 
 
 [Response Body]
@@ -537,12 +516,10 @@ Apply partial modification API to change a part of the service setting.
 
 
 <a id="delete"></a>
+### Delete { #delete }
 
-### Delete
-
-<a id="request-5"></a>
-
-#### Request
+<a id="delete-request"></a>
+#### Request { #delete-request }
 
 
 [URI]
@@ -571,9 +548,8 @@ Apply partial modification API to change a part of the service setting.
 
 **\* With the input of many domains, all corresponding services are closed.**
 
-<a id="response-5"></a>
-
-#### Response
+<a id="delete-response"></a>
+#### Response { #delete-response }
 
 
 [Response Body]
@@ -599,16 +575,13 @@ Apply partial modification API to change a part of the service setting.
 | header.resultMessage | String  | Result message    |
 
 <a id="cache-purge-api"></a>
-
-## Cache Purge API
+## Cache Purge API { #cache-purge-api }
 
 <a id="purge"></a>
+### Purge { #purge }
 
-### Purge
-
-<a id="request-6"></a>
-
-#### Request
+<a id="purge-request"></a>
+#### Request { #purge-request }
 
 [URI]
 
@@ -636,9 +609,8 @@ Apply partial modification API to change a part of the service setting.
 | purgeType | List   | Required |         | ITEM / ALL | Purge type ("ITEM", or "ALL")                    |
 | purgeList | String | Optional |         |                       | List of items to purge (delimit by \n tokens; not required, if the purge type is ALL.) |
 
-<a id="response-6"></a>
-
-#### Response
+<a id="purge-response"></a>
+#### Response { #purge-response }
 
 [Response Body]
 
@@ -669,12 +641,10 @@ Apply partial modification API to change a part of the service setting.
 - ITEM type is restricted in the number of purge paths per request. When it is requested in excess of the number, purge is divided and requested as much as the number of purge paths per request. In such case, only the redeployment request number of the initial purge request is delivered as response.
 
 <a id="get-cache-purges"></a>
+### Get Cache Purges { #get-cache-purges }
 
-### Get Cache Purges
-
-<a id="request-7"></a>
-
-#### Request
+<a id="get-cache-purges-request"></a>
+#### Request { #get-cache-purges-request }
 
 
 [URI]
@@ -701,9 +671,8 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
  -H "Content-Type: application/json"
 ```
 
-<a id="response-7"></a>
-
-#### Response
+<a id="get-cache-purges-response"></a>
+#### Response { #get-cache-purges-response }
 
 
 [Response Body]
@@ -760,8 +729,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
 | purges[0].path          | String  | Requested purge items |
 
 <a id="callback-response"></a>
-
-## Callback Response
+## Callback Response { #callback-response }
 With callback enabled for CDN service, when tasks are completed, such as Create/Modify/Suspend/Resume/Delete, response values are delivered to callback URL as below.
 
 [Response Body]

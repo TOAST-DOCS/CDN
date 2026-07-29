@@ -1,6 +1,7 @@
 <!-- pre-align:aligned sig=ec416b7f4d48 -->
 
-## Content Delivery > CDN > 오류 코드
+<a id="content-delivery-cdn-error-codes"></a>
+## Content Delivery > CDN > 오류 코드 { #content-delivery-cdn-error-codes }
 
 | errorCode | errorMessage | 설명                                                                                                       |
 |-----------| --- |----------------------------------------------------------------------------------------------------------|
