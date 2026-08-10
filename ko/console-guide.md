@@ -1,14 +1,12 @@
 <!-- pre-align:aligned sig=9deb1697d05f -->
 
 <a id="content-delivery-cdn-console-user-guide"></a>
-
-## Content Delivery > CDN > 콘솔 사용 가이드
+## Content Delivery > CDN > 콘솔 사용 가이드 { #content-delivery-cdn-console-user-guide }
 
 이 문서는 NHN Cloud CDN 콘솔에서 CDN 서비스를 구성하고 이용하는 방법을 설명합니다.
 
 <a id="creating-cdn-service"></a>
-
-## CDN 서비스 생성
+## CDN 서비스 생성 { #creating-cdn-service }
 
 **Contents Delivery > CDN**의 **CDN 서비스** 탭에서 **생성** 버튼을 클릭하면 **CDN 서비스 생성** 대화 상자가 나타납니다.
 CDN 서비스 도메인은 [서비스ID].toastcdn.net 형식으로 자동 생성됩니다. 만일 소유하고 있는 도메인을 서비스 도메인으로 이용하려면 **도메인 별칭**(domain alias) 기능을 이용할 수 있습니다.
@@ -18,18 +16,15 @@ CDN 서비스 도메인은 [서비스ID].toastcdn.net 형식으로 자동 생성
 > CDN 최초 생성 후 최대 3일까지 다운로드 속도가 다소 느려질 수 있습니다.
 
 <a id="basic-information"></a>
-
-### 기본 정보
+### 기본 정보 { #basic-information }
 기본 정보를 설정합니다.
 ![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default2_202403.png)
 
-<a id="basic-information-1"></a>
-
+<a id="basic-information-description"></a>
 #### 설명
 CDN 서비스의 설명을 추가합니다.
 
-<a id="domain-alias"></a>
-
+<a id="basic-information-domain-alias"></a>
 #### 도메인 별칭
 TOAST CDN은 기본으로 [서비스ID].toastcdn.net 형식의 서비스 도메인 주소를 제공하고 있습니다.
 기본 서비스 도메인 주소가 아닌 소유한 도메인으로 CDN 서비스를 이용하려면 **도메인 별칭**에서 설정하면 됩니다.
@@ -40,8 +35,7 @@ TOAST CDN은 기본으로 [서비스ID].toastcdn.net 형식의 서비스 도메�
 - 레코드 값(Rdata): `[서비스ID].toastcdn.net`
 - TTL: 임의의 값
 
-<a id="callback"></a>
-
+<a id="basic-information-callback"></a>
 #### 콜백
 CDN 서비스 생성과 변경 작업(수정, 일시 정지/재시작, 삭제)은 몇 시간이 걸립니다.
 작업이 완료된 후 설정한 콜백 URL로 변경 상태와 CDN 설정 정보를 전달받으려면 콜백을 설정하세요. 콜백으로 전달되는 정보는 [API 가이드 문서](./api-guide-v2.0/#cdn-service)를 참고하세요.
@@ -57,12 +51,11 @@ CDN 서비스 생성과 변경 작업(수정, 일시 정지/재시작, 삭제)�
 | {isSuccessful} | 서비스 변경 작업 성공 여부(API v1.0은 지원하지 않습니다.) | "true" 또는 "false" |
 
 <a id="origin"></a>
-### 원본 서버
+### 원본 서버 { #origin }
 CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니다.
 ![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
 <a id="origin-type"></a>
-
 #### 원본 타입
 - 오브젝트 스토리지: NHN Cloud Object Storage 서비스에서 생성한 컨테이너를 원본 서버로 설정합니다.
     - 리전: 오브젝트 스토리지의 컨테이너 정보를 조회할 리전을 선택합니다.
@@ -73,7 +66,6 @@ CDN 서비스로 배포할 원본 파일을 제공하는 서버를 설정합니�
 - 직접 입력: 별도로 운영 중인 원본 서버를 설정합니다.
 
 <a id="origin-server"></a>
-
 #### 원본 서버
 원본 서버는 CDN 서비스로 배포할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 전체 도메인 주소(FQDN, fully qualified domain name) 형식으로 입력할 수 있습니다. IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.
 운영 중인 원본 서버가 없다면, **원본 타입**의 **인스턴스** 옵션을 선택하여 NHN Cloud Instance 서비스의 인스턴스를 사용하거나 **오브젝트 스토리지** 옵션을 선택하여 NHN Cloud Object Storage 서비스의 컨테이너를 이용할 수 있습니다.
@@ -145,7 +137,6 @@ CDN 서비스 도메인으로 보안 전송(HTTPS)을 지원하려면 원본 서
 |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
 
 <a id="origin-server-port"></a>
-
 #### 원본 서버 포트
 원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야 합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정할 수 있습니다.  
 원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력해야 하며, 설정하지 않은 포트는 기본 포트 `HTTP:80`, `HTTPS:443`으로 설정됩니다.  
@@ -165,8 +156,7 @@ CDN 서비스 도메인으로 보안 전송(HTTPS)을 지원하려면 원본 서
 |9901-9908|
 |45002|
 
-<a id="original-path"></a>
-
+<a id="origin-server-original-path"></a>
 #### 원본 경로
 원본 파일의 경로 중 하위 경로를 설정합니다. 콘텐츠를 요청할 때 원본 경로를 생략하고 요청할 수 있습니다.
 
@@ -176,8 +166,7 @@ CDN 서비스 도메인으로 보안 전송(HTTPS)을 지원하려면 원본 서
 > - CDN 서비스 URL: http://[서비스ID].toastcdn.net/logo.png
 > - CDN 서비스 URL에서 원본 경로(/files/images)를 생략하여 요청할 수 있습니다.
 
-<a id="downgrading-http-protocols-requesting-originals"></a>
-
+<a id="origin-server-downgrading-http-protocols-requesting-originals"></a>
 #### 원본 요청 HTTP 프로토콜 다운그레이드
 CDN 에지(edge) 서버는 원본 서버에 원본 파일을 요청할 때 클라이언트의 원본 요청(request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.
 즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않으면, CDN 에지 서버에서 원본 서버로 요청할 때 HTTPS 프로토콜로 요청하기 때문에 원본 파일을 응답받을 수 없습니다.
@@ -190,8 +179,7 @@ CDN 에지(edge) 서버는 원본 서버에 원본 파일을 요청할 때 클�
 > - CDN 서버에서 원본 서버로 다운그레이드를 요청할 때 다음의 헤더는 제외될 수 있습니다.
     >    `Origin`, `Referer`, `Cookie`, `Cookie2`, `sec-\*`, `proxy-\*`
 
-<a id="forward-host-header"></a>
-
+<a id="origin-server-forward-host-header"></a>
 #### Forward Host Header
 CDN 서버가 원본 서버에 원본 파일을 요청할 때 전달할 `Host` 헤더 값을 설정합니다.
 원본 서버가 Name-based virtual host로 운영 중이라면 **요청 호스트 헤더** 설정이 필요할 수 있습니다. 원본 서버의 운영 형태에 따라 적합한 설정 값을 선택하세요.
@@ -204,50 +192,44 @@ CDN 서버가 원본 서버에 원본 파일을 요청할 때 전달할 `Host` �
 > `Host` 요청 헤더와 일치하는 인증서가 원본 서버에 설치되어 있지 않은 경우 보안 전송 오류가 발생합니다.
 > `Host` 요청 헤더는 Forward Host Header 설정에 따라 요청 호스트 헤더 또는 원본 호스트 이름으로 설정되므로 유의하세요.
 
-<a id="root_path_access_control"></a>
-### 루트 경로 접근 관리
+<a id="controlling-the-access-of-root-path"></a>
+### 루트 경로 접근 관리 { #controlling-the-access-of-root-path }
 CDN 서비스의 루트 경로에 대한 접근 제어를 설정할 수 있습니다.
 ![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin2_202403.png)
 
-<a id="set-root-path-access"></a>
-
+<a id="controlling-the-access-of-root-path-set-root-path-access"></a>
 #### 루트 경로 접근 설정
 - 사용: 루트 경로 접근 관리 기능을 활성화하여 루트 경로에 대한 요청을 차단하거나, 다른 페이지로 리다이렉트하도록 설정합니다.
 - 미사용: 루트 경로 접근 관리 기능을 비활성화합니다.
-<a id="access-control-method"></a>
-
+<a id="controlling-the-access-of-root-path-access-control-method"></a>
 #### 접근 제어 방식
 - Deny: 루트 경로에 대한 요청에 HTTP Response Code 403을 응답합니다.
 - Redirect: 루트 경로에 대한 요청을 사용자가 지정한 경로로 리다이렉트합니다.
-<a id="redirect-path"></a>
-
+<a id="controlling-the-access-of-root-path-redirect-path"></a>
 #### Redirect 경로
 루트 경로에 대한 요청을 리다이렉트할 경로를 입력합니다. Redirect 경로는 '/'로 시작해야 하고, CDN 서비스의 하위에 존재하는 경로여야 합니다.
-<a id="redirect-http-response-code"></a>
-
+<a id="controlling-the-access-of-root-path-redirect-http-response-code"></a>
 #### Redirect HTTP Response Code
 - 루트 경로에 대한 요청을 리다이렉트하고 전달할 HTTP Response Code를 설정합니다.
 - Redirect HTTP Response Code는 301, 302, 303, 307 중에서 선택할 수 있습니다.
 
 <a id="method"></a>
-### 메서드
+### 메서드 { #method }
 CDN에서 기본적으로 허용하는 메서드는 `GET`, `HEAD`, `OPTIONS`로, 이외의 메서드를 요청하면 거절 처리됩니다.
 해당 메서드 이외의 메서드를 허용하려면 원하는 메서드를 선택해 설정합니다.
 ![CDN서비스생성-루트경로](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
-<a id="allow-method-settings"></a>
-
+<a id="method-allow-method-settings"></a>
 #### 메서드 허용 설정
 허용 설정한 메서드 요청은 캐싱되지 않고 원본 서버로 전달됩니다.
 
 <a id="cache"></a>
-### 캐시
+### 캐시 { #cache }
 
 CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 ![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
-<a id="configuration-of-cache"></a>
-
+<a id="cache-configuration-of-cache"></a>
 #### 캐시 설정
 CDN 서버가 원본 파일을 캐싱할 때 사용할 캐시 설정을 선택할 수 있습니다.
 - 원본 설정 사용: 원본 서버의 응답에서 제공한 캐시 제어 헤더(`Cache-Control`, `Expires`)를 우선 적용합니다. 만일 원본 서버의 응답에 캐시 제어 헤더(`Cache-Control`, `Expires`)가 유효하지 않거나 없는 경우, 캐시 만료 시간(초)에 지정한 시간 동안 캐시됩니다. **원본 설정 사용** 옵션이 기본값입니다.
@@ -256,12 +238,10 @@ CDN 서버가 원본 파일을 캐싱할 때 사용할 캐시 설정을 선택�
 - No Store: 기존의 캐시를 모두 제거하고 CDN 캐시 기능을 비활성화합니다.
 
 <a id="cache-expiration-time-seconds"></a>
-
 #### 캐시 만료 시간(초)
 캐시 만료 시간을 지정하려면 **사용자 설정 사용** 버튼을 클릭하고 **캐시 만료 시간(초)**에서 캐시 만료 시간을 변경합니다.
 
-<a id="set-inclusion-of-query-string-in-cache-key"></a>
-
+<a id="cache-set-inclusion-of-query-string-in-cache-key"></a>
 #### 캐시 키 쿼리 문자열 포함 설정
 URL 기반으로 생성되는 캐시 키에 요청 쿼리 문자열을 포함할지 설정할 수 있습니다.
 - 전체 포함: 요청에 포함된 전체 쿼리 문자열을 캐시 키에 포함합니다. 캐시 키에 요청 쿼리 문자열이 포함되므로, 동일한 콘텐츠 요청에 대해 쿼리 문자열이 변경될 때마다 새로운 캐시 키가 생성됩니다. 요청 쿼리 문자열을 변경하여 콘텐츠를 새로 캐싱하려는 경우 선택합니다. **전체 포함** 옵션이 기본값입니다.
@@ -272,8 +252,7 @@ URL 기반으로 생성되는 캐시 키에 요청 쿼리 문자열을 포함할
 > 캐시 만료 시간은 기본값인 0부터 2,147,483,647(단위/초)까지 입력할 수 있습니다.
 
 
-<a id="cache-1"></a>
-
+<a id="cache-large-file-optimization"></a>
 #### Large File Optimization
 100MB 이상의 대용량 파일을 서비스할 때 성능과 안정성을 높이기 위한 설정입니다. 설정하지 않을 경우 CDN에서 허용하는 파일의 최대 용량은 1.8GB 미만이며, 1.8GB 이상의 대용량 파일을 서비스하려면 본 설정을 반드시 사용해야 합니다.
 
@@ -283,16 +262,14 @@ URL 기반으로 생성되는 캐시 키에 요청 쿼리 문자열을 포함할
 
 
 <a id="access-management-for-referer-header"></a>
-
-### 리퍼러(referer) 헤더 접근 관리
+### 리퍼러(referer) 헤더 접근 관리 { #access-management-for-referer-header }
 리퍼러 요청 헤더로 콘텐츠의 접근 관리를 설정합니다.
 ![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-root-path_202403.png)
 
 리퍼러 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. 리퍼러 요청 헤더로 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 헤더 접근 관리는 특정 리퍼러 요청 헤더만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
 정규 표현식 형태로 입력할 수 있으며, 여러 개를 입력할 때는 줄바꿈을 한 뒤 입력합니다.
 
-<a id="access-control-types"></a>
-
+<a id="access-management-for-referer-header-access-control-types"></a>
 #### 접근 제어 방식
 - 블랙리스트(blacklist) 타입
     * 특정 리퍼러 요청 헤더만 접근을 제한할 때 적합합니다.
@@ -301,8 +278,7 @@ URL 기반으로 생성되는 캐시 키에 요청 쿼리 문자열을 포함할
     * 특정 리퍼러 요청 헤더만 접근을 허용할 때 적합합니다.
     * 리퍼러 요청 헤더값이 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 허용됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 제한됩니다.
 
-<a id="content-access-if-referer-header-is-unavailable"></a>
-
+<a id="access-management-for-referer-header-content-access-if-referer-header-is-unavailable"></a>
 #### 리퍼러 헤더가 없는 경우 접근 허용
 리퍼러(referer) 요청 헤더가 없는 경우 콘텐츠 접근 허용 여부를 선택합니다.
 - 허용: 리퍼러 요청 헤더가 없는 경우 콘텐츠 접근을 허용하며 리퍼러 접근 제어가 동작하지 않습니다.
@@ -323,8 +299,7 @@ URL 기반으로 생성되는 캐시 키에 요청 쿼리 문자열을 포함할
 
 
 <a id="access-control-for-auth-token-authentication"></a>
-
-### Auth Token 인증 접근 관리
+### Auth Token 인증 접근 관리 { #access-control-for-auth-token-authentication }
 Auth Token 인증 접근 관리는 콘텐츠 요청에 인증 토큰을 추가하여 CDN 에지 서버에서 검증된 토큰만 콘텐츠 접근을 허용하는 보안 기능입니다.
 일회성으로 콘텐츠 접근을 허용하거나 제한된 사용자만 콘텐츠에 접근하도록 제어할 수 있습니다.
 토큰이 없거나 유효하지 않은 토큰으로 콘텐츠를 요청한 경우, `403 Forbidden` 응답이 전송되며 콘텐츠에 접근할 수 없습니다.
@@ -339,8 +314,7 @@ Auth Token 인증 접근을 CDN 서비스에 적용하려면 다음의 단계에
      > 이 작업을 하지 않고 Auth Token 인증 접근 관리를 설정할 경우, 토큰 검증 실패로 인해 콘텐츠 요청이 실패할 수 있으므로 주의하세요.
 
 
-<a id="nhn-cloud-cdn-console-access-control-settings-for-auth-token-authentication"></a>
-
+<a id="access-control-for-auth-token-authentication-nhn-cloud-cdn-console-access-control-settings-for-auth-token-authentication"></a>
 #### 1. NHN Cloud CDN 콘솔 > Auth Token 인증 접근 관리 설정
 
 CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관리를 설정합니다.
@@ -380,8 +354,7 @@ CDN 콘솔에서 다음의 내용을 참고하여 Auth Token 인증 접근 관�
 > 요청 URL 경로와 파일 확장자 모두 설정한 경우, 두 조건 중 하나만 일치해도 토큰 접근 제어가 동작합니다.
 > [예시] 요청 URL 경로 `/nhn/\*`, 파일 확장자 `png`가 설정된 경우: /nhn 하위의 모든 파일 또는 파일 확장자가 png인 콘텐츠에 대해 토큰을 검증합니다.
 
-<a id="create-a-token"></a>
-
+<a id="access-control-for-auth-token-authentication-create-a-token"></a>
 #### 2. 토큰 생성
 최종 콘텐츠 사용자가 콘텐츠에 접근하려면 토큰과 함께 콘텐츠를 요청해야 합니다. 따라서, 토큰을 생성해 최종 콘텐츠 사용자에게 발급해야 합니다.
 토큰 생성은 NHN Cloud CDN을 이용해 서비스 중인 애플리케이션에서 구현되어야 합니다.
@@ -633,8 +606,7 @@ public class NhnCloudAuthTokenAccessControlExample {
     - 생성된 토큰은 `exp={expirationTime}~acl={path!path!path}~id={sessionId}~hmac={HMAC}` 형식으로 생성됩니다.
         - [예시] 생성된 토큰: `exp=1600331503~acl=%2fnhn%2f*.png~id=session-id1~hmac=2509123dcabe2fc199e3ac44793e4e135a09590ff4ebf6a902ea26469ead7f91`
 
-<a id="include-created-token-to-the-request-of-content"></a>
-
+<a id="access-control-for-auth-token-authentication-include-created-token-to-the-request-of-content"></a>
 #### 3. 생성된 토큰을 콘텐츠 요청에 포함
 클라이언트(최종 콘텐츠 소비자)가 콘텐츠 요청 시 콘솔에서 설정한 토큰 위치에 생성된 토큰 값을 포함하여 요청하도록 합니다.
 
@@ -656,14 +628,12 @@ public class NhnCloudAuthTokenAccessControlExample {
 
 
 <a id="http-response-header"></a>
-
-### HTTP 응답 헤더
+### HTTP 응답 헤더 { #http-response-header }
 CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제하는 기능입니다.
 헤더는 중복되지 않은 헤더 이름으로 최대 10개까지 설정할 수 있습니다.
 ![CDN서비스생성-응답헤더(이미지수정필요)](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-http-response-header_202403.png)
 
 <a id="http-response-header-settings"></a>
-
 #### HTTP 응답 헤더 설정
 - 사용: HTTP 응답 헤더를 추가/변경/삭제하는 설정을 사용합니다.
 - 미사용: HTTP 응답 헤더를 설정하지 않습니다.
@@ -684,12 +654,10 @@ CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제
 
 
 <a id="settings"></a>
-
-## 설정
+## 설정 { #settings }
 
 <a id="modify-cdn-service-setting"></a>
-
-### CDN 서비스 설정 변경
+### CDN 서비스 설정 변경 { #modify-cdn-service-setting }
 서비스 도메인 이름을 제외한 CDN 서비스 설정을 변경할 수 있습니다.
 ![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify3_202403.png)
 
@@ -709,8 +677,7 @@ CDN에서 사용자에게 응답 시 전달되는 헤더를 추가/변경/삭제
 > 만약 수정 작업에 실패하면 기존 설정 정보로 롤백되며, CDN 서비스 목록의 배포 상태가 빨간색 원으로 표시됩니다. 설정 정보에 오류가 있거나 내부적으로 오류가 발생했을 때 수정 작업에 실패합니다.
 
 <a id="suspend-and-resume-cdn"></a>
-
-### CDN 서비스 일시 정지와 재시작
+### CDN 서비스 일시 정지와 재시작 { #suspend-and-resume-cdn }
 CDN 서비스를 일시적으로 정지하거나 재시작할 수 있습니다.
 
 
@@ -736,8 +703,7 @@ CDN 서비스를 일시적으로 정지하거나 재시작할 수 있습니다.
 
 
 <a id="delete-cdn"></a>
-
-### CDN 서비스 삭제
+### CDN 서비스 삭제 { #delete-cdn }
 CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 유의하세요.
 
 1. 삭제할 CDN 서비스를 선택합니다.
@@ -756,8 +722,7 @@ CDN 서비스를 삭제합니다. 삭제 작업은 복구할 수 없으므로 �
 
 
 <a id="purge"></a>
-
-## Purge
+## Purge { #purge }
 CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원본 서버의 파일을 캐시합니다. 파일을 캐시하면 원본 파일이 변경되어도 캐시가 만료되기 전까지는 변경 전 원본 파일을 유지합니다.
 변경된 원본 파일로 콘텐츠를 즉시 업데이트하려면 **Purge**를 요청해야 합니다.
 Purge를 하면 요청한 콘텐츠의 오래된 캐시 데이터를 삭제하고 원본 서버에서 새 원본 파일을 다시 캐시합니다.
@@ -788,8 +753,7 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 > CDN 서비스를 생성한 후 약 1시간 이내에는 Purge 요청에 실패할 수 있습니다. 이후에도 계속 실패하면 [NHN Cloud 고객 센터](https://www.nhncloud.com/kr/support/inquiry)로 문의하세요.
 
 <a id="statistics"></a>
-
-## 통계
+## 통계 { #statistics }
 
 네트워크 전송량, HTTP 상태 코드별 통계 및 다운로드가 가장 많은 콘텐츠의 순위 통계를 확인할 수 있습니다.
 7일 이내 통계 데이터는 정확하지 않으므로 참고용으로만 이용하세요. 정확한 통계 데이터는 7일 이후에 확인하세요.
@@ -803,8 +767,8 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 >  [참고] 최대 검색 기간
 > 최근 90일간의 통계 데이터만 조회가 가능합니다.
 
-<a id="alias_domain"></a>
-## 도메인 별칭
+<a id="alias-domain"></a>
+## 도메인 별칭 { #alias-domain }
 도메인 별칭(Domain Alias)은 NHN Cloud CDN에서 기본 제공하는 [서비스ID].toastcdn.net 도메인 대신 고객이 소유한 도메인으로 CDN 서비스를 이용하는 기능입니다.
 도메인 별칭을 사용하려면 **도메인 별칭** 탭에서 도메인을 등록한 후 소유권 검증을 완료하고, CDN 서비스의 도메인 별칭 항목에 연동해야 합니다. 소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 **인증서 관리** 탭에서 인증서를 발급받으시기 바랍니다.
 
@@ -822,8 +786,7 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 > ```
 
 <a id="register-a-domain"></a>
-
-### 도메인 등록
+### 도메인 등록 { #register-a-domain }
 **도메인 별칭** 탭에서 도메인을 등록할 수 있습니다.
 
 1. **도메인 별칭** 탭의 **도메인 추가** 버튼을 클릭합니다.
@@ -835,14 +798,12 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 > -  이미 등록된 도메인은 중복으로 등록할 수 없습니다.
 
 <a id="verify-a-domain"></a>
-
-### 도메인 검증
+### 도메인 검증 { #verify-a-domain }
 등록한 도메인의 소유권을 확인하기 위해 도메인 검증을 진행해야 합니다.  
 도메인 검증 방식에는 DNS TXT 레코드 추가, HTTP 파일 인증, HTTP 리다이렉트 인증 세 가지 방식이 있으며, 세 가지 방식 중 하나만 진행하면 됩니다.  
 **도메인 별칭** 탭에서 등록한 도메인을 선택하면 검증에 필요한 정보와 검증 방법을 확인할 수 있습니다.
 
-<a id="dns-txt-record-addition-method"></a>
-
+<a id="verify-a-domain-dns-txt-record-addition-method"></a>
 #### DNS TXT 레코드 추가 방식
 도메인의 DNS 제어 권한을 확인하여 도메인을 검증합니다.
 
@@ -854,8 +815,7 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
     - 레코드 값: 콘솔에 표시된 `레코드 값`을 입력합니다.
 2. TXT 레코드 설정 후 콘솔에서 **검증 실행** 버튼을 클릭합니다.
 
-<a id="http-file-authentication-method"></a>
-
+<a id="verify-a-domain-http-file-authentication-method"></a>
 #### HTTP 파일 인증 방식
 도메인이 연결된 웹 서버에 HTTP 페이지를 추가하여 도메인을 검증합니다.
 
@@ -864,8 +824,7 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 3. 웹 브라우저에서 해당 URL로 접속하여 페이지 콘텐츠 값이 표시되는지 확인합니다.
 4. 확인 후 콘솔에서 **검증 실행** 버튼을 클릭합니다.
 
-<a id="http-redirect-authentication-method"></a>
-
+<a id="verify-a-domain-http-redirect-authentication-method"></a>
 #### HTTP 리다이렉트 인증 방식
 도메인이 연결된 웹 서버에 리다이렉트를 설정하여 도메인을 검증합니다.
 
@@ -888,8 +847,7 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 | 검증 토큰 만료 | 검증 토큰이 만료된 상태(토큰 재발급 후 다시 검증 필요)                      |
 
 <a id="integrate-an-alias-domain-with-the-cdn-service"></a>
-
-### CDN 서비스에 도메인 별칭 연동
+### CDN 서비스에 도메인 별칭 연동 { #integrate-an-alias-domain-with-the-cdn-service }
 도메인 검증이 완료되면 CDN 서비스에 도메인 별칭을 연동할 수 있습니다.
 
 1. **CDN 서비스** 탭에서 연동할 CDN 서비스를 선택하고 **수정** 버튼을 클릭합니다.
@@ -910,8 +868,7 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 > 인증서를 계속 유지하려면 도메인 별칭을 다시 추가하여 인증한 후, CDN 서비스에 다시 도메인 별칭으로 연동하세요.
 
 <a id="delete-a-domain"></a>
-
-### 도메인 삭제
+### 도메인 삭제 { #delete-a-domain }
 등록한 도메인 별칭을 삭제할 수 있습니다.
 
 1. **도메인 별칭** 탭에서 삭제할 도메인을 선택합니다.
@@ -922,7 +879,7 @@ Purge는 사용량 제한이 있으므로 아래 표를 참고하시고 사용�
 
 
 <a id="certificate"></a>
-## 인증서 관리
+## 인증서 관리 { #certificate }
 소유한 도메인으로 콘텐츠를 보안 전송(HTTPS)하려면 CDN 서버에 소유한 도메인의 인증서를 배포해야 합니다. 인증서가 없으면 클라이언트(브라우저)와 CDN 에지 서버 간 보안 통신(HTTPS)을 할 수 없어 인증서 오류가 발생합니다.
 NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 
@@ -931,8 +888,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 - 인증서 만료 전 자동 갱신
 
 <a id="issue-new-certificates"></a>
-
-### 신규 인증서 발급
+### 신규 인증서 발급 { #issue-new-certificates }
 **인증서 관리** 탭에서 인증서를 발급할 수 있습니다.
 ![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create_202403.png)
 
@@ -949,8 +905,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 > 5. 신규 인증서 발급 요청 후 도메인 검증 단계는 몇 십분(최대 1~2시간) 후 변경될 수 있습니다. 인증서 상태가 도메인 검증 상태로 변경되면 NHN Cloud 프로젝트 멤버를 대상으로 이메일이 발송됩니다. 만일 시스템 오류로 이메일이 발송되지 않는다면 콘솔에서 상태를 확인하세요.
 
 <a id="validate-domain"></a>
-
-### 도메인 검증
+### 도메인 검증 { #validate-domain }
 신규 인증서 발급을 요청한 후 인증서가 도메인 검증 상태가 되면 도메인을 검증하세요.
 도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하세요.
 
@@ -962,8 +917,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 
 ![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2_202403.png)
 
-<a id="adding-dns-txt-records"></a>
-
+<a id="validate-domain-adding-dns-txt-records"></a>
 #### DNS TXT 레코드 추가 방식
 도메인의 DNS 제어 권한을 확인해 도메인을 검증합니다.
 
@@ -981,8 +935,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 ![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns_202105.png)
 
 
-<a id="adding-http-pages"></a>
-
+<a id="validate-domain-adding-http-pages"></a>
 #### HTTP 페이지 추가 방식
 도메인이 연결된 웹 서버에 HTTP 페이지를 추가해 도메인을 검증합니다.
 
@@ -996,8 +949,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 > -  도메인 검증 방식 중 HTTP 페이지 추가 방식은 HTTP 서버가 기본 포트(80)로 운영 중일 때만 가능합니다. 포트를 변경할 수 없다면 DNS TXT 레코드 추가 방식을 이용하세요.
 
 <a id="issue-and-deploy-certificates"></a>
-
-### 인증서 발급 및 배포
+### 인증서 발급 및 배포 { #issue-and-deploy-certificates }
 도메인 검증을 통과하면 몇 시간 내 인증서 발급 및 배포 작업이 진행됩니다.
 콘솔의 인증서 상태가  **인증서 발급 및 배포** 단계로 표시되며, NHN Cloud 프로젝트 멤버 대상으로 알림 메일이 발송됩니다.
 이 단계에서는 별도로 작업할 내용은 없습니다.
@@ -1006,8 +958,7 @@ NHN Cloud CDN의 인증서 관리는 다음과 같은 기능을 제공합니다.
 > 인증서 발급 및 배포 작업은 최대 9시간 이상 걸릴 수 있습니다.
 
 <a id="integrate-with-cdn-service"></a>
-
-### CDN 서비스 연동
+### CDN 서비스 연동 { #integrate-with-cdn-service }
 발급된 인증서를 이용하려면 CDN 서비스와 연동해야 합니다.
 이 작업을 진행하지 않거나 작업 내용을 유지하지 않으면 발급된 인증서가 만료될 수 있으므로 주의하세요.
 
