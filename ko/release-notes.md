@@ -19,10 +19,10 @@
 * 도메인 별칭 기능 추가
 	* 소유한 도메인을 CDN 서비스 도메인의 별칭으로 등록하여 사용할 수 있는 도메인 별칭 기능이 추가되었습니다.
 	* 도메인 소유권 검증 방식으로 DNS TXT 레코드 추가, HTTP 파일 인증, HTTP 리다이렉트 인증을 지원합니다.
-	* 자세한 내용은 [콘솔 가이드 > 도메인 별칭](./console-guide/#alias_domain)을 참고하세요.
+	* 자세한 내용은 [콘솔 가이드 > 도메인 별칭](./console-guide/#alias-domain)을 참고하세요.
 * 도메인 별칭 API 추가
 	* 도메인 별칭 등록/조회/삭제, 도메인 검증, 검증 상태 새로고침, 검증 토큰 재발급 API가 추가되었습니다.
-	* 자세한 내용은 [API v2.0 가이드 > 도메인 별칭 API](./api-guide-v2.0/#alias_domain_api)를 참고하세요.
+	* 자세한 내용은 [API v2.0 가이드 > 도메인 별칭 API](./api-guide-v2.0/#alias-domain-api)를 참고하세요.
 
 <a id="april-28-2026-feature-updates"></a>
 #### 기능 개선/변경
@@ -148,7 +148,7 @@
 
 <a id="may-25-2021-feature-updates"></a>
 #### 기능 개선/변경
-* 루트 경로 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > 루트 경로 접근 관리](./console-guide/#root_path_access_control)를 참고하세요.
+* 루트 경로 접근 관리 기능이 추가되었습니다. 자세한 내용은 [콘솔 가이드 > 루트 경로 접근 관리](./console-guide/#controlling-the-access-of-root-path)를 참고하세요.
 
 <a id="october-6-2020"></a>
 ### 2020. 10. 06. { #october-6-2020 }

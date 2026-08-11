@@ -755,7 +755,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | sessionId |           String | Optional |    |  String length is up to 36 bytes           | Generates token including sessionId for a single access request |
 
 * At least one of `singlePath`, `singleWildcardPath`, or `multipleWildcardPath` must exist.
-* For details on creating and using tokens, refer to [Console User Guide > Access Control for Auth Token Authentication > 2. Create a Token](./console-guide/#create-a-token).
+* For details on creating and using tokens, refer to [Console User Guide > Access Control for Auth Token Authentication > 2. Create a Token](./console-guide/#access-control-for-auth-token-authentication-create-a-token).
 
 
 <a id="create-an-auth-token-response"></a>

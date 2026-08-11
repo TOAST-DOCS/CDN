@@ -20,10 +20,10 @@
 * Added alias domain feature
 	* Added an alias domain feature that allows you to register a domain you own as an alias for a CDN service domain.
 	* Supports DNS TXT record addition, HTTP file authentication, and HTTP redirect authentication as domain ownership validation methods.
-	* For more information, see [Console Guide > Alias Domain](./console-guide/#alias_domain).
+	* For more information, see [Console Guide > Alias Domain](./console-guide/#alias-domain).
 * Added alias domain API
 	* Added APIs for alias domain registration, retrieval, and deletion, as well as domain validation, validation status refresh, and validation token reissue.
-	* For more information, see [API v2.0 Guide > Alias Domain API](./api-guide-v2.0/#alias_domain_api).
+	* For more information, see [API v2.0 Guide > Alias Domain API](./api-guide-v2.0/#alias-domain-api).
 
 <a id="april-28-2026-feature-updates"></a>
 #### Feature Updates
@@ -149,7 +149,7 @@
 
 <a id="may-25-2021-feature-updates"></a>
 #### Feature Updates
-* The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#root_path_access_control).
+* The root path accessibility function has been added. For more details, please refer to [Console Guide > Root Path Access Control ](./console-guide/#controlling-the-access-of-root-path).
 
 <a id="october-6-2020"></a>
 ### October 6, 2020 { #october-6-2020 }
