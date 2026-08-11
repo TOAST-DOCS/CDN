@@ -727,7 +727,7 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v3.0/appKeys/{appKey}/distribut
 | sessionId |           String | 任意 |    |  文字列の長さは最大36バイト           | 単一のアクセスリクエストに対してsessionIdを含めてトークンを生成 |
 
 * `singlePath`、`singleWildcardPath`、`multipleWildcardPath`のうち、1つ以上の値が必須で存在する必要があります。
-* トークンの生成及び使用に関する詳細な内容は、[コンソール使用ガイド > Auth Token 認証アクセス管理 > 2. トークン生成](./console-guide/#create-a-token)をご参照ください。
+* トークンの生成及び使用に関する詳細な内容は、[コンソール使用ガイド > Auth Token 認証アクセス管理 > 2. トークン生成](./console-guide/#access-control-for-auth-token-authentication-create-a-token)をご参照ください。
 
 
 <a id="create-auth-token-response"></a>
