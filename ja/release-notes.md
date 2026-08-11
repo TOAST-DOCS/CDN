@@ -9,7 +9,7 @@
 <a id="june-23-2026-feature-updates"></a>
 #### 機能改善・変更
 * CDN Public API v3.0の追加
-* 詳細は[API v3.0 ガイド](./api-guide-v3.0)をご参照ください。
+* 詳細は[API v3.0 ガイド](./api-guide-v3.0/)をご参照ください。
 
 <a id="april-28-2026"></a>
 ### 2026. 04. 28. { #april-28-2026 }
