@@ -1,26 +1,22 @@
 <!-- pre-align:aligned sig=d1f02419975d -->
 
 <a id="content-delivery-cdn-api-v15-guide"></a>
-
-## Content Delivery > CDN > API v1.5ガイド
+## Content Delivery > CDN > API v1.5ガイド { #content-delivery-cdn-api-v15-guide }
 
 NHN Cloud CDNで提供するPublic API v1.5について説明します。
 
 <a id="common-api-information"></a>
-
-## API共通情報
+## API共通情報 { #common-api-information }
 
 <a id="domain"></a>
-
-### ドメイン
+### ドメイン { #domain }
 
 | 名前             | ドメイン                                |
 | --------------- | ----------------------------------- |
 | CDN Public APIドメイン | https://cdn.api.nhncloudservice.com |
 
 <a id="prerequisites"></a>
-
-### 事前準備
+### 事前準備 { #prerequisites }
 
 CDN APIを使用するには、AppkeyとSecretKeyが必要です。
 Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証キーであり、APIリクエスト時のサービス識別と有効性検証に使用されます。SecretKeyは、APIへのアクセスを制御するシークレットキーです。
@@ -30,19 +26,16 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 プロジェクト統合Appkeyの作成及び使用に関する詳細は、[プロジェクト統合Appkey](https://docs.nhncloud.com/ja/nhncloud/ja/public-api/project-integrated-appkey)を参照してください。
 
 <a id="common-request-information"></a>
+### リクエスト共通情報 { #common-request-information }
 
-### リクエスト共通情報
-
-<a id="request-header"></a>
-
+<a id="common-request-information-request-header"></a>
 #### リクエストヘッダ
 
 | 名前        | 説明                    |
 | ------------- | ------------------------- |
 | Authorization | コンソールで発行されたセキュリティーキー(SecretKey) |
 
-<a id="path-parameter"></a>
-
+<a id="common-request-information-path-parameter"></a>
 #### Pathパラメータ
 
 すべてのAPIは、appKeyをpathパラメータに指定する必要があります。
@@ -53,11 +46,9 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | appKey | コンソールで発行されたアプリキー(Appkey) | 
 
 <a id="common-response-information"></a>
+### レスポンス共通情報 { #common-response-information }
 
-### レスポンス共通情報
-
-<a id="header"></a>
-
+<a id="common-response-information-header"></a>
 #### ヘッダ
 
 すべてのAPIリクエストに対して、**200 OK**でレスポンスします。詳細なレスポンス結果は、次の例のようなレスポンス本文のヘッダを参考にしてください。
@@ -82,8 +73,7 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | header.resultCode | Integer | 結果コード |
 | header.resultMessage | String | 結果メッセージ |
 
-<a id="cdn-status-codes"></a>
-
+<a id="common-response-information-cdn-status-codes"></a>
 #### CDN状態コード
 
 次はCDNサービスの状態を表す状態コードで、サービス照会時にサービス状態を確認できます。
@@ -102,15 +92,12 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 
 
 <a id="service-api"></a>
-
-## サービスAPI
+## サービスAPI { #service-api }
 
 <a id="create"></a>
+### サービス作成 { #create }
 
-### サービス作成
-
-<a id="request"></a>
-
+<a id="create-request"></a>
 #### リクエスト
 
 
@@ -179,8 +166,7 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 
 - forwardHostHeaderのデフォルト値は、domainAliasを設定した場合はREQUEST_HOST_HEADERで、未設定の場合はORIGIN_HOSTNAMEです。
 
-<a id="response"></a>
-
+<a id="create-response"></a>
 #### レスポンス
 
 
@@ -249,11 +235,9 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 
 
 <a id="get"></a>
+### サービス照会 { #get }
 
-### サービス照会
-
-<a id="request-2"></a>
-
+<a id="get-request"></a>
 #### リクエスト
 
 
@@ -278,8 +262,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
  -H "Content-Type: application/json"
 ```
 
-<a id="response-2"></a>
-
+<a id="get-response"></a>
 #### レスポンス
 
 
@@ -344,11 +327,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 
 <a id="modify"></a>
+### サービス修正 { #modify }
 
-### サービス修正
-
-<a id="request-3"></a>
-
+<a id="modify-request"></a>
 #### リクエスト
 
 
@@ -412,8 +393,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 - forwardHostHeaderのデフォルト値は、domainAliasを設定した場合はREQUEST_HOST_HEADERで、未設定の場合はORIGIN_HOSTNAMEです。
 
-<a id="response-3"></a>
-
+<a id="modify-response"></a>
 #### レスポンス
 
 
@@ -441,13 +421,11 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 
 <a id="patch"></a>
-
-### サービスの部分修正
+### サービスの部分修正 { #patch }
 
 サービスの一部設定を変更する場合、部分修正APIを利用できます。
 
-<a id="request-4"></a>
-
+<a id="patch-request"></a>
 #### リクエスト
 
 
@@ -510,8 +488,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 - originsフィールドを設定する時、origin、originPathフィールドは必須入力値です。portフィールド、httpPort、httpsPortフィールドのいずれか1つは必ず入力する必要があります。
 - callbackフィールドを設定する時、httpMethod、urlフィールドは必須入力値です。
 
-<a id="response-4"></a>
-
+<a id="patch-response"></a>
 #### レスポンス
 
 
@@ -539,11 +516,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 
 <a id="delete"></a>
+### サービス削除 { #delete }
 
-### サービス削除
-
-<a id="request-5"></a>
-
+<a id="delete-request"></a>
 #### リクエスト
 
 
@@ -573,8 +548,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 
 **\* 複数のドメイン入力時、該当サービスはすべて終了します。**
 
-<a id="response-5"></a>
-
+<a id="delete-response"></a>
 #### レスポンス
 
 
@@ -601,15 +575,12 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | header.resultMessage | String  | 結果メッセージ |
 
 <a id="cache-purge-api"></a>
-
-## キャッシュ再配布API
+## キャッシュ再配布API { #cache-purge-api }
 
 <a id="purge"></a>
+### キャッシュ再配布(Purge) { #purge }
 
-### キャッシュ再配布(Purge)
-
-<a id="request-6"></a>
-
+<a id="purge-request"></a>
 #### リクエスト
 
 [URI]
@@ -638,8 +609,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | purgeType | List   | 必須     |        | ITEM / ALL | 再配布タイプ("ITEM"、"ALL")                       |
 | purgeList | String | 任意     |        |                       | 再配布対象項目リスト(複数入力する時は\\nトークンで区分して入力してください。purgeTypeがALLの場合は入力しなくても構いません。) |
 
-<a id="response-6"></a>
-
+<a id="purge-response"></a>
 #### レスポンス
 
 [レスポンス本文]
@@ -671,11 +641,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 - ITEM、WILDCARDタイプは1リクエスト当たりのパージパス数が制限されています。超過してリクエストした場合、リクエストが複数に分かれてパージリクエストが進行されます。この場合、パージリクエストの再配布リクエスト番号のみレスポンスで伝達されます。   
 
 <a id="get-cache-purges"></a>
+### キャッシュ再配布(Purge)照会 { #get-cache-purges }
 
-### キャッシュ再配布(Purge)照会
-
-<a id="request-7"></a>
-
+<a id="get-cache-purges-request"></a>
 #### リクエスト
 
 
@@ -703,8 +671,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
  -H "Content-Type: application/json"
 ```
 
-<a id="response-7"></a>
-
+<a id="get-cache-purges-response"></a>
 #### レスポンス
 
 
@@ -762,8 +729,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/purge
 | purges[0].path          | String  | 再配布要請項目                    |
 
 <a id="callback-response"></a>
-
-## コールバックレスポンス
+## コールバックレスポンス { #callback-response }
 CDNサービスにコールバック機能が設定されている場合、作成/修正/一時停止/再開/削除の変更作業完了時、コールバックURLに下記のようなレスポンス値を伝達します。
 
 [レスポンス本文]

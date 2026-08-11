@@ -1,8 +1,7 @@
 <!-- pre-align:aligned sig=33736e0e3daa -->
 
 <a id="content-delivery-cdn-error-codes"></a>
-
-## Content Delivery > CDN > エラーコード
+## Content Delivery > CDN > エラーコード { #content-delivery-cdn-error-codes }
 
 | errorCode | errorMessage | 説明                                                                                                      |
 |-----------| --- |----------------------------------------------------------------------------------------------------------|

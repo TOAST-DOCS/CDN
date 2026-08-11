@@ -1,8 +1,7 @@
 <!-- pre-align:aligned sig=94b082ffc877 -->
 
 <a id="content-delivery-cdn-overview"></a>
-
-## Content Delivery > CDN > 개요
+## Content Delivery > CDN > 개요 { #content-delivery-cdn-overview }
 
 CDN 서비스를 이용해 배포할 원본 콘텐츠를 원본 서버에 저장해 두면, 전 세계 캐시 서버로 콘텐츠가 배포됩니다. 최종 사용자는 가장 가까운 캐시 서버에서 빠른 속도로 파일을 전송받을 수 있습니다.
 
@@ -11,8 +10,7 @@ CDN 서비스를 이용해 배포할 원본 콘텐츠를 원본 서버에 저장
 콘텐츠를 최종 사용자에게 전달할 때, 일반 인터넷망이 아닌 전용선을 사용하여 더욱 높은 품질의 서비스를 제공할 수 있어 서비스 신뢰도도 높일 수 있습니다.
 
 <a id="main-features"></a>
-
-## 주요 기능
+## 주요 기능 { #main-features }
 
 - 캐시 설정으로 사용자 접근을 제어할 수 있습니다.<br/>
   리퍼러(referrer) 정보를 이용해 사용자 콘텐츠 접근 여부를 관리할 수 있습니다. 정규 표현식 형태로도 입력할 수 있으며 동시에 여러 리퍼러를 제어할 수 있습니다.
