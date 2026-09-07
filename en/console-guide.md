@@ -264,7 +264,7 @@ Large file optimization is set to improve performance and stability when handlin
 
 > [Note] Using the container created by the NHN Cloud Object Storage service as the origin server
 > For the Large File Optimization feature to work normally, the `ETag` response header delivered from the origin server must be enclosed in double quotation marks.
-> For more information about setting the `ETag` response header format for NHN Cloud Object Storage containers, see [Change Container Settings > Use the RFC-compliant ETag Format](../../../../en/Storage/Object%20Storage/en/api-guide/#change-container-settings) in the API guide of Object Storage.
+> For more information about setting the `ETag` response header format for NHN Cloud Object Storage containers, see [Change Container Settings > Use the RFC-compliant ETag Format](/nhncloud/en/Storage/Object%20Storage/en/api-guide/#change-container-settings/) in the API guide of Object Storage.
 
 
 <a id="cache-large-file-optimization"></a>
@@ -274,7 +274,7 @@ This setting is intended to increase performance and reliability when serving la
 
 > [Note] When using a container created by NHN Cloud Object Storage service as the source server
 > For the Large File Optimization feature to work properly, the `ETag` response header delivered by the source server must be enclosed in double quotes.
-> For more information about setting the `ETag` response header format for NHN Cloud Object Storage containers, see [Change container settings > Use RFC-compliant ETag format](../../../../en/Storage/Object%20Storage/en/api-guide/#change-container-settings) in the API guide for the Object Storage service.
+> For more information about setting the `ETag` response header format for NHN Cloud Object Storage containers, see [Change container settings > Use RFC-compliant ETag format](/nhncloud/en/Storage/Object%20Storage/en/api-guide/#change-container-settings/) in the API guide for the Object Storage service.
 
 <a id="access-management-for-referer-header"></a>
 ### Access Management for Referer Header { #access-management-for-referer-header }
