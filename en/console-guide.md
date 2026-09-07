@@ -259,13 +259,6 @@ You can set whether to include the request query string in the cache key generat
 > Cache expiration time is available from 0 (default) to 2,147,483,647 (seconds).
 
 
-####*Large File Optimization
-Large file optimization is set to improve performance and stability when handling large files of 100 MB or more. If not set, the maximum file size allowed for CDN is below 1.8 GB, and this setting must be used for files larger than the limit.
-
-> [Note] Using the container created by the NHN Cloud Object Storage service as the origin server
-> For the Large File Optimization feature to work normally, the `ETag` response header delivered from the origin server must be enclosed in double quotation marks.
-> For more information about setting the `ETag` response header format for NHN Cloud Object Storage containers, see [Change Container Settings > Use the RFC-compliant ETag Format](/nhncloud/en/Storage/Object%20Storage/en/api-guide/#change-container-settings/) in the API guide of Object Storage.
-
 
 <a id="cache-large-file-optimization"></a>
 #### Large File Optimization
