@@ -267,7 +267,7 @@ This setting is intended to increase performance and reliability when serving la
 
 > [Note] When using a container created by NHN Cloud Object Storage service as the source server
 > For the Large File Optimization feature to work properly, the `ETag` response header delivered by the source server must be enclosed in double quotes.
-> For more information about setting the `ETag` response header format for NHN Cloud Object Storage containers, see [Change container settings > Use RFC-compliant ETag format](/en/Storage/Object%20Storage/en/api-guide/#change-container-settings/) in the API guide for the Object Storage service.
+> For more information about setting the `ETag` response header format for NHN Cloud Object Storage containers, see [Change container settings > Use RFC-compliant ETag format](/Storage/Object%20Storage/en/api-guide/#change-container-settings/) in the API guide for the Object Storage service.
 
 <a id="access-management-for-referer-header"></a>
 ### Access Management for Referer Header { #access-management-for-referer-header }
