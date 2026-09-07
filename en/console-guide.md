@@ -1,4 +1,6 @@
-<!-- pre-align:aligned sig=9deb1697d05f -->
+<!-- machine_translated: true -->
+
+<!-- pre-align:aligned sig=af4fe5ba4572 -->
 
 <a id="content-delivery-cdn-console-user-guide"></a>
 ## Content Delivery > CDN > Console User Guide { #content-delivery-cdn-console-user-guide }
@@ -265,8 +267,8 @@ You can set whether to include the request query string in the cache key generat
 
 This setting is intended to increase performance and reliability when serving large files that are 100 MB or larger. If not enabled, the maximum size of files allowed by the CDN is less than 1.8 GB, and this setting must be enabled to serve files larger than 1.8 GB.
 
-> [Note] When using a container created by NHN Cloud Object Storage service as the source server
-> For the Large File Optimization feature to work properly, the `ETag` response header delivered by the source server must be enclosed in double quotes.
+> [Note] When using a container created by NHN Cloud Object Storage service as the origin server
+> For the Large File Optimization feature to work properly, the `ETag` response header delivered by the origin server must be enclosed in double quotes.
 > For more information about setting the `ETag` response header format for NHN Cloud Object Storage containers, see [Change container settings > Use RFC-compliant ETag format](/en/Storage/Object%20Storage/en/api-guide/#change-container-settings/) in the API guide for the Object Storage service.
 
 <a id="access-management-for-referer-header"></a>
