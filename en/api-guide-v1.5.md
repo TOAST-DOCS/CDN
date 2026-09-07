@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=d1f02419975d -->
 
 <a id="content-delivery-cdn-api-v15-guide"></a>
@@ -217,11 +219,10 @@ Below shows the status codes of CDN service, which are available at the query of
 | distributions                          | List    | List of created CDN objects                                  |
 | distributions[0].domain                | String  | Created domain (service) name                                |
 | distributions[0].domainAlias           | String  | List of domain alias (personal or company-owned domains)               |
-| distributions[0].region                | String  | Service region ("GLOBAL": Global service)            |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global)            |
 | distributions[0].description           | String  | Description                                                  |
 | distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
-| distributions[0].createTime            | String  | Date and time of creation                                    |
-| distributions[0].useOrigin             | String  | Whether to set origin server <br />("Y": Origin server setting, "N": User-configured) |
+| distributions[0].useOrigin             | String  | Whether to set origin server ("Y": Origin server setting, "N": User-configured) |
 | distributions[0].maxAge                | String  | Cache expiration time (second)                               |
 | distributions[0].referrerType          | String  | Referrer access control ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
 | distributions[0].referrers             | String  | List of referrers                                            |
@@ -309,10 +310,9 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | distributions                          | List    | List of created CDN objects                                  |
 | distributions[0].domain                | String  | Domain (service) name                                        |
 | distributions[0].domainAlias           | String  | List of domain alias (personal or company-owned domains)                   |
-| distributions[0].region                | String  | Service region ("GLOBAL": Global service)                                    |
+| distributions[0].region                | String  | Service region ("GLOBAL": Global)                                          |
 | distributions[0].description           | String  | Description                                                  |
 | distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
-| distributions[0].createTime            | String  | Date and time of creation                                    |
 | distributions[0].useOrigin             | String  | Whether to use origin server setting <br />("Y": Origin server setting, "N": User-configured) |
 | distributions[0].maxAge                | String  | Cache expiration time (second)                               |
 | distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
