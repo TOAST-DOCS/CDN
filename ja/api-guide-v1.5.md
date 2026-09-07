@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=d1f02419975d -->
 
 <a id="content-delivery-cdn-api-v15-guide"></a>
@@ -220,7 +222,6 @@ Appkeyの代わりに、プロジェクト統合Appkeyを使用することも�
 | distributions[0].region                | String  | サービス地域("GLOBAL"：グローバル)            |
 | distributions[0].description           | String  | 説明                                                    |
 | distributions[0].status                | String  | CDN状態コード([表] CDN状態コード参照)                                 |
-| distributions[0].createTime            | String  | 作成日時                                               |
 | distributions[0].useOrigin             | String  | 原本サーバー設定を使用するか("Y"：原本サーバー設定を使用、 "N"：ユーザー設定) |
 | distributions[0].maxAge                | String  | キャッシュ満了時間(秒)                                           |
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
@@ -312,8 +313,7 @@ curl -X GET "https://kr1-cdn.api.nhncloudservice.com/v1.5/appKeys/{appKey}/distr
 | distributions[0].region                | String  | サービス地域("GLOBAL":グローバル)                              |
 | distributions[0].description           | String  | 説明                                                    |
 | distributions[0].status                | String  | CDN状態コード([表] CDN状態コード参考)                                 |
-| distributions[0].createTime            | String  | 作成日時                                               |
-| distributions[0].useOrigin             | String  | 原本サーバー設定を使用するか("Y"：原本サーバー設定を使用、 "N"：ユーザーを設定) |
+| distributions[0].useOrigin             | String  | オリジンサーバー設定を使用するか("Y"：オリジンサーバー設定を使用、"N"：ユーザー設定) |
 | distributions[0].maxAge                | String  | キャッシュ満了時間(秒)                                           |
 | distributions[0].referrerType          | String  | リファラーアクセス管理("BLACKLIST"：ブラックリスト、 "WHITELIST"：ホワイトリスト) |
 | distributions[0].referrers             | String  | リファラーリスト                                             |
