@@ -20,10 +20,10 @@ NHN Cloud CDNで提供するPublic API v2.0について説明します。
 
 CDN APIを使用するには、AppkeyとSecretKeyが必要です。
 Appkeyは、NHN Cloudの各サービスごとに発行される固有の認証キーであり、APIリクエスト時のサービス識別と有効性検証に使用されます。SecretKeyは、APIへのアクセスを制御するシークレットキーです。
-Appkey及びSecretKeyの確認及び使用に関する詳細は、[Appkey](/ja/public-api/appkey/)を参照してください。
+Appkey及びSecretKeyの確認及び使用に関する詳細は、[Appkey](/nhncloud/ja/public-api/appkey/)を参照してください。
 
 Appkeyの代わりに、プロジェクト統合Appkeyを使用することも可能です。プロジェクト統合Appkeyは、NHN Cloudの1つのプロジェクト内の複数のサービスに対して共通で使用できる認証キーです。
-プロジェクト統合Appkeyの作成及び使用に関する詳細は、[プロジェクト統合Appkey](/ja/public-api/project-integrated-appkey/)を参照してください。
+プロジェクト統合Appkeyの作成及び使用に関する詳細は、[プロジェクト統合Appkey](/nhncloud/ja/public-api/project-integrated-appkey/)を参照してください。
 
 <a id="common-request-information"></a>
 ### リクエスト共通情報 { #common-request-information }
