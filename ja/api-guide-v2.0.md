@@ -606,8 +606,9 @@ curl -X GET "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/distribut
 | origins[0].originPath | String  | 任意  |        | 最大8192文字                                           | オリジンサーバーの下層パス                                  |
 | origins[0].httpPort   | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。)  |
 | origins[0].httpsPort  | Integer  | 任意    |        |[コンソール使用ガイド > オリジンサーバー](./console-guide/#origin-server-port)の「[表2]使用可能なオリジンサーバーポート番号」参照 | オリジンサーバーHTTPSプロトコルポート(origins[0].httpPortとorigins[0].httpsPortのいずれか1つは必ず入力する必要があります。) |
-| useOriginHttpProtocolDowngrade | Boolean  | 必須 | true/false       |          | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するか |
+| useOriginHttpProtocolDowngrade | Boolean  | 必須 | false       | true/false         | オリジンサーバーがHTTPレスポンスのみ可能な場合、CDNサーバーからオリジンサーバーにリクエストする時、HTTPSリクエストからHTTPリクエストにダウングレードするための設定を使用するか |
 | forwardHostHeader     | String  | 必須 |        | ORIGIN_HOSTNAME<br/>REQUEST_HOST_HEADER   | CDNサーバーがオリジンサーバーにコンテンツをリクエストする時、伝達するホストヘッダ設定("ORIGIN_HOSTNAME"：オリジンサーバーのホスト名で設定、"REQUEST_HOST_HEADER"：クライアントリクエストのホストヘッダで設定 |
+| useOrigin             | String  | 必須 |        | Y/N                                                          | キャッシュ満了設定(Y: オリジン設定の使用、"N": ユーザー設定の使用)      |
 | rootPathAccessControl  | Object  | 任意 |  |  | CDNサービスのルートパスに対するアクセス制御設定 | 
 | rootPathAccessControl.enable | Boolean | 必須 | false | true/false | ルートパスに対するアクセス制御使用(true)/未使用(false)          |
 | rootPathAccessControl.controlType  | String  | 任意 |  | DENY, REDIRECT | enableがtrueの場合は必須入力。ルートパスに対するアクセス制御方式("DENY"：アクセス拒否、"REDIRECT"：指定したパスにリダイレクト) | 
@@ -1405,7 +1406,7 @@ curl -X POST "https://cdn.api.nhncloudservice.com/v2.0/appKeys/{appKey}/alias-do
 | domain.distributionSeq | Integer | 連携したCDNサービスID |
 | domain.distribution | Object | 連携したCDNサービス情報 |
 | domain.distribution.domain          | String  | CDNサービスドメイン                                                        |
-| distribution.status | String | CDNサービス状態コード([表]CDN状態コードを参照) |
+| domain.distribution.status | String | CDNサービス状態コード([表]CDN状態コードを参照) |
 | domain.createdAt                    | DateTime | 作成日時                                                             |
 | domain.updatedAt                    | DateTime | 変更日時                                                             |
 
