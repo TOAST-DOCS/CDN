@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=9deb1697d05f -->
 
 <a id="content-delivery-cdn-console-user-guide"></a>
