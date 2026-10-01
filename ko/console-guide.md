@@ -1,4 +1,4 @@
-<!-- pre-align:aligned sig=9deb1697d05f -->
+<!-- pre-align:aligned sig=af4fe5ba4572 -->
 
 <a id="content-delivery-cdn-console-user-guide"></a>
 ## Content Delivery > CDN > 콘솔 사용 가이드 { #content-delivery-cdn-console-user-guide }
