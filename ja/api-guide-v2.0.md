@@ -1,6 +1,6 @@
 <!-- machine_translated: true -->
 
-<!-- pre-align:aligned sig=b50e36c2e34a -->
+<!-- pre-align:aligned sig=d3ae5a09a673 -->
 
 <a id="content-delivery-cdn-api-v20-guide"></a>
 ## Content Delivery > CDN > API v2.0ガイド { #content-delivery-cdn-api-v20-guide }
