@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=b50e36c2e34a -->
 
 <a id="content-delivery-cdn-api-v20-guide"></a>
